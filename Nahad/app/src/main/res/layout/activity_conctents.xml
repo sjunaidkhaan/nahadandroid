@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ConctentsActivity">
+
+    <include
+        android:id="@+id/header_layout_contects"
+        layout="@layout/header" />
+
+    <RelativeLayout
+        android:id="@+id/header_layout_two"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_layout_contects"
+        android:background="@drawable/horizontal_line_copy"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_nahad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/nahad" />
+
+        <TextView
+            android:id="@+id/tv_institute_handbook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_nahad"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="Institute Handbook v.1.2 Aug 2015"
+            android:textColor="@android:color/white"
+            android:textSize="25dp"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_below="@+id/header_layout_two"
+        android:id="@+id/select_chapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Please selsect a chapter to view, or free to mark a selection to email."
+        />
+    <TextView
+        android:id="@+id/table_contents"
+        android:layout_below="@+id/select_chapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Table of Contents"
+        android:textStyle="bold"
+        />
+
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/table_contents"
+        android:layout_above="@+id/iv_nahad_contents"
+        android:layout_margin="20dp"/>
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_nahad"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:textSize="20dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="@color/colorPrimaryDark"-->
+        <!--android:text="NAHAD-The Association for Hose and Accessories Distribution"/>-->
+    <ImageView
+        android:id="@+id/iv_nahad_contents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/nahad_the_association_for_hose_and_accessories_distribution"
+        />
+
+</RelativeLayout>
