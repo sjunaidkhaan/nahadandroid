@@ -26,7 +26,7 @@
             android:layout_marginLeft="20dp"
             android:text="Institute Handbook v.1.2 Aug 2015"
             android:textColor="@android:color/white"
-            android:textSize="25dp"/>
+            android:textSize="20sp"/>
 
         <ImageView
             android:id="@+id/iv_rectangle_one_copy_four"
@@ -48,7 +48,7 @@
             android:text="Page No"
             android:layout_toLeftOf="@+id/iv_expand_button"
             android:textColor="@android:color/white"
-            android:textSize="25dp"/>
+            android:textSize="20sp"/>
 
         <ImageView
             android:id="@+id/iv_expand_button"
