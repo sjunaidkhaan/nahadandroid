@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MenuActivity" />
-        <activity android:name=".activity.ConctentsActivity" />
+        <activity android:name=".activity.ContentsActivity" />
         <activity android:name=".activity.MainMenuActivity" />
         <activity android:name=".activity.BookInsideActivity" />
     </application>

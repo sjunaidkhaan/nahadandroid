@@ -48,26 +48,25 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/logo_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_below="@+id/logo"
                 android:orientation="vertical"
                 android:weightSum="3">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="0dp"
-                    android:layout_below="@+id/logo"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
                     <RelativeLayout
+                        android:id="@+id/tv_institute_handbook_layout"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_ten">
+                        android:clickable="true"
+                        android:background="@drawable/handbook_selector">
 
                         <RelativeLayout
                             android:id="@+id/handbook_"
@@ -82,6 +81,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
+                                android:layout_gravity="center_vertical"
                                 android:background="@drawable/nahad" />
                         </RelativeLayout>
 
@@ -96,10 +96,12 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/fabb_layout"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_ten_copy_three">
+                        android:clickable="true"
+                        android:background="@drawable/fab_selector">
 
                         <RelativeLayout
                             android:id="@+id/fabb"
@@ -136,10 +138,12 @@
                     android:weightSum="2">
 
                     <RelativeLayout
+                        android:id="@+id/white_papers_layout"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_ten_copy">
+                        android:clickable="true"
+                        android:background="@drawable/white_papers_selector">
 
                         <ImageView
                             android:id="@+id/rectangle_ten_copy"
@@ -160,10 +164,12 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/resources_layout"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_ten_copy_four">
+                        android:clickable="true"
+                        android:background="@drawable/resources_selector">
 
                         <ImageView
                             android:id="@+id/rectangle_ten_copy_four"
@@ -178,7 +184,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/rectangle_ten_copy_four"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="40dp"
                             android:background="@drawable/resources" />
                     </RelativeLayout>
 
@@ -193,10 +199,12 @@
                     android:weightSum="2">
 
                     <RelativeLayout
+                        android:id="@+id/glossary_lauout"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_ten_copy_two">
+                        android:clickable="true"
+                        android:background="@drawable/glossary_selector">
 
                         <ImageView
                             android:id="@+id/glossary_icon"
@@ -219,10 +227,12 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/visit_website_layout"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_ten_copy_five">
+                        android:clickable="true"
+                        android:background="@drawable/visit_website_selector">
 
                         <ImageView
                             android:id="@+id/www"
@@ -237,7 +247,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/www"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="40dp"
                             android:background="@drawable/visit_website" />
                     </RelativeLayout>
 
@@ -251,20 +261,21 @@
             android:layout_height="fill_parent"
             android:layout_weight="6"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_selected"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:textSize="25dp"
-                android:text="Selected Layout name"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"/>
 
             <ListView
                 android:id="@+id/listview"
-                android:layout_below="@+id/tv"
+                android:layout_below="@+id/tv_selected"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginTop="10dp"/>
