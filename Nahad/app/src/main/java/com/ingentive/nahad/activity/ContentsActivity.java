@@ -12,6 +12,7 @@ import com.ingentive.nahad.adapter.ContentsAdapter;
 import com.ingentive.nahad.model.ContentsChildModel;
 import com.ingentive.nahad.model.ContentsParentModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ public class ContentsActivity extends Activity {
     ExpandableListView expListView;
     ContentsParentModel contentsParentModel;
     ContentsChildModel contentsChildModel;
+    private File[] filelist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class ContentsActivity extends Activity {
                     childModelsList.add(contentsChildModel);
                 }
                 //childModelsList.add(contentsChildModel);
-                contentsParentModel.setChildsList(childModelsList);
+                contentsParentModel.setArrayChildren(childModelsList);
             }
             if (i == 1) {
                 int cd = 0;
@@ -81,7 +83,7 @@ public class ContentsActivity extends Activity {
 
                 }
                 childModelsList.add(contentsChildModel);
-                contentsParentModel.setChildsList(childModelsList);
+                contentsParentModel.setArrayChildren(childModelsList);
             }
             if (i == 2) {
                 childModelsList = new ArrayList<ContentsChildModel>();
@@ -94,59 +96,9 @@ public class ContentsActivity extends Activity {
                     childModelsList.add(contentsChildModel);
                 }
             }
-            contentsParentModel.setChildsList(childModelsList);
+            contentsParentModel.setArrayChildren(childModelsList);
             parentModelsList.add(contentsParentModel);
         }
-//        contentsParentModel = new ContentsParentModel();
-//        contentsParentModel.setParentItemText("A");
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("1");
-//        contentsChildModel.setChildItemText("a1");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("2");
-//        contentsChildModel.setChildItemText("a2");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("3");
-//        contentsChildModel.setChildItemText("a3");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("4");
-//        contentsChildModel.setChildItemText("a4");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("5");
-//        contentsChildModel.setChildItemText("a5");
-//        childModelsList.add(contentsChildModel);
-//        contentsParentModel.setChildsList(childModelsList);
-//
-//        parentModelsList.add(contentsParentModel);
-//
-//        contentsParentModel = new ContentsParentModel();
-//        contentsParentModel.setParentItemText("B");
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("1");
-//        contentsChildModel.setChildItemText("b1");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("2");
-//        contentsChildModel.setChildItemText("b2");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("3");
-//        contentsChildModel.setChildItemText("b3");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("4");
-//        contentsChildModel.setChildItemText("b4");
-//        childModelsList.add(contentsChildModel);
-//        contentsChildModel = new ContentsChildModel();
-//        contentsChildModel.setSequence("5");
-//        contentsChildModel.setChildItemText("b5");
-//        childModelsList.add(contentsChildModel);
-//        contentsParentModel.setChildsList(childModelsList);
-//        parentModelsList.add(contentsParentModel);
         adapter = new ContentsAdapter(this, parentModelsList);
 
         expandableListView.setAdapter(adapter);
@@ -159,11 +111,6 @@ public class ContentsActivity extends Activity {
         });
         expandAll();
 
-//        final Dialog dialog = new Dialog(ContentsActivity.this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCancelable(false);
-//        dialog.setContentView(R.layout.dialogbox);
-//        dialog.show();
     }
 
     private void expandAll() {

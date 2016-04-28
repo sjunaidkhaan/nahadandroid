@@ -59,7 +59,7 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
     @Override
     //counts the number of children items so the list knows how many times calls getChildView() method
     public int getChildrenCount(int i) {
-        return parentList.get(i).getChildsList().size();
+        return parentList.get(i).getArrayChildren().size();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
     @Override
     //gets the name of each item
     public Object getChild(int i, int i1) {
-        return parentList.get(i).getChildsList().get(i1);
+        return parentList.get(i).getArrayChildren().get(i1);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
         }else{
             vhp = (ViewHolderParent)vi.getTag();
         }
-        //parentList.get(groupPosition).setView(vhp);
+        parentList.get(groupPosition).setView(vhp);
         vhp.tv_contents.setText(parentList.get(groupPosition).getParentItemText().toString());
 
         return vi;
@@ -142,8 +142,8 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
             vhc = (ViewHolderChild)childView.getTag();
         }
 
-        vhc.tv_sequence.setText(parentList.get(groupPosition).getChildsList().get(childPosition).getSequence().toString());
-        vhc.tv_child.setText(parentList.get(groupPosition).getChildsList().get(childPosition).getChildItemText().toString());
+        vhc.tv_sequence.setText(parentList.get(groupPosition).getArrayChildren().get(childPosition).getSequence().toString());
+        vhc.tv_child.setText(parentList.get(groupPosition).getArrayChildren().get(childPosition).getChildItemText().toString());
 
         vhc.child_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +187,7 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
 
         TextView txt = (TextView) dialog.findViewById(R.id.tv);
         TextView tv = (TextView) dialog.findViewById(R.id.text_dialog);
-        tv.setText(parentList.get(groupPosition).getChildsList().get(childPosition).getChildItemText().toString());
+        tv.setText(parentList.get(groupPosition).getArrayChildren().get(childPosition).getChildItemText().toString());
 
         ListView myList = (ListView) dialog.findViewById(R.id.mlist);
         txt.setText("Select a sub-section to view, or mark a selection to email.");
@@ -203,10 +203,17 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext,""+myAdapter.getItem(position),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(mContext, BookInsideActivity.class);
-                mContext.startActivity(intent);
+                //Toast.makeText(mContext,""+myAdapter.getItem(position),Toast.LENGTH_LONG).show();
+
+                try {
+                    Intent intent = new Intent(mContext, BookInsideActivity.class);
+                    mContext.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 //((Activity)mContext).finish();
+                //dialog.dismiss();
             }
         });
 

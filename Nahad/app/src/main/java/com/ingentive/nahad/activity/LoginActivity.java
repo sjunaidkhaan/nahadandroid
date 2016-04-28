@@ -50,6 +50,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.ibtn_proceed:
                 Intent intent = new Intent(LoginActivity.this,MenuActivity.class);
                 startActivity(intent);
+
+//                Intent intent = new Intent(LoginActivity.this,PDFDownloadActivity.class);
+//                startActivity(intent);
                 //Toast.makeText(LoginActivity.this,"Proceed button click",Toast.LENGTH_LONG).show();
                 break;
         }
