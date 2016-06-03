@@ -36,7 +36,7 @@ public class PDFDownloadActivity extends AppCompatActivity {
     TextView tv_loading;
     String dest_file_path = "test.pdf";
     int downloadedSize = 0, totalsize;
-    String download_file_url = "https://maven.apache.org/archives/maven-1.x/maven.pdf";
+    String download_file_url ;//= "https://maven.apache.org/archives/maven-1.x/maven.pdf";
     float per = 0;
     String folder_main = "NAHAD_PDF";
     private Button btnFinish,btnDownload;
@@ -79,7 +79,7 @@ public class PDFDownloadActivity extends AppCompatActivity {
     void downloadAndOpenPDF() {
         new Thread(new Runnable() {
             public void run() {
-                downloadFile(download_file_url);
+                downloadFile("http://pdfcms.azurewebsites.net/File/DownloadFile?fileName=handbook.pdf");
                 //finish();
 //                Uri path = Uri.fromFile(downloadFile(download_file_url));
 //                try {

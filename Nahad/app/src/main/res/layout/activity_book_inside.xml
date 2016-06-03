@@ -14,103 +14,169 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_layout_bookinside"
-        android:background="@drawable/horizontal_line_copy"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@drawable/horizontal_line_copy">
 
         <TextView
-            android:id="@+id/tv_institute_handbook"
+            android:id="@+id/tv_header_book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:text="Institute Handbook v.1.2 Aug 2015"
             android:textColor="@android:color/white"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/iv_rectangle_one_copy_four"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/tv_page_no"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@+id/tv_page_no"
             android:background="@drawable/rectangle_one_copy_four" />
 
         <TextView
             android:id="@+id/tv_page_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@+id/tv_page_no_text"
             android:text="Page No"
-            android:layout_toLeftOf="@+id/iv_expand_button"
             android:textColor="@android:color/white"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_page_no_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@+id/iv_expand_button"
+            android:text=""
+            android:textColor="@android:color/white" />
 
         <ImageView
             android:id="@+id/iv_expand_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/expand_button" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/header_layout_two"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
         android:layout_above="@+id/iv_nahad"
-        android:weightSum="10">
-
+        android:layout_below="@+id/header_layout_two"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp">
 
         <ImageButton
-            android:id="@+id/left_arrow"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:id="@+id/ibtn_previous"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/left_arrow"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_vertical"
-            />
-        <com.joanzapata.pdfview.PDFView
-            android:id="@+id/pdfview1"
-            android:layout_width="0dp"
-            android:layout_weight="4.5"
-            android:layout_height="fill_parent"/>
-        <com.joanzapata.pdfview.PDFView
-            android:id="@+id/pdfview2"
-            android:layout_width="0dp"
-            android:layout_weight="4.5"
-            android:layout_height="fill_parent"/>
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/left_arrow" />
+
+        <LinearLayout
+            android:id="@+id/pdf_layouts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/ibtn_next"
+            android:layout_toRightOf="@+id/ibtn_previous"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:id="@+id/pdf1_layout"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <com.ingentive.nahad.common.TouchImageView
+                    android:id="@+id/iv_pdfView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="matrix" />
+
+                <ImageView
+                    android:id="@+id/iv_left_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                   />
+
+                <ImageView
+                    android:id="@+id/iv_left_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_left_email"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/pdf2_layout"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <com.ingentive.nahad.common.TouchImageView
+                    android:id="@+id/iv_pdfView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="matrix" />
+
+                <ImageView
+                    android:id="@+id/iv_right_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_right_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/iv_right_email"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
         <ImageButton
-            android:id="@+id/right_arrow"
-            android:layout_width="0dp"
+            android:id="@+id/ibtn_next"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/right_arrow"
-            android:layout_weight="0.5"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"
-            />
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:background="@drawable/right_arrow" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/iv_nahad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/nahad_the_association_for_hose_and_accessories_distribution"
-        />
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/nahad_the_association_for_hose_and_accessories_distribution" />
 </RelativeLayout>

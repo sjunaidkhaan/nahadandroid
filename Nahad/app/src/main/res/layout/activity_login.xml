@@ -56,7 +56,9 @@
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/ibtn_enter_email"
             android:src="@drawable/proceed"
-            android:background="@drawable/rounded_rectangle_three_copy" />
+            android:clickable="true"
+            android:background="@drawable/btn_proceed_selector"
+           />
     </RelativeLayout>
 
 

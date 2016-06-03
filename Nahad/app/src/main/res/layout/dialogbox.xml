@@ -17,8 +17,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="25dp"
             android:text="Select a sub-section to view, or mark a selection to email."
             android:textColor="@android:color/white"
             android:textSize="18sp" />

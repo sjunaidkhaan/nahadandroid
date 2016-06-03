@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nahad</string>
+    <string name="crash_toast_text">私がクラッシュしたが、報告書は、問題を修正するのに役立つために私の開発者に送信されました !</string>
+</resources>

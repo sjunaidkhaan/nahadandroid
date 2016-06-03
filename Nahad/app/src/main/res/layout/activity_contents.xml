@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/header_layout_contects"
-        layout="@layout/header" />
+        layout="@layout/header_contents" />
 
     <RelativeLayout
         android:id="@+id/header_layout_two"
@@ -36,7 +36,6 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
     </RelativeLayout>
-
 
     <TextView
         android:layout_below="@+id/header_layout_two"

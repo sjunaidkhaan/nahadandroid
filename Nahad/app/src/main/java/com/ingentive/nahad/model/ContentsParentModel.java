@@ -12,7 +12,7 @@ public class ContentsParentModel {
 
     String parentItemText;
     //List<ContentsChildModel> productList = new ArrayList<ContentsChildModel>();
-    private List<ContentsChildModel> mShopChildrenList;
+    private List<ContentsChildModel> mChildrenList;
 
     ContentsAdapter.ViewHolderParent view;
     public ContentsParentModel(){
@@ -40,10 +40,10 @@ public class ContentsParentModel {
 //    }
 
     public List<ContentsChildModel> getArrayChildren() {
-        return mShopChildrenList;
+        return mChildrenList;
     }
 
     public void setArrayChildren(List<ContentsChildModel> arrayChildren) {
-        mShopChildrenList = arrayChildren;
+        mChildrenList = arrayChildren;
     }
 }

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nahad</string>
+    <string name="crash_toast_text">Elestem, de a jelentést küldött a fejlesztő, hogy segítsen kijavítani a hibát !</string>
+</resources>

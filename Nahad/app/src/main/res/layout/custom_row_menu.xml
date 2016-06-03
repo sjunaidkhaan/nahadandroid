@@ -11,7 +11,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/rectangle_six"/>
+        android:background="@drawable/bullseye"/>
     <TextView
         android:id="@+id/tv_item"
         android:textColor="@android:color/black"

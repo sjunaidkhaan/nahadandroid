@@ -38,13 +38,13 @@ public class MenuAdapter extends BaseAdapter {
         this.res = rowId;
         this.itemList = txtData;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override
     public int getCount() {
         return this.itemList.size();
     }
+
     @Override
     public Object getItem(int i) {
         return itemList.get(i);
@@ -54,13 +54,12 @@ public class MenuAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View getView(final int postion, View rowView, ViewGroup parent) {
-
         View vi = rowView;
         ViewHolder vh = new ViewHolder();
-
         if (vi == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             vi = inflater.inflate(R.layout.custom_row_menu, parent, false);
@@ -74,9 +73,6 @@ public class MenuAdapter extends BaseAdapter {
         final TextView tvItem;
         vh.tvItem.setText(itemList.get(postion).getItem());
         tvItem = vh.tvItem;
-
-
-
         return vi;
     }
 

@@ -21,30 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true">
 
-        <RelativeLayout
-            android:id="@+id/searc_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp">
-
-            <ImageView
-                android:id="@+id/iv_mag_glass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/mag_glass" />
-
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_mag_glass"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/search" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/a_z_layout"
@@ -52,8 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/searc_layout">
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:id="@+id/iv_a_z"
@@ -99,7 +74,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/at_the_rate_layout"
+            android:id="@+id/send_email_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -131,7 +106,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/at_the_rate_layout"
+            android:layout_centerVertical="true"
+
+            android:layout_toRightOf="@+id/send_email_layout"
             android:gravity="right">
 
             <ImageView
@@ -139,15 +116,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/layer_one_copy" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu_icon" />
 
             <ImageView
                 android:id="@+id/iv_main_manu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_menu_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:baselineAlignBottom="true"
+                android:layout_marginTop="20dp"
+
                 android:background="@drawable/main_manu" />
         </RelativeLayout>
     </RelativeLayout>

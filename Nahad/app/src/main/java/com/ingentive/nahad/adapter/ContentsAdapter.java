@@ -129,7 +129,6 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
 
         if (childView == null) {
             childView = inflater.inflate(R.layout.custom_row_contents_child, null);
-            vhc.tv_sequence = (TextView) childView.findViewById(R.id.tv_sequence);
             vhc.tv_child = (TextView) childView.findViewById(R.id.tv_child);
 
             vhc.child_layout = (RelativeLayout) childView.findViewById(R.id.child_layout);
@@ -142,7 +141,6 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
             vhc = (ViewHolderChild)childView.getTag();
         }
 
-        vhc.tv_sequence.setText(parentList.get(groupPosition).getArrayChildren().get(childPosition).getSequence().toString());
         vhc.tv_child.setText(parentList.get(groupPosition).getArrayChildren().get(childPosition).getChildItemText().toString());
 
         vhc.child_layout.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +172,7 @@ public class ContentsAdapter extends BaseExpandableListAdapter {
     }
     public class ViewHolderChild
     {
-        TextView tv_child,tv_sequence;
+        TextView tv_child;
         RelativeLayout child_layout;
     }
 

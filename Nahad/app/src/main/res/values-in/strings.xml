@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nahad</string>
+    <string name="crash_toast_text">Aku jatuh, namun laporan telah dikirim ke pengembang untuk membantu memperbaiki masalah !</string>
+</resources>

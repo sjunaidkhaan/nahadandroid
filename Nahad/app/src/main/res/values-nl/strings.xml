@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nahad</string>
+    <string name="crash_toast_text">Ik crashte, maar een verslag is naar mijn ontwikkelaar gestuurd om te helpen het probleem verholpen !</string>
+</resources>
