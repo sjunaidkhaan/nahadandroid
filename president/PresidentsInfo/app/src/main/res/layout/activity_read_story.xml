@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_read_story">
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_two_bg"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="2">
+
+        <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
+            android:id="@+id/btn_quick_read"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_read_story"
+            android:text="Quick Read"
+            android:textColor="@android:color/white"
+            app:romanFont="mrseavesot-roman.ttf" />
+
+        <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
+            android:id="@+id/btn_read"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_read_story"
+            android:text="Read"
+            android:textColor="@android:color/white"
+            app:romanFont="mrseavesot-roman.ttf" />
+    </LinearLayout>
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/buttons_layout"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:textSize="32sp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#731c12"
+                app:boldFont="mrseavesot-bold.ttf"
+                android:scrollbars="vertical" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                android:id="@+id/tv_quick_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/tv_title"
+                android:layout_centerHorizontal="true"
+                android:scrollbars="vertical"
+                app:romanFont="mrseavesot-roman.ttf"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/myCoordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/audio_layout"
+        android:layout_below="@+id/buttons_layout">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/myScrollingContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/scrollable_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
+                    android:id="@+id/tv_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"
+                    android:textSize="32sp"
+                    android:textColor="#731c12"
+                    app:boldFont="mrseavesot-bold.ttf"
+                    />
+                <!--android:text="THE COBRA'S BITE"-->
+                <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                    android:id="@+id/tv_story"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tv_heading"
+                    android:scrollbars="vertical"
+                    app:romanFont="mrseavesot-roman.ttf"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="10dp"/>
+
+                <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
+                    android:id="@+id/btn_presidents_facts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tv_story"
+                    android:background="@drawable/button_read_story"
+                    android:scrollbars="vertical"
+                    android:text="REVEAL PRESIDENT"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    app:romanFont="mrseavesot-roman.ttf" />
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/audio_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/header_two_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="10">
+
+        <ImageButton
+            android:id="@+id/ibtn_pause"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/icon_pause" />
+
+        <ImageButton
+            android:id="@+id/ibtn_repeat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/icon_rewind" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5.8" />
+
+        <TextView
+            android:id="@+id/tv_song_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1.7"
+            android:gravity="center_vertical"
+            android:text="00:00:00"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</RelativeLayout>

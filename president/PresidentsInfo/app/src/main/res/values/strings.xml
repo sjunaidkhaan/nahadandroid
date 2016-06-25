@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">PresidentsInfo</string>
+    <string name="credits">Credits</string>
+    <string name="p_f">Presidential Facts</string>
+    <string name="contents">Contents</string>
+    <string name="read_first_story">Read First Story</string>
+    <string name="introduction">Introduction</string>
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_contacts">CONTACTS</string>
+    <string name="nav_item_qr_history">QR HISTORY</string>
+    <string name="nav_item_profile">PROFILE</string>
+    <string name="nav_item_settings">SETTINGS</string>
+    <!--<string name="nav_item_section">Section</string>-->
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_contacts</item>
+        <item>@string/nav_item_qr_history</item>
+        <item>@string/nav_item_profile</item>
+        <item>@string/nav_item_settings</item>
+        <!--<item>@string/nav_item_section</item>-->
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

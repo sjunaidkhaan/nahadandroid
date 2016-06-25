@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomViewBoldFont">
+        <attr name="boldFont" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="CustomViewItalicFont">
+        <attr name="italicFont" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="CustomViewRomanFont">
+        <attr name="romanFont" format="string"/>
+    </declare-styleable>
+</resources>
