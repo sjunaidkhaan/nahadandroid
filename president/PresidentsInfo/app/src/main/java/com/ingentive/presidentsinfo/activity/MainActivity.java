@@ -3,7 +3,9 @@ package com.ingentive.presidentsinfo.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -75,8 +78,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String folder_main = "Presidents_Stories";
     private String folder_main_images = "Presidents_Stories/Images";
     private PresidentsList presidentsListModel;
-    private PresidentInfo preInfoModel;
-    PresidentInfo info;
+    SharedPreferences sharedpreferences;
+    private String MyPREFERENCES = "MyPrefs";
+    private SharedPreferences.Editor editor;
+    private int firstStoryId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,31 +179,48 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btn_read_story:
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                int id = sharedpreferences.getInt("first_story_id", 0);
                 StoryInfo storyInfo = new StoryInfo();
-                storyInfo = new Select().from(StoryInfo.class).orderBy("story_id ASC").executeSingle();
-                if (storyInfo != null) {
-                    StoriesList storiesList = new StoriesList();
-                    storiesList = new Select().from(StoriesList.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
-                    if (storiesList != null && storiesList.getTimeStamp() < storyInfo.getTimeStamp()) {
-                        conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
-                        if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-                            new getStoryInfo(storyInfo.getStoryId(), storyInfo.getTimeStamp()).execute();
-                        } else {
-                            Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
-                            inte.putExtra("story_id", storyInfo.getStoryId());
-                            startActivity(inte);
-                        }
-                    } else {
-                        Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
-                        inte.putExtra("story_id", storyInfo.getStoryId());
-                        startActivity(inte);
-                    }
-                } else {
-                    conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
-                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-                        new getFirstStory().execute();
-                    }
+                storyInfo = new Select().from(StoryInfo.class).where("story_id=?", id).executeSingle();
+                conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
+                if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                    new getFirstStory().execute();
+                } else if (storyInfo != null) {
+                    Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
+                    inte.putExtra("story_id", storyInfo.getStoryId());
+                    startActivity(inte);
+                }else {
+                    Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                 }
+
+
+//                storyInfo = new Select().from(StoryInfo.class).where("story_id=?", id).executeSingle();
+//                if (storyInfo != null) {
+//                    StoriesList storiesList = new StoriesList();
+//                    storiesList = new Select().from(StoriesList.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
+//                    if (storiesList != null && storiesList.getTimeStamp() < storyInfo.getTimeStamp()) {
+//                        conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
+//                        if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+//                            new getStoryInfo(storyInfo.getStoryId(), storyInfo.getTimeStamp()).execute();
+//                        } else {
+//                            Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
+//                            inte.putExtra("story_id", storyInfo.getStoryId());
+//                            startActivity(inte);
+//                        }
+//                    } else {
+//                        Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
+//                        inte.putExtra("story_id", storyInfo.getStoryId());
+//                        startActivity(inte);
+//                    }
+//                } else {
+//                    conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
+//                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+//                        new getFirstStory().execute();
+//                    } else {
+//                        Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
+//                    }
+//                }
 
                 break;
             case R.id.ibtn_home:
@@ -226,11 +248,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnReadStory.setVisibility(View.GONE);
         relativeLayout.setBackgroundResource(R.drawable.bg_contents);
         listView = (ListView) findViewById(R.id.listView);
-
         presidentsLists = new ArrayList<PresidentsList>();
         presidentsLists = new Select().all().from(PresidentsList.class).execute();
-        presidentsListAdapter = new PresidentsListAdapter(getApplication(), presidentsLists, R.layout.custom_row_text);
-        listView.setAdapter(presidentsListAdapter);
+
+        if (presidentsLists.size() > 0) {
+            presidentsListAdapter = new PresidentsListAdapter(getApplication(), presidentsLists, R.layout.custom_row_text);
+            listView.setAdapter(presidentsListAdapter);
+        } else {
+            Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
+        }
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -242,6 +269,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if (presidentInfo == null) {
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         new getPresidentInfo(presId, 0).execute();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
                 } else if (presidentInfo.getTimeStamp() < timeStamp) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
@@ -270,14 +299,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         listView.setVisibility(View.VISIBLE);
         btnIntro.setVisibility(View.GONE);
         btnReadStory.setVisibility(View.GONE);
+        listView = (ListView) findViewById(R.id.listView);
         relativeLayout.setBackgroundResource(R.drawable.bg_contents);
         storiesLists = new ArrayList<StoriesList>();
-
-        select = new Select();
-        storiesLists = select.all().from(StoriesList.class).execute();
-        listView = (ListView) findViewById(R.id.listView);
-        storiesListAdapter = new StoriesListAdapter(getApplication(), storiesLists, R.layout.custom_row_text);
-        listView.setAdapter(storiesListAdapter);
+        storiesLists = new Select().all().from(StoriesList.class).execute();
+        if (storiesLists.size() > 0) {
+            storiesListAdapter = new StoriesListAdapter(getApplication(), storiesLists, R.layout.custom_row_text);
+            listView.setAdapter(storiesListAdapter);
+        } else {
+            Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
+        }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -290,6 +321,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         new getStoryInfo(storyId, 0).execute();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
                 } else if (storyInfo.getTimeStamp() < timeStamp) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
@@ -457,6 +490,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private class getFirstStory extends AsyncTask<Void, Void, Void> {
         StoryInfo storyInfoNew;
         StoryInfo storyInfoUpdate;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -490,10 +524,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         String audiofile_url = data.getString("audiofile_url");
                         int timeStamp = Integer.parseInt(data.getString("timestamp"));
 
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        editor = sharedpreferences.edit();
+                        editor.putInt("first_story_id", sId);
+                        editor.commit();
+
                         storyInfoUpdate = new StoryInfo();
                         storyInfoUpdate = new Select().from(StoryInfo.class).where("story_id=?", sId).executeSingle();
                         if (storyInfoUpdate == null) {
-                             storyInfoNew=new StoryInfo();
+                            storyInfoNew = new StoryInfo();
                             storyInfoNew.storyId = sId;
                             storyInfoNew.presidentId = presId;
                             storyInfoNew.storyTitle = sTitle;
@@ -505,7 +544,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             storyInfoNew.storyAudioUrl = audiofile_url;
                             storyInfoNew.timeStamp = timeStamp;
                             //storyInfoNew.save();
-                        }else if(storyInfoUpdate.getTimeStamp() < timeStamp){
+                        } else if (storyInfoUpdate.getTimeStamp() < timeStamp) {
                             storyInfoUpdate.storyId = sId;
                             storyInfoUpdate.presidentId = presId;
                             storyInfoUpdate.storyTitle = sTitle;
@@ -533,10 +572,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             super.onPostExecute(result);
             if (storyInfoNew != null) {
                 new DownloadFile(storyInfoNew).execute();
-            }else if(storyInfoUpdate!=null){
+            } else if (storyInfoUpdate != null) {
                 new DownloadFile(storyInfoUpdate).execute();
-            }
-            else {
+            } else {
                 hidepDialog();
                 firstStory();
             }
@@ -598,7 +636,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         storyInfo = new StoryInfo();
                         storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
                         if (storyInfo == null) {
-                            storyInfoNew=new StoryInfo();
+                            storyInfoNew = new StoryInfo();
                             storyInfoNew.storyId = sId;
                             storyInfoNew.presidentId = presId;
                             storyInfoNew.storyTitle = sTitle;
@@ -610,7 +648,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             storyInfoNew.storyAudioName = audiofile;
                             storyInfoNew.storyAudioUrl = audiofile_url;
                             storyInfoNew.timeStamp = timeStamp;
-                        }else if( storyInfo.getTimeStamp() < timeStamp){
+                        } else if (storyInfo.getTimeStamp() < timeStamp) {
                             storyInfo.storyId = sId;
                             storyInfo.presidentId = presId;
                             storyInfo.storyTitle = sTitle;
@@ -640,10 +678,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             super.onPostExecute(result);
             if (storyInfo != null) {
                 new DownloadFile(storyInfo).execute();
-            }else if(storyInfoNew!=null){
+            } else if (storyInfoNew != null) {
                 new DownloadFile(storyInfoNew).execute();
-            }
-            else {
+            } else {
                 hidepDialog();
                 StoryInfo sinfo = new StoryInfo();
                 sinfo = new Select().from(StoryInfo.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
@@ -808,6 +845,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 output.close();
                 input.close();
                 info.save();
+
             } catch (Exception e) {
             }
             return null;

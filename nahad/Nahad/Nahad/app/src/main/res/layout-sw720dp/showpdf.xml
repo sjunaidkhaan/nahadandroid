@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pdflayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:weightSum="2.0"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/pdf1_layout"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <com.ingentive.nahad.common.TouchImageView
+                android:id="@+id/imcustoml"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_left_email"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:background="@drawable/layer_two"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_left_bookmark"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/iv_left_email"-->
+                <!--android:background="@drawable/bookmarkgray"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginTop="20dp" />-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pdf2_layout"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <com.ingentive.nahad.common.TouchImageView
+                android:id="@+id/imcustomr"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_right_email"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:background="@drawable/layer_two"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_right_bookmark"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_below="@+id/iv_right_email"-->
+                <!--android:background="@drawable/bookmarkgray"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:layout_marginTop="20dp" />-->
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

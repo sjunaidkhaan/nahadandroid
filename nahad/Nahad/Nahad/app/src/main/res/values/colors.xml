@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorLogin_bg">#2196F3</color>
+    <color name="colorBackground">#FFFFFFFF</color>
+    <color name="colorHandbook_Click">#55CC6600</color>
+    <color name="colorFab_Click">#553399cc</color>
+    <color name="colorWhite_Papers_Click">#559932CC</color>
+    <color name="colorResourcess_Click">#55DAA520</color>
+
+    <color name="colorGlossary_Click">#5590EE90</color>
+    <color name="colorVisit_Website_Click">#55CD5C5C</color>
+
+
+</resources>

@@ -15,6 +15,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -46,6 +48,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.XMLReader;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -71,7 +74,7 @@ public class ReadStoryActivity extends Activity {
     public TextView duration;
     private int forwardTime = 2000, backwardTime = 30000;
     private Handler durationHandler = new Handler();
-    private ImageButton imbtnPause, ibtnRepeat;
+    private ImageView ivPause, ivRepeat;
     private int storyId = 0;
     private StoryInfo storyInfo;
     Select select;
@@ -81,19 +84,22 @@ public class ReadStoryActivity extends Activity {
     private ScrollView scrollView;
     private LinearLayout audio_layout;
     private android.support.design.widget.CoordinatorLayout myCoordinator;
-    private TextView tvHeading, tvQuickRead,tvHeading_;
+    private TextView tvHeading, tvQuickRead, tvHeading_;
     private double finalTime = 0, startTime = 0;
     private SeekBar seekbar;
     private Handler myHandler = new Handler();
-    int min = 0;
-    int max = 0;
-    Random r;
-    int random;
+    private int min = 0;
+    private int max = 0;
+    private Random r;
+    private int random;
     private boolean content = false;
     private int conn = 0;
     private ProgressDialog mProgressDialog;
     public String urlPresidentInfo = "http://yourbrand.pk/presidentrevealed/services/president_info";
     private String folder_main_images = "Presidents_Stories/Images";
+    int seekBarChangeValue = 0;
+    boolean playSong = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +131,8 @@ public class ReadStoryActivity extends Activity {
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
 
         audio_layout = (LinearLayout) findViewById(R.id.audio_layout);
-        imbtnPause = (ImageButton) findViewById(R.id.ibtn_pause);
-        ibtnRepeat = (ImageButton) findViewById(R.id.ibtn_repeat);
+        ivPause = (ImageView) findViewById(R.id.ibtn_pause);
+        ivRepeat = (ImageView) findViewById(R.id.ibtn_repeat);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
@@ -139,16 +145,21 @@ public class ReadStoryActivity extends Activity {
         btnQuickRead = (Button) findViewById(R.id.btn_quick_read);
         btnRead = (Button) findViewById(R.id.btn_read);
 
-
-
-        imbtnPause.setOnClickListener(new View.OnClickListener() {
+        ivPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.pause();
-                //imbtnPause.setBackgroundResource(R.drawable.ico_audio);
+                if (playSong == true) {
+                    mediaPlayer.pause();
+                    ivPause.setImageResource(R.drawable.ico_audio);
+                    playSong = false;
+                } else {
+                    mediaPlayer.start();
+                    ivPause.setImageResource(R.drawable.icon_pause);
+                    playSong = true;
+                }
             }
         });
-        ibtnRepeat.setOnClickListener(new View.OnClickListener() {
+        ivRepeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int temp1 = (int) startTime;
@@ -165,6 +176,7 @@ public class ReadStoryActivity extends Activity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
+                mediaPlayer.seekTo((int) seekBarChangeValue);
 
             }
 
@@ -176,6 +188,7 @@ public class ReadStoryActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
+                seekBarChangeValue = progress;
                 //t1.setTextSize(progress);
 //                Toast.makeText(getApplicationContext(), String.valueOf(progress), Toast.LENGTH_LONG).show();
                 //mediaPlayer.seekTo((int) progress);
@@ -184,12 +197,13 @@ public class ReadStoryActivity extends Activity {
         btnQuickRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 scrollView.setVisibility(View.VISIBLE);
                 audio_layout.setVisibility(View.GONE);
                 myCoordinator.setVisibility(View.GONE);
                 tvHeading_.setText(storyInfo.getDescriptionHeading().toUpperCase());
-                tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription()));
+                //tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription()));
+                tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription(), null, new UlTagHandler()));
+                tvQuickRead.setTextSize(SettingsActivity.textSize);
 
                 btnRead.setSelected(false);
                 btnQuickRead.setSelected(true);
@@ -208,35 +222,35 @@ public class ReadStoryActivity extends Activity {
         btnPrisidentFacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 PresidentInfo presidentInfo = new PresidentInfo();
                 PresidentsList presidentsModel = new PresidentsList();
                 presidentsModel = new Select().from(PresidentsList.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
                 presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
-
                 if (presidentInfo == null) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         new getPresidentInfo(storyInfo.getPresidentId(), 0).execute();
                         mediaPlayer.stop();
+                    } else {
+                        Toast.makeText(ReadStoryActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
-                } else if(presidentsModel!=null&&presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
+                } else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         mediaPlayer.stop();
                         new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
                     } else {
-                        Intent i= new Intent(ReadStoryActivity.this,PresidentRevealActivity.class);
-                        i.putExtra("president_id",storyInfo.getPresidentId());
+                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                        i.putExtra("president_id", storyInfo.getPresidentId());
                         i.putExtra("story_id", storyInfo.getStoryId());
                         startActivity(i);
                         mediaPlayer.stop();
                         finish();
                     }
                 } else {
-                    Intent i= new Intent(ReadStoryActivity.this,PresidentRevealActivity.class);
-                    i.putExtra("president_id",storyInfo.getPresidentId());
-                    i.putExtra("story_id",storyInfo.getStoryId());
+                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                    i.putExtra("president_id", storyInfo.getPresidentId());
+                    i.putExtra("story_id", storyInfo.getStoryId());
                     startActivity(i);
                     mediaPlayer.stop();
                     finish();
@@ -254,6 +268,7 @@ public class ReadStoryActivity extends Activity {
                 Intent intent;
                 switch (menuItemId) {
                     case R.id.audio:
+                        mediaPlayer.stop();
                         if (content == true) {
                             audio_layout.setVisibility(View.VISIBLE);
                             if (new File("/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName()).exists()) {
@@ -264,7 +279,10 @@ public class ReadStoryActivity extends Activity {
                                     mediaPlayer.prepare();
                                     mediaPlayer.start();
                                     finalTime = mediaPlayer.getDuration();
-/*
+                                    ivPause.setImageResource(R.drawable.icon_pause);
+                                    playSong = true;
+
+                                    /*
                                     seekbar.setMax((int) finalTime);
                                     seekbar.setClickable(false);
                                     seekbar.setProgress((int) startTime);*/
@@ -291,14 +309,18 @@ public class ReadStoryActivity extends Activity {
                         finish();
                         break;
                     case R.id.randomize:
-                        audio_layout.setVisibility(View.GONE);
-                        mediaPlayer.stop();
-                        int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
-                        storyId = getRandom(count);
-                        storyInfo = new StoryInfo();
-                        storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
-                        if (storyInfo != null) {
-                            showStory(storyInfo);
+                        if (SettingsActivity.mRandomize == true) {
+                            audio_layout.setVisibility(View.GONE);
+                            mediaPlayer.stop();
+                            int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
+                            storyId = getRandom(count);
+                            storyInfo = new StoryInfo();
+                            storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
+                            if (storyInfo != null) {
+                                showStory(storyInfo);
+                            }
+                        } else {
+                            Toast.makeText(ReadStoryActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
                         }
                         break;
                     case R.id.settings:
@@ -320,6 +342,7 @@ public class ReadStoryActivity extends Activity {
                 //Toast.makeText(getApplicationContext(), getMessage(menuItemId, true), Toast.LENGTH_SHORT).show();
                 switch (menuItemId) {
                     case R.id.audio:
+                        mediaPlayer.stop();
                         audio_layout.setVisibility(View.VISIBLE);
                         if (new File("/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName()).exists()) {
                             String path = "/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName();
@@ -329,11 +352,10 @@ public class ReadStoryActivity extends Activity {
                                 mediaPlayer.prepare();
                                 mediaPlayer.start();
                                 finalTime = mediaPlayer.getDuration();
-
+                                ivPause.setImageResource(R.drawable.icon_pause);
+                                playSong = true;
                                 seekbar.setMax((int) finalTime);
                                 seekbar.setProgress(0);
-//                                seekbar.setClickable(false);
-//                                seekbar.setProgress((int) startTime);
                                 myHandler.postDelayed(UpdateSongTime, 1000);
                             } catch (IOException e) {
 
@@ -344,15 +366,30 @@ public class ReadStoryActivity extends Activity {
                         }
                         break;
                     case R.id.randomize:
+                        if (SettingsActivity.mRandomize == true) {
+                            audio_layout.setVisibility(View.GONE);
+                            mediaPlayer.stop();
+                            int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
+                            storyId = getRandom(count);
+                            storyInfo = new StoryInfo();
+                            storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
+                            if (storyInfo != null) {
+                                showStory(storyInfo);
+                            }
+                        } else {
+                            Toast.makeText(ReadStoryActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    case R.id.settings:
                         audio_layout.setVisibility(View.GONE);
                         mediaPlayer.stop();
-                        int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
-                        storyId = getRandom(count);
-                        storyInfo = new StoryInfo();
-                        storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
-                        if (storyInfo != null) {
-                            showStory(storyInfo);
-                        }
+                        //imbtnPause.setImageResource(R.drawable.ico_audio);
+                        Intent intent = new Intent(ReadStoryActivity.this, SettingsActivity.class);
+                        intent.putExtra("story_id", storyId);
+                        intent.putExtra("from", "story");
+                        intent.putExtra("president_id", 0);
+                        startActivity(intent);
+                        //finish();
                         break;
                 }
             }
@@ -368,7 +405,19 @@ public class ReadStoryActivity extends Activity {
 
     private void showStory(StoryInfo sInfo) {
         tvHeading.setText(sInfo.getDescriptionHeading().toUpperCase());
-        tvLongDescription.setText(Html.fromHtml(sInfo.getLongDescription()));
+        //tvLongDescription.setText(Html.fromHtml(sInfo.getLongDescription()));
+        //tvLongDescription.setText(sInfo.getLongDescription());
+        tvLongDescription.setText(Html.fromHtml(sInfo.getLongDescription(), null, new UlTagHandler()));
+        tvLongDescription.setTextSize(SettingsActivity.textSize);
+    }
+    public class UlTagHandler implements Html.TagHandler{
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output,
+                              XMLReader xmlReader) {
+            if(tag.equals("ul") && !opening) output.append("\n");
+            if(tag.equals("li") && opening) output.append("\n\t•");
+            //if(tag.equals("li") && opening) output.append("\n●");
+        }
     }
 
     private int getRandom(int count) {
@@ -392,8 +441,8 @@ public class ReadStoryActivity extends Activity {
                     TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
 
-                    seekbar.setProgress((int) startTime);
-          myHandler.postDelayed(this, 1000);
+            seekbar.setProgress((int) startTime);
+            myHandler.postDelayed(this, 1000);
         }
     };
 
@@ -504,9 +553,9 @@ public class ReadStoryActivity extends Activity {
                         String presFact = data.getString("fact");
                         int timeStamp = Integer.parseInt(data.getString("timestamp"));
 
-                        mPresInfoUpdate =new PresidentInfo();
-                        mPresInfoUpdate=new Select().from(PresidentInfo.class).where("president_id=?",storyInfo.getPresidentId()).executeSingle();
-                        if(mPresInfoUpdate==null){
+                        mPresInfoUpdate = new PresidentInfo();
+                        mPresInfoUpdate = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
+                        if (mPresInfoUpdate == null) {
                             mPresInfoNew = new PresidentInfo();
                             mPresInfoNew = new PresidentInfo();
                             mPresInfoNew.presId = presId;
@@ -520,7 +569,7 @@ public class ReadStoryActivity extends Activity {
                             mPresInfoNew.backgroundImageName = presId + "_bg_" + presName + ".png";
                             mPresInfoNew.presFact = presFact;
                             mPresInfoNew.timeStamp = timeStamp;
-                        }else if(mPresInfoUpdate.getTimeStamp()<timeStamp){
+                        } else if (mPresInfoUpdate.getTimeStamp() < timeStamp) {
                             mPresInfoUpdate = new PresidentInfo();
                             mPresInfoUpdate.presId = presId;
                             mPresInfoUpdate.presName = presName;
@@ -551,16 +600,15 @@ public class ReadStoryActivity extends Activity {
             super.onPostExecute(result);
             if (mPresInfoUpdate != null) {
                 new downloadImage(mPresInfoUpdate).execute();
-            }else if(mPresInfoNew!=null){
+            } else if (mPresInfoNew != null) {
                 new downloadImage(mPresInfoNew).execute();
-            }
-            else {
+            } else {
                 hidepDialog();
                 PresidentInfo presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
-                if(presidentInfo!=null){
-                    Intent i= new Intent(ReadStoryActivity.this,PresidentRevealActivity.class);
-                    i.putExtra("president_id",storyInfo.getPresidentId());
-                    i.putExtra("story_id",storyInfo.getStoryId());
+                if (presidentInfo != null) {
+                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                    i.putExtra("president_id", storyInfo.getPresidentId());
+                    i.putExtra("story_id", storyInfo.getStoryId());
                     startActivity(i);
                     mediaPlayer.stop();
                     finish();
@@ -568,6 +616,7 @@ public class ReadStoryActivity extends Activity {
             }
         }
     }
+
     private class downloadImage extends AsyncTask<String, Integer, String> {
         PresidentInfo info;
 
@@ -600,9 +649,9 @@ public class ReadStoryActivity extends Activity {
             PresidentInfo pInfo = new PresidentInfo();
             pInfo = new Select().from(PresidentInfo.class).where("president_id=?", info.getPresId()).executeSingle();
             if (pInfo != null) {
-                Intent i= new Intent(ReadStoryActivity.this,PresidentRevealActivity.class);
-                i.putExtra("president_id",storyInfo.getPresidentId());
-                i.putExtra("story_id",storyInfo.getStoryId());
+                Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                i.putExtra("president_id", storyInfo.getPresidentId());
+                i.putExtra("story_id", storyInfo.getStoryId());
                 startActivity(i);
                 mediaPlayer.stop();
                 finish();

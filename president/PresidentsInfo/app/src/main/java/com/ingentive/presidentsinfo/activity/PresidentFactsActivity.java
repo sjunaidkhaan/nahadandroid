@@ -10,6 +10,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
@@ -26,6 +27,8 @@ import com.ingentive.presidentsinfo.activeandroid.StoriesList;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
+
+import org.xml.sax.XMLReader;
 
 import java.io.File;
 import java.util.Random;
@@ -83,12 +86,16 @@ public class PresidentFactsActivity extends Activity {
                         }
                         break;
                     case R.id.randomize:
-                        int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                        presId = getRandom(count);
-                        presidentInfo = new PresidentInfo();
-                        presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
-                        if (presidentInfo != null) {
-                            showPresident(presidentInfo);
+                        if(SettingsActivity.mRandomize==true){
+                            int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
+                            presId = getRandom(count);
+                            presidentInfo = new PresidentInfo();
+                            presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
+                            if (presidentInfo != null) {
+                                showPresident(presidentInfo);
+                            }
+                        } else {
+                            Toast.makeText(PresidentFactsActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
                         }
                         break;
                     case R.id.settings:
@@ -123,12 +130,16 @@ public class PresidentFactsActivity extends Activity {
                         finish();
                         break;
                     case R.id.randomize:
-                        int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                        presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
-                        presidentInfo = new PresidentInfo();
-                        presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
-                        if (presidentInfo != null) {
-                            showPresident(presidentInfo);
+                        if(SettingsActivity.mRandomize==true){
+                            int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
+                            presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
+                            presidentInfo = new PresidentInfo();
+                            presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
+                            if (presidentInfo != null) {
+                                showPresident(presidentInfo);
+                            }
+                        } else {
+                            Toast.makeText(PresidentFactsActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
                         }
                         break;
                     case R.id.settings:
@@ -191,10 +202,12 @@ public class PresidentFactsActivity extends Activity {
         ivPf.setBackgroundDrawable(ob);
 
 
-
         //tvPreFactsText.setText(Html.fromHtml("<table><thead><tr><th></th><th>"+presInfo.getPresFact()+"</th></tr></thead></table>"));
-        tvPreFactsText.setText(Html.fromHtml(presInfo.getPresFact()));
+        //tvPreFactsText.setText(Html.fromHtml(presInfo.getPresFact()));
         tvQuotation.setText(Html.fromHtml(presInfo.getPresQuotation()));
+        tvPreFactsText.setText(Html.fromHtml(presInfo.getPresFact(), null, new UlTagHandler()));
+        tvPreFactsText.setTextSize(SettingsActivity.textSize);
+        tvQuotation.setTextSize(SettingsActivity.textSize);
     }
 
     public Bitmap StringToBitMap(String path) {
@@ -206,6 +219,14 @@ public class PresidentFactsActivity extends Activity {
             e.getMessage();
             Log.d("", "" + e.getMessage());
             return null;
+        }
+    }
+    public class UlTagHandler implements Html.TagHandler{
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output,
+                              XMLReader xmlReader) {
+            if(tag.equals("ul") && !opening) output.append("\n");
+            if(tag.equals("li") && opening) output.append("\n\t•");
         }
     }
 }

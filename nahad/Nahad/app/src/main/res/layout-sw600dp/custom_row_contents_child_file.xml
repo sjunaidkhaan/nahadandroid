@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/child_file_layout">
+
+    <com.ingentive.nahad.customfont.CustomTextViewGothamFont
+        app:gothamFont="ufonts.com_gotham-medium.ttf"
+        android:id="@+id/tv_child_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:text="#555555"
+        android:layout_gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

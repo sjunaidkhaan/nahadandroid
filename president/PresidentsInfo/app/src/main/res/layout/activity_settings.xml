@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110px"
+        android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
         android:text="SETTINGS"
         android:textColor="#731c12"
@@ -25,28 +25,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_settings"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110px"
+        android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
         android:text="FONT SIZE"
         app:boldFont="mrseavesot-bold.ttf"
         android:textColor="#455676"
         android:textSize="25sp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/font_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="50px"
+        android:layout_width="540dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/tv_font_size"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_small"
-            android:layout_width="180px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/article_ribbon_b"
+            android:layout_weight="1"
+            android:background="@drawable/settings_btn_selector"
             android:text="SMALL"
             app:romanFont="mrseavesot-roman.ttf"
             android:textColor="@android:color/white" />
@@ -54,11 +58,12 @@
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:layout_toRightOf="@+id/btn_small"
             android:id="@+id/btn_medium"
-            android:layout_width="180px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15px"
-            android:layout_marginRight="15px"
-            android:background="@drawable/article_ribbon_b"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/settings_btn_selector"
             android:text="MEDIUM"
             app:romanFont="mrseavesot-bold.ttf"
             android:textColor="@android:color/white" />
@@ -66,13 +71,14 @@
         <com.ingentive.presidentsinfo.customview.CustomButtonBoldFont
             android:layout_toRightOf="@+id/btn_medium"
             android:id="@+id/btn_large"
-            android:layout_width="180px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/article_ribbon_b"
+            android:background="@drawable/settings_btn_selector"
             android:text="LARGE"
+            android:layout_weight="1"
             app:romanFont="mrseavesot-roman.ttf"
             android:textColor="@android:color/white" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
         android:id="@+id/tv_randomization"
@@ -80,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/font_layout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60px"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:text="TURN RANDOMIZATION"
         app:boldFont="mrseavesot-bold.ttf"
@@ -89,46 +95,53 @@
 
     <LinearLayout
         android:id="@+id/randomization_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="50px"
+        android:layout_width="540dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/tv_randomization"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_on"
-            android:layout_width="180px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8px"
-            android:background="@drawable/article_ribbon_b"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/settings_btn_selector"
             android:text="ON"
             app:romanFont="mrseavesot-roman.ttf"
+            android:layout_weight="1"
             android:textColor="@android:color/white" />
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_off"
-            android:layout_width="180px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8px"
-            android:background="@drawable/article_ribbon_b"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/settings_btn_selector"
             android:text="OFF"
+            android:layout_weight="1"
             app:romanFont="mrseavesot-roman.ttf"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
     <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
-        android:layout_marginTop="60px"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/randomization_layout"
         android:id="@+id/btn_back_to_story"
-        android:layout_width="290px"
-        android:layout_height="50px"
+        android:layout_width="540dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_centerVertical="true"
-        android:background="@drawable/article_ribbon_b"
+        android:background="@drawable/settings_btn_selector"
         android:text="Back To Story"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
         app:boldFont="mrseavesot-roman.ttf"
         android:textColor="@android:color/white" />
 </RelativeLayout>

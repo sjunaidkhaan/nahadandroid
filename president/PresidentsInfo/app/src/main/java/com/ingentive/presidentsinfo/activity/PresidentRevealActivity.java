@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
+
+import org.xml.sax.XMLReader;
 
 import java.io.File;
 
@@ -69,7 +72,9 @@ public class PresidentRevealActivity extends Activity {
             @Override
             public void onClick(View v) {
                 tvMoral.setVisibility(View.VISIBLE);
-                tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
+                //tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
+                tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral(), null, new UlTagHandler()));
+                tvMoral.setTextSize(SettingsActivity.textSize);
             }
         });
         tvBactToStory.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +105,14 @@ public class PresidentRevealActivity extends Activity {
             e.getMessage();
             Log.d("", "" + e.getMessage());
             return null;
+        }
+    }
+    public class UlTagHandler implements Html.TagHandler{
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output,
+                              XMLReader xmlReader) {
+            if(tag.equals("ul") && !opening) output.append("\n");
+            if(tag.equals("li") && opening) output.append("\n\t•");
         }
     }
 }

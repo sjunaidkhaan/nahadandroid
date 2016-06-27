@@ -23,13 +23,13 @@
 
         <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
             android:id="@+id/tv_header"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="PRESIDERNT NAME HERE"
+            android:text="PRESIDERNT NAME"
             android:textColor="@android:color/white"
             android:textSize="23sp"
             app:boldFont="mrseavesot-bold.ttf" />

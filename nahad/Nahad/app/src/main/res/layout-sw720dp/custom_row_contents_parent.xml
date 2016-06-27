@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/parent_layout">
+    <ImageView
+        android:id="@+id/iv_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/add"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <com.ingentive.nahad.customfont.CustomTextViewGothamFont
+        app:gothamFont="ufonts.com_gotham-medium.ttf"
+        android:id="@+id/tv_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:clickable="false"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:id="@+id/parent_layout">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_parent"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="20sp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:clickable="false"-->
+    <!--android:textColor="@color/colorPrimaryDark" />-->
+
+    <!--</RelativeLayout>-->

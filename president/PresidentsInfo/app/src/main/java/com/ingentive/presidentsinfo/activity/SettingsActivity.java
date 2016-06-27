@@ -2,7 +2,9 @@ package com.ingentive.presidentsinfo.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -38,13 +41,18 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     private Button btnSmall, btnMedium, btnLarge, btnOn, btnOff, btnBackToStory;
     private int storyId = 0;
     private int conn = 0;
-    private Select select;
     private StoryInfo storyInfo;
-    ProgressDialog mProgressDialog;
-    String urlStoryInfo = "http://yourbrand.pk/presidentrevealed/services/story_info";
-    String folder_main = "Presidents_Stories";
-    String from="";
-    int presidentId=0;
+    private ProgressDialog mProgressDialog;
+    private String urlStoryInfo = "http://yourbrand.pk/presidentrevealed/services/story_info";
+    private String folder_main = "Presidents_Stories";
+    private String from = "";
+    private int presidentId = 0;
+    public static int textSize = 18;
+    SharedPreferences sharedpreferences;
+    private String MyPREFERENCES = "MyPrefs";
+    private SharedPreferences.Editor editor;
+    private String font, randomize;
+    public static boolean mRandomize=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +63,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             storyId = extras.getInt("story_id");
-            from= extras.getString("from");
-            presidentId=extras.getInt("president_id");
+            from = extras.getString("from");
+            presidentId = extras.getInt("president_id");
         }
+
     }
 
     private void initialize() {
@@ -78,6 +87,38 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         btnOn.setOnClickListener(this);
         btnOff.setOnClickListener(this);
         btnBackToStory.setOnClickListener(this);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        font = sharedpreferences.getString("text_size", null);
+        randomize = sharedpreferences.getString("randomize", null);
+        if(font!=null){
+            textSize=Integer.parseInt(font);
+        }
+        if(randomize!=null && randomize.equals("on")){
+            mRandomize=true;
+        }else if(randomize!=null && randomize.equals("off")){
+            mRandomize=false;
+        }
+        if(textSize==14){
+            btnSmall.setSelected(true);
+            btnMedium.setSelected(false);
+            btnLarge.setSelected(false);
+        }else if(textSize==18){
+            btnSmall.setSelected(false);
+            btnMedium.setSelected(true);
+            btnLarge.setSelected(false);
+        }else if(textSize==22){
+            btnSmall.setSelected(false);
+            btnMedium.setSelected(false);
+            btnLarge.setSelected(true);
+        }
+        if(mRandomize==true){
+            btnOn.setSelected(true);
+            btnOff.setSelected(false);
+        }else {
+            btnOn.setSelected(false);
+            btnOff.setSelected(true);
+        }
     }
 
     private void showpDialog() {
@@ -97,42 +138,69 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         Typeface font;
         switch (v.getId()) {
             case R.id.btn_small:
-                getApplication().setTheme(R.style.MyCustomSmallFont);
-//                 font = Typeface.createFromAsset(getApplication().getAssets(), "fonts/mrseavesot-roman.ttf");
-//                textview. setTypeface(font);
+                textSize = 14;
+                btnSmall.setSelected(true);
+                btnMedium.setSelected(false);
+                btnLarge.setSelected(false);
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                editor = sharedpreferences.edit();
+                editor.putString("text_size", textSize + "");
+                editor.commit();
                 break;
             case R.id.btn_medium:
-                getApplication().setTheme(R.style.MyCustomMediumFont);
-//                font = Typeface.createFromAsset(getApplication().getAssets(), "fonts/mrseavesot-italic.ttf");
-//                textview. setTypeface(font);
+                textSize = 18;
+                btnSmall.setSelected(false);
+                btnMedium.setSelected(true);
+                btnLarge.setSelected(false);
+
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                editor = sharedpreferences.edit();
+                editor.putString("text_size", textSize + "");
+                editor.commit();
                 break;
             case R.id.btn_large:
-                getApplication().setTheme(R.style.MyCustomLargeFont);
-//                font = Typeface.createFromAsset(getApplication().getAssets(), "fonts/mrseavesot-bold.ttf");
-//                textview. setTypeface(font);
+                textSize = 22;
+                btnSmall.setSelected(false);
+                btnMedium.setSelected(false);
+                btnLarge.setSelected(true);
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                editor = sharedpreferences.edit();
+                editor.putString("text_size", textSize + "");
+                editor.commit();
                 break;
             case R.id.btn_on:
-
+                btnOn.setSelected(true);
+                btnOff.setSelected(false);
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                editor = sharedpreferences.edit();
+                editor.putString("randomize", "on");
+                editor.commit();
                 break;
             case R.id.btn_off:
-
+                btnOn.setSelected(false);
+                btnOff.setSelected(true);
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                editor = sharedpreferences.edit();
+                editor.putString("randomize", "off");
+                editor.commit();
                 break;
             case R.id.btn_back_to_story:
-                if(storyId>0){
+                if (storyId > 0) {
                     StoriesList storiesModel = new StoriesList();
                     storiesModel = new Select().from(StoriesList.class).where("story_id=?", storyId).executeSingle();
                     storyInfo = new StoryInfo();
                     storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
-                    if(storyInfo == null ){
+                    if (storyInfo == null) {
                         conn = NetworkChangeReceiver.getConnectivityStatus(SettingsActivity.this);
                         if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-                            new getStoryInfo(storyId,0).execute();
+                            new getStoryInfo(storyId, 0).execute();
+                        } else {
+                            Toast.makeText(SettingsActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else if (storiesModel!=null&&storyInfo.getTimeStamp() < storiesModel.getTimeStamp()) {
+                    } else if (storiesModel != null && storyInfo.getTimeStamp() < storiesModel.getTimeStamp()) {
                         conn = NetworkChangeReceiver.getConnectivityStatus(SettingsActivity.this);
                         if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-                            new getStoryInfo(storyId,storyInfo.getTimeStamp() ).execute();
+                            new getStoryInfo(storyId, storyInfo.getTimeStamp()).execute();
                         } else {
                             intent = new Intent(SettingsActivity.this, ReadStoryActivity.class);
                             intent.putExtra("story_id", storyId);
@@ -145,14 +213,14 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         startActivity(intent);
                         finish();
                     }
-                }else {
-                    if(from.equals("president")){
-                        Intent i=new Intent(SettingsActivity.this,PresidentFactsActivity.class);
-                        i.putExtra("president_id",presidentId);
+                } else {
+                    if (from.equals("president")) {
+                        Intent i = new Intent(SettingsActivity.this, PresidentFactsActivity.class);
+                        i.putExtra("president_id", presidentId);
                         startActivity(i);
                         finish();
-                    }else {
-                        Intent i=new Intent(SettingsActivity.this,ReadStoryActivity.class);
+                    } else {
+                        Intent i = new Intent(SettingsActivity.this, ReadStoryActivity.class);
                         i.putExtra("story_id", storyId);
                         startActivity(i);
                         finish();
@@ -167,7 +235,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         int timeStamp = 0;
         StoryInfo storyInfoUpdate;
 
-        public getStoryInfo(int storyId,int timeStamp) {
+        public getStoryInfo(int storyId, int timeStamp) {
             this.storyId = storyId;
         }
 
@@ -176,6 +244,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             super.onPreExecute();
             showpDialog();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
@@ -207,9 +276,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         String audiofile = data.getString("audiofile");
                         String audiofile_url = data.getString("audiofile_url");
                         int timeStamp = Integer.parseInt(data.getString("timestamp"));
-                        storyInfoUpdate=new StoryInfo();
-                        storyInfoUpdate=new Select().from(StoryInfo.class).where("story_id=?",storyId).executeSingle();
-                        if(storyInfoUpdate==null){
+                        storyInfoUpdate = new StoryInfo();
+                        storyInfoUpdate = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
+                        if (storyInfoUpdate == null) {
                             storyInfo = new StoryInfo();
                             storyInfo.storyId = sId;
                             storyInfo.presidentId = presId;
@@ -221,7 +290,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             storyInfo.storyAudioName = audiofile;
                             storyInfo.storyAudioUrl = audiofile_url;
                             storyInfo.timeStamp = timeStamp;
-                        }else if(storyInfo.getTimeStamp()<timeStamp){
+                        } else if (storyInfo.getTimeStamp() < timeStamp) {
                             storyInfoUpdate.storyId = sId;
                             storyInfoUpdate.presidentId = presId;
                             storyInfoUpdate.storyTitle = sTitle;
@@ -233,7 +302,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             storyInfoUpdate.storyAudioUrl = audiofile_url;
                             storyInfoUpdate.timeStamp = timeStamp;
                         }
-
 
 
                     }
@@ -251,11 +319,11 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            if(storyInfo!=null){
+            if (storyInfo != null) {
                 new DownloadFile(storyInfo).execute();
-            }else if(storyInfoUpdate!=null){
+            } else if (storyInfoUpdate != null) {
                 new DownloadFile(storyInfoUpdate).execute();
-            }else {
+            } else {
                 hidepDialog();
                 StoryInfo sinfo = new StoryInfo();
                 sinfo = new Select().from(StoryInfo.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
