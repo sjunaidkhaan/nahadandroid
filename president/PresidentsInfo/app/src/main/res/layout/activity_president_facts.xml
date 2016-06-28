@@ -40,7 +40,6 @@
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_launcher"
                             android:scaleType="centerCrop"
                             android:layout_weight="2"
                             />
@@ -54,17 +53,18 @@
                                 android:id="@+id/tv_quotation"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
+                                android:layout_marginRight="7dp"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="7dp"
                                 android:textColor="@android:color/white"
                                 android:textSize="23sp"
                                 android:layout_centerHorizontal="true"
                                 app:italicFont="mrseavesot-italic.ttf" />
 
                             <ImageView
-                                android:layout_below="@id/tv_quotation"
+                                android:layout_alignParentBottom="true"
                                 android:id="@+id/iv_sign"
+                                android:layout_below="@+id/tv_quotation"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -116,12 +116,16 @@
                         android:textSize="20dp"
                         app:boldFont="mrseavesot-bold.ttf" />
 
-                    <TextView
+                    <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
                         android:id="@+id/tv_p_f_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:lineSpacingExtra="10dp"
+                        app:romanFont="mrseavesot-roman.ttf"
+                        android:scrollbars="vertical"
+                        android:layout_marginTop="10dp"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
             </ScrollView>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
+import com.ingentive.presidentsinfo.activeandroid.SettingsModel;
 import com.ingentive.presidentsinfo.activeandroid.StoriesList;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
 import com.ingentive.presidentsinfo.common.NetworkChangeReceiver;
@@ -47,12 +48,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     private String folder_main = "Presidents_Stories";
     private String from = "";
     private int presidentId = 0;
-    public static int textSize = 18;
-    SharedPreferences sharedpreferences;
-    private String MyPREFERENCES = "MyPrefs";
-    private SharedPreferences.Editor editor;
-    private String font, randomize;
-    public static boolean mRandomize=false;
+    public  int textSize = 18;
+    private String randomize;
+    SettingsModel settingsModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             from = extras.getString("from");
             presidentId = extras.getInt("president_id");
         }
-
     }
 
     private void initialize() {
@@ -88,34 +85,36 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         btnOff.setOnClickListener(this);
         btnBackToStory.setOnClickListener(this);
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        font = sharedpreferences.getString("text_size", null);
-        randomize = sharedpreferences.getString("randomize", null);
-        if(font!=null){
-            textSize=Integer.parseInt(font);
+        settingsModel=new SettingsModel();
+        settingsModel=new Select().from(SettingsModel.class).executeSingle();
+        if(settingsModel==null) {
+            SettingsModel model = new SettingsModel();
+            model.randomize = "on";
+            model.fontSize = 18;
+            model.save();
+            textSize=18;
+            randomize = "on";
+        }else {
+            textSize=settingsModel.getFontSize();
+            randomize=settingsModel.getRandomize();
         }
-        if(randomize!=null && randomize.equals("on")){
-            mRandomize=true;
-        }else if(randomize!=null && randomize.equals("off")){
-            mRandomize=false;
-        }
-        if(textSize==14){
+        if (textSize == 14) {
             btnSmall.setSelected(true);
             btnMedium.setSelected(false);
             btnLarge.setSelected(false);
-        }else if(textSize==18){
+        } else if (textSize == 18) {
             btnSmall.setSelected(false);
             btnMedium.setSelected(true);
             btnLarge.setSelected(false);
-        }else if(textSize==22){
+        } else if (textSize == 22) {
             btnSmall.setSelected(false);
             btnMedium.setSelected(false);
             btnLarge.setSelected(true);
         }
-        if(mRandomize==true){
+        if (randomize.equals("on")) {
             btnOn.setSelected(true);
             btnOff.setSelected(false);
-        }else {
+        } else {
             btnOn.setSelected(false);
             btnOff.setSelected(true);
         }
@@ -138,51 +137,61 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         Typeface font;
         switch (v.getId()) {
             case R.id.btn_small:
+                settingsModel=new SettingsModel();
+                settingsModel=new Select().from(SettingsModel.class).executeSingle();
+                if(settingsModel!=null){
+                    settingsModel.fontSize=14;
+                    settingsModel.save();
+                }
                 textSize = 14;
                 btnSmall.setSelected(true);
                 btnMedium.setSelected(false);
                 btnLarge.setSelected(false);
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                editor = sharedpreferences.edit();
-                editor.putString("text_size", textSize + "");
-                editor.commit();
                 break;
             case R.id.btn_medium:
+                settingsModel=new SettingsModel();
+                settingsModel=new Select().from(SettingsModel.class).executeSingle();
+                if(settingsModel!=null){
+                    settingsModel.fontSize=18;
+                    settingsModel.save();
+                }
                 textSize = 18;
                 btnSmall.setSelected(false);
                 btnMedium.setSelected(true);
                 btnLarge.setSelected(false);
 
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                editor = sharedpreferences.edit();
-                editor.putString("text_size", textSize + "");
-                editor.commit();
                 break;
             case R.id.btn_large:
+                settingsModel=new SettingsModel();
+                settingsModel=new Select().from(SettingsModel.class).executeSingle();
+                if(settingsModel!=null){
+                    settingsModel.fontSize=22;
+                    settingsModel.save();
+                }
                 textSize = 22;
                 btnSmall.setSelected(false);
                 btnMedium.setSelected(false);
                 btnLarge.setSelected(true);
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                editor = sharedpreferences.edit();
-                editor.putString("text_size", textSize + "");
-                editor.commit();
                 break;
             case R.id.btn_on:
+                settingsModel=new SettingsModel();
+                settingsModel=new Select().from(SettingsModel.class).executeSingle();
+                if(settingsModel!=null){
+                    settingsModel.randomize="on";
+                    settingsModel.save();
+                }
                 btnOn.setSelected(true);
                 btnOff.setSelected(false);
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                editor = sharedpreferences.edit();
-                editor.putString("randomize", "on");
-                editor.commit();
                 break;
             case R.id.btn_off:
+                settingsModel=new SettingsModel();
+                settingsModel=new Select().from(SettingsModel.class).executeSingle();
+                if(settingsModel!=null){
+                    settingsModel.randomize="off";
+                    settingsModel.save();
+                }
                 btnOn.setSelected(false);
                 btnOff.setSelected(true);
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                editor = sharedpreferences.edit();
-                editor.putString("randomize", "off");
-                editor.commit();
                 break;
             case R.id.btn_back_to_story:
                 if (storyId > 0) {

@@ -15,6 +15,12 @@
     <string name="nav_item_qr_history">QR HISTORY</string>
     <string name="nav_item_profile">PROFILE</string>
     <string name="nav_item_settings">SETTINGS</string>
+
+<string name="html1">
+        <![CDATA[
+        ]]>
+    </string>
+
     <!--<string name="nav_item_section">Section</string>-->
 
     <!-- navigation drawer item labels  -->

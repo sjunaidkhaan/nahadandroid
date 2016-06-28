@@ -72,10 +72,11 @@
                 android:layout_centerHorizontal="true"
                 android:scrollbars="vertical"
                 app:romanFont="mrseavesot-roman.ttf"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:lineSpacingExtra="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black" />
 
         </LinearLayout>
     </ScrollView>
@@ -116,10 +117,11 @@
                     android:layout_below="@+id/tv_heading"
                     android:scrollbars="vertical"
                     app:romanFont="mrseavesot-roman.ttf"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:lineSpacingExtra="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/black" />
 
                 <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
                     android:id="@+id/btn_presidents_facts"

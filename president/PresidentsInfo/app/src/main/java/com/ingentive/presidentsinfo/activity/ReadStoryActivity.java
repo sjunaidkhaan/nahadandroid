@@ -36,6 +36,7 @@ import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
 import com.ingentive.presidentsinfo.activeandroid.PresidentsList;
+import com.ingentive.presidentsinfo.activeandroid.SettingsModel;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
 import com.ingentive.presidentsinfo.common.NetworkChangeReceiver;
 import com.ingentive.presidentsinfo.common.ServiceHandler;
@@ -99,6 +100,9 @@ public class ReadStoryActivity extends Activity {
     private String folder_main_images = "Presidents_Stories/Images";
     int seekBarChangeValue = 0;
     boolean playSong = false;
+    private SettingsModel settingsModel;
+    int textSize ;
+    String randomize ;
 
 
     @Override
@@ -107,6 +111,21 @@ public class ReadStoryActivity extends Activity {
         setContentView(R.layout.activity_read_story);
         initializeViews(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        settingsModel = new SettingsModel();
+        settingsModel = new Select().from(SettingsModel.class).executeSingle();
+        if (settingsModel == null) {
+            SettingsModel model = new SettingsModel();
+            model.randomize = "on";
+            model.fontSize = 18;
+            model.save();
+            textSize = 18;
+            randomize = "on";
+        } else {
+            textSize = settingsModel.getFontSize();
+            randomize = settingsModel.getRandomize();
+        }
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             select = new Select();
@@ -119,6 +138,7 @@ public class ReadStoryActivity extends Activity {
         }
         btnRead.setSelected(true);
         btnQuickRead.setSelected(false);
+
     }
 
     private void initializeViews(Bundle savedInstanceState) {
@@ -203,7 +223,7 @@ public class ReadStoryActivity extends Activity {
                 tvHeading_.setText(storyInfo.getDescriptionHeading().toUpperCase());
                 //tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription()));
                 tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription(), null, new UlTagHandler()));
-                tvQuickRead.setTextSize(SettingsActivity.textSize);
+                tvQuickRead.setTextSize(textSize);
 
                 btnRead.setSelected(false);
                 btnQuickRead.setSelected(true);
@@ -309,7 +329,7 @@ public class ReadStoryActivity extends Activity {
                         finish();
                         break;
                     case R.id.randomize:
-                        if (SettingsActivity.mRandomize == true) {
+                        if (randomize.equals("on")) {
                             audio_layout.setVisibility(View.GONE);
                             mediaPlayer.stop();
                             int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
@@ -366,7 +386,7 @@ public class ReadStoryActivity extends Activity {
                         }
                         break;
                     case R.id.randomize:
-                        if (SettingsActivity.mRandomize == true) {
+                        if (randomize.equals("on")) {
                             audio_layout.setVisibility(View.GONE);
                             mediaPlayer.stop();
                             int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
@@ -408,14 +428,15 @@ public class ReadStoryActivity extends Activity {
         //tvLongDescription.setText(Html.fromHtml(sInfo.getLongDescription()));
         //tvLongDescription.setText(sInfo.getLongDescription());
         tvLongDescription.setText(Html.fromHtml(sInfo.getLongDescription(), null, new UlTagHandler()));
-        tvLongDescription.setTextSize(SettingsActivity.textSize);
+        tvLongDescription.setTextSize(textSize);
     }
-    public class UlTagHandler implements Html.TagHandler{
+
+    public class UlTagHandler implements Html.TagHandler {
         @Override
         public void handleTag(boolean opening, String tag, Editable output,
                               XMLReader xmlReader) {
-            if(tag.equals("ul") && !opening) output.append("\n");
-            if(tag.equals("li") && opening) output.append("\n\t•");
+            if (tag.equals("ul") && !opening) output.append("\n");
+            if (tag.equals("li") && opening) output.append("\n•");
             //if(tag.equals("li") && opening) output.append("\n●");
         }
     }

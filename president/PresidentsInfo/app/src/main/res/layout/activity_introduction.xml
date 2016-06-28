@@ -24,6 +24,7 @@
                 android:gravity="center"
                 android:textColor="#731c12"
                 android:textSize="32sp"
+                android:lineSpacingExtra="10dp"
                 app:boldFont="mrseavesot-bold.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
@@ -33,10 +34,11 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/tv_title"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:lineSpacingExtra="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:textColor="@android:color/black"
                 app:italicFont="mrseavesot-italic.ttf" />
 

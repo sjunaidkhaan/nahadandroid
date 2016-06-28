@@ -34,4 +34,5 @@ dependencies {
     compile 'ch.acra:acra:4.5.0'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+//    compile 'org.sufficientlysecure:html-textview:1.6'
 }

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
+import com.ingentive.presidentsinfo.activeandroid.SettingsModel;
 import com.ingentive.presidentsinfo.activeandroid.StoriesList;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
 import com.roughike.bottombar.BottomBar;
@@ -48,6 +51,9 @@ public class PresidentFactsActivity extends Activity {
     private boolean content = false;
     private StoriesList storiesList;
     private String folder_main_images = "Presidents_Stories/Images";
+    private SettingsModel settingsModel;
+    int textSize;
+    String randomize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,20 @@ public class PresidentFactsActivity extends Activity {
         setContentView(R.layout.activity_president_facts);
         initializeViews(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        settingsModel = new SettingsModel();
+        settingsModel = new Select().from(SettingsModel.class).executeSingle();
+        if (settingsModel == null) {
+            SettingsModel model = new SettingsModel();
+            model.randomize = "on";
+            model.fontSize = 18;
+            model.save();
+            textSize = 18;
+            randomize = "on";
+        } else {
+            textSize = settingsModel.getFontSize();
+            randomize = settingsModel.getRandomize();
+        }
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -86,15 +106,15 @@ public class PresidentFactsActivity extends Activity {
                         }
                         break;
                     case R.id.randomize:
-                        if(SettingsActivity.mRandomize==true){
+                        if (randomize.equals("on")) {
                             int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                            presId = getRandom(count);
+                            presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
                             presidentInfo = new PresidentInfo();
                             presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
                             if (presidentInfo != null) {
                                 showPresident(presidentInfo);
                             }
-                        } else {
+                        }else {
                             Toast.makeText(PresidentFactsActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
                         }
                         break;
@@ -107,7 +127,7 @@ public class PresidentFactsActivity extends Activity {
                             intent.putExtra("from", "president");
                             intent.putExtra("president_id", presId);
                             startActivity(intent);
-                        }else {
+                        } else {
                             intent = new Intent(PresidentFactsActivity.this, SettingsActivity.class);
                             intent.putExtra("story_id", story_Info.getStoryId());
                             intent.putExtra("from", "president");
@@ -130,7 +150,7 @@ public class PresidentFactsActivity extends Activity {
                         finish();
                         break;
                     case R.id.randomize:
-                        if(SettingsActivity.mRandomize==true){
+                        if (randomize.equals("on")) {
                             int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
                             presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
                             presidentInfo = new PresidentInfo();
@@ -151,7 +171,7 @@ public class PresidentFactsActivity extends Activity {
                             intent.putExtra("from", "president");
                             intent.putExtra("president_id", presId);
                             startActivity(intent);
-                        }else {
+                        } else {
                             intent = new Intent(PresidentFactsActivity.this, SettingsActivity.class);
                             intent.putExtra("story_id", story_Info.getStoryId());
                             intent.putExtra("from", "president");
@@ -201,13 +221,10 @@ public class PresidentFactsActivity extends Activity {
         ob = new BitmapDrawable(getResources(), bitmap);
         ivPf.setBackgroundDrawable(ob);
 
-
-        //tvPreFactsText.setText(Html.fromHtml("<table><thead><tr><th></th><th>"+presInfo.getPresFact()+"</th></tr></thead></table>"));
-        //tvPreFactsText.setText(Html.fromHtml(presInfo.getPresFact()));
         tvQuotation.setText(Html.fromHtml(presInfo.getPresQuotation()));
         tvPreFactsText.setText(Html.fromHtml(presInfo.getPresFact(), null, new UlTagHandler()));
-        tvPreFactsText.setTextSize(SettingsActivity.textSize);
-        tvQuotation.setTextSize(SettingsActivity.textSize);
+        tvPreFactsText.setTextSize(textSize);
+        tvQuotation.setTextSize(textSize);
     }
 
     public Bitmap StringToBitMap(String path) {
@@ -221,12 +238,21 @@ public class PresidentFactsActivity extends Activity {
             return null;
         }
     }
-    public class UlTagHandler implements Html.TagHandler{
+
+    public class UlTagHandler implements Html.TagHandler {
         @Override
-        public void handleTag(boolean opening, String tag, Editable output,
-                              XMLReader xmlReader) {
-            if(tag.equals("ul") && !opening) output.append("\n");
-            if(tag.equals("li") && opening) output.append("\n\t•");
+        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+            if (tag.equals("ul") && !opening)
+                output.append("\n");
+            if (tag.equals("li") && opening)
+                output.append("\n•");
+
+            if (tag.equals("tr") && !opening)
+                output.append("\n");
+            if (tag.equals("th") && opening)
+                output.append("\t");
+            if (tag.equals("td") && opening)
+                output.append("\t");
         }
     }
 }

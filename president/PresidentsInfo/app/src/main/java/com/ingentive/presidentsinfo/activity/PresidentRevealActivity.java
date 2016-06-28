@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
+import com.ingentive.presidentsinfo.activeandroid.SettingsModel;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
 
 import org.xml.sax.XMLReader;
@@ -35,12 +36,26 @@ public class PresidentRevealActivity extends Activity {
     int storyId;
     StoryInfo storyInfo;
     private String folder_main_images = "Presidents_Stories/Images";
+    int textSize ;
+    private SettingsModel settingsModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_president_reveal);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        settingsModel = new SettingsModel();
+        settingsModel = new Select().from(SettingsModel.class).executeSingle();
+        if (settingsModel == null) {
+            SettingsModel model = new SettingsModel();
+            model.randomize = "on";
+            model.fontSize = 18;
+            model.save();
+            textSize = 18;
+        } else {
+            textSize = settingsModel.getFontSize();
+        }
 
         tvHeader = (TextView) findViewById(R.id.tv_header);
         tvBactToStory = (TextView) findViewById(R.id.tv_back_story);
@@ -74,7 +89,7 @@ public class PresidentRevealActivity extends Activity {
                 tvMoral.setVisibility(View.VISIBLE);
                 //tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
                 tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral(), null, new UlTagHandler()));
-                tvMoral.setTextSize(SettingsActivity.textSize);
+                tvMoral.setTextSize(textSize);
             }
         });
         tvBactToStory.setOnClickListener(new View.OnClickListener() {
