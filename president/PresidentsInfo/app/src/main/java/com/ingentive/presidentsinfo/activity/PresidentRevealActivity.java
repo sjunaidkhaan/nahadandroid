@@ -86,10 +86,12 @@ public class PresidentRevealActivity extends Activity {
         btnMoral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvMoral.setVisibility(View.VISIBLE);
-                //tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
-                tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral(), null, new UlTagHandler()));
-                tvMoral.setTextSize(textSize);
+                if(!storyInfo.getStoryMoral().isEmpty()){
+                    tvMoral.setVisibility(View.VISIBLE);
+                    //tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
+                    tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral(), null, new UlTagHandler()));
+                    tvMoral.setTextSize(textSize);
+                }
             }
         });
         tvBactToStory.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +128,8 @@ public class PresidentRevealActivity extends Activity {
         @Override
         public void handleTag(boolean opening, String tag, Editable output,
                               XMLReader xmlReader) {
-            if(tag.equals("ul") && !opening) output.append("\n");
-            if(tag.equals("li") && opening) output.append("\n\t•");
+            //if(tag.equals("ul") && !opening) output.append("\n");
+           // if(tag.equals("li") && opening) output.append("\n\t•");
         }
     }
 }

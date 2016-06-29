@@ -60,6 +60,7 @@
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#731c12"
+                android:lineSpacingExtra="10dp"
                 app:boldFont="mrseavesot-bold.ttf"
                 android:scrollbars="vertical" />
 
@@ -91,6 +92,7 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/myScrollingContent"
             android:layout_width="match_parent"
+            android:layout_marginBottom="40dp"
             android:layout_height="match_parent">
 
             <RelativeLayout
@@ -107,6 +109,7 @@
                     android:layout_marginTop="18dp"
                     android:textSize="32sp"
                     android:textColor="#731c12"
+                    android:lineSpacingExtra="10dp"
                     app:boldFont="mrseavesot-bold.ttf"
                     />
                 <!--android:text="THE COBRA'S BITE"-->
@@ -132,9 +135,7 @@
                     android:layout_below="@+id/tv_story"
                     android:background="@drawable/settings_btn_selector"
                     android:text="PRESIDENT REVEALED"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@android:color/white"
                     app:romanFont="mrseavesot-roman.ttf" />
             </RelativeLayout>

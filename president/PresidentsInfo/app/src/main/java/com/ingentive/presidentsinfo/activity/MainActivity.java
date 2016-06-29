@@ -46,7 +46,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,11 +79,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ProgressDialog pdialog;
     private String folder_main = "Presidents_Stories";
     private String folder_main_images = "Presidents_Stories/Images";
-    private PresidentsList presidentsListModel;
+    //private PresidentsList presidentsListModel;
     SharedPreferences sharedpreferences;
     private String MyPREFERENCES = "MyPrefs";
     private SharedPreferences.Editor editor;
     private int firstStoryId = 0;
+    String timeStamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,6 +265,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int presId = presidentsLists.get(position).getPresId();
+                // 1467189358
                 int timeStamp = presidentsLists.get(position).getTimeStamp();
                 Log.d("presId: " + presId, "  time: " + timeStamp);
                 presidentInfo = new PresidentInfo();
@@ -365,9 +369,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
-
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlPresidentsList, ServiceHandler.GET);
+            String jsonStr = sh.makeServiceCall(urlPresidentsList+"/"+System.currentTimeMillis(), ServiceHandler.GET);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -387,7 +390,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             String presidentName = c.getString("president_name").toUpperCase();
                             int timestamp = Integer.parseInt(c.getString("timestamp"));
 
-                            presidentsListModel = new PresidentsList();
+                            PresidentsList presidentsListModel = new PresidentsList();
                             presidentsListModel = new Select().from(PresidentsList.class).where("president_id = ?", id).executeSingle();
                             if (presidentsListModel == null) {
                                 PresidentsList model = new PresidentsList();
@@ -431,7 +434,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlStoriesList, ServiceHandler.GET);
+            String jsonStr = sh.makeServiceCall(urlStoriesList+"/"+ System.currentTimeMillis(), ServiceHandler.GET);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -501,7 +504,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlFirstStory, ServiceHandler.GET);
+            String jsonStr = sh.makeServiceCall(urlFirstStory+"/"+System.currentTimeMillis(), ServiceHandler.GET);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -608,7 +611,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             params.add(new BasicNameValuePair("timestamp", timeStamp + ""));
 
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlStoryInfo, ServiceHandler.POST, params);
+            String jsonStr = sh.makeServiceCall(urlStoryInfo+"/"+System.currentTimeMillis(), ServiceHandler.POST, params);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -718,7 +721,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             params.add(new BasicNameValuePair("timestamp", timeStamp + ""));
 
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlPresidentInfo, ServiceHandler.POST, params);
+            String jsonStr = sh.makeServiceCall(urlPresidentInfo+"/"+System.currentTimeMillis(), ServiceHandler.POST, params);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -828,7 +831,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 // downlod the file
                 InputStream input = new BufferedInputStream(url_.openStream());
-                OutputStream output = new FileOutputStream("/sdcard/" + folder_main + "/" + info.getStoryAudioName());
+               //Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "NAHAD_PDF" + File.separator + bookName;
+                OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator  + folder_main + File.separator+ info.getStoryAudioName());
 
                 byte data[] = new byte[1024];
 
@@ -914,7 +918,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             // downlod the file
             InputStream input = new BufferedInputStream(url_.openStream());
-            OutputStream output = new FileOutputStream("/sdcard/" + folder_main_images + "/" + imageName);
+            OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator  + folder_main_images + File.separator+ imageName);
+            //OutputStream output = new FileOutputStream("/sdcard/" + folder_main_images + "/" + imageName);
 
             byte data[] = new byte[1024];
 
@@ -932,5 +937,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
         } catch (Exception e) {
         }
 
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        if(btnContents.isSelected()){
+            conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
+            if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                new getStoriesList().execute();
+            } else {
+                showStoriesList();
+            }
+        }else if(btnPresidential.isSelected()){
+            conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
+            if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                new getPresidentsList().execute();
+            } else {
+                showPresidentsList();
+            }
+        }
     }
 }

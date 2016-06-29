@@ -262,7 +262,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             params.add(new BasicNameValuePair("timestamp", timeStamp + ""));
 
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlStoryInfo, ServiceHandler.POST, params);
+            String jsonStr = sh.makeServiceCall(urlStoryInfo+"/"+System.currentTimeMillis(), ServiceHandler.POST, params);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {

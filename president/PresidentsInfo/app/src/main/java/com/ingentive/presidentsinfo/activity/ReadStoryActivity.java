@@ -20,6 +20,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -37,6 +38,7 @@ import com.ingentive.presidentsinfo.R;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
 import com.ingentive.presidentsinfo.activeandroid.PresidentsList;
 import com.ingentive.presidentsinfo.activeandroid.SettingsModel;
+import com.ingentive.presidentsinfo.activeandroid.StoriesList;
 import com.ingentive.presidentsinfo.activeandroid.StoryInfo;
 import com.ingentive.presidentsinfo.common.NetworkChangeReceiver;
 import com.ingentive.presidentsinfo.common.ServiceHandler;
@@ -44,6 +46,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.roughike.bottombar.OnTabClickListener;
+import com.roughike.bottombar.OnTabSelectedListener;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -99,10 +102,10 @@ public class ReadStoryActivity extends Activity {
     public String urlPresidentInfo = "http://yourbrand.pk/presidentrevealed/services/president_info";
     private String folder_main_images = "Presidents_Stories/Images";
     int seekBarChangeValue = 0;
-    boolean playSong = false;
+    private boolean playSong = false;
     private SettingsModel settingsModel;
-    int textSize ;
-    String randomize ;
+    private int textSize;
+    private String randomize;
 
 
     @Override
@@ -233,7 +236,7 @@ public class ReadStoryActivity extends Activity {
             @Override
             public void onClick(View v) {
                 scrollView.setVisibility(View.GONE);
-                audio_layout.setVisibility(View.VISIBLE);
+                // audio_layout.setVisibility(View.VISIBLE);
                 myCoordinator.setVisibility(View.VISIBLE);
                 btnRead.setSelected(true);
                 btnQuickRead.setSelected(false);
@@ -242,6 +245,8 @@ public class ReadStoryActivity extends Activity {
         btnPrisidentFacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StoriesList storiesListModel=new StoriesList();
+                storiesListModel=new Select().from(StoriesList.class).where("president_id=?",storyInfo.getPresidentId()).executeSingle();
                 PresidentInfo presidentInfo = new PresidentInfo();
                 PresidentsList presidentsModel = new PresidentsList();
                 presidentsModel = new Select().from(PresidentsList.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
@@ -267,7 +272,21 @@ public class ReadStoryActivity extends Activity {
                         mediaPlayer.stop();
                         finish();
                     }
-                } else {
+                }else if (storiesListModel != null && presidentInfo.getTimeStamp() < storiesListModel.getTimeStamp()) {
+                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
+                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                        mediaPlayer.stop();
+                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
+                    } else {
+                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                        i.putExtra("president_id", storyInfo.getPresidentId());
+                        i.putExtra("story_id", storyInfo.getStoryId());
+                        startActivity(i);
+                        mediaPlayer.stop();
+                        finish();
+                    }
+                }
+                else {
                     Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
                     i.putExtra("president_id", storyInfo.getPresidentId());
                     i.putExtra("story_id", storyInfo.getStoryId());
@@ -279,7 +298,6 @@ public class ReadStoryActivity extends Activity {
         });
         mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.myCoordinator),
                 findViewById(R.id.myScrollingContent), savedInstanceState);
-        //mBottomBar.setDefaultTabPosition(2);
 
         mBottomBar.setItemsFromMenu(R.menu.bottombar_menu, new OnMenuTabClickListener() {
             @Override
@@ -290,10 +308,11 @@ public class ReadStoryActivity extends Activity {
                     case R.id.audio:
                         mediaPlayer.stop();
                         if (content == true) {
-                            audio_layout.setVisibility(View.VISIBLE);
-                            if (new File("/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName()).exists()) {
-                                String path = "/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName();
+                            //OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator  + folder_main_images + File.separator+ imageName);
+                            if (new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + storyInfo.getStoryAudioName()).exists()) {
+                                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + storyInfo.getStoryAudioName();
                                 try {
+                                    audio_layout.setVisibility(View.VISIBLE);
                                     mediaPlayer = new MediaPlayer();
                                     mediaPlayer.setDataSource(path);
                                     mediaPlayer.prepare();
@@ -301,12 +320,6 @@ public class ReadStoryActivity extends Activity {
                                     finalTime = mediaPlayer.getDuration();
                                     ivPause.setImageResource(R.drawable.icon_pause);
                                     playSong = true;
-
-                                    /*
-                                    seekbar.setMax((int) finalTime);
-                                    seekbar.setClickable(false);
-                                    seekbar.setProgress((int) startTime);*/
-                                    //myHandler.postDelayed(UpdateSongTime, 100);
 
                                 } catch (IOException e) {
 
@@ -362,11 +375,12 @@ public class ReadStoryActivity extends Activity {
                 //Toast.makeText(getApplicationContext(), getMessage(menuItemId, true), Toast.LENGTH_SHORT).show();
                 switch (menuItemId) {
                     case R.id.audio:
+
                         mediaPlayer.stop();
-                        audio_layout.setVisibility(View.VISIBLE);
-                        if (new File("/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName()).exists()) {
-                            String path = "/sdcard/" + folder_main + "/" + storyInfo.getStoryAudioName();
+                        if (new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + storyInfo.getStoryAudioName()).exists()) {
+                            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + storyInfo.getStoryAudioName();
                             try {
+                                audio_layout.setVisibility(View.VISIBLE);
                                 mediaPlayer = new MediaPlayer();
                                 mediaPlayer.setDataSource(path);
                                 mediaPlayer.prepare();
@@ -414,9 +428,6 @@ public class ReadStoryActivity extends Activity {
                 }
             }
         });
-
-        // Setting colors for different tabs when there's more than three of them.
-        // You can set colors for tabs in three different ways as shown below.
         mBottomBar.mapColorForTab(0, "#5e4938");
         mBottomBar.mapColorForTab(1, "#5e4938");
         mBottomBar.mapColorForTab(2, "#5e4938");
@@ -551,7 +562,7 @@ public class ReadStoryActivity extends Activity {
             params.add(new BasicNameValuePair("timestamp", timeStamp + ""));
 
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlPresidentInfo, ServiceHandler.POST, params);
+            String jsonStr = sh.makeServiceCall(urlPresidentInfo+"/"+System.currentTimeMillis(), ServiceHandler.POST, params);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -690,7 +701,8 @@ public class ReadStoryActivity extends Activity {
 
             // downlod the file
             InputStream input = new BufferedInputStream(url_.openStream());
-            OutputStream output = new FileOutputStream("/sdcard/" + folder_main_images + "/" + imageName);
+            OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main_images + File.separator + imageName);
+            // OutputStream output = new FileOutputStream("/sdcard/" + folder_main_images + "/" + imageName);
 
             byte data[] = new byte[1024];
 
@@ -707,6 +719,5 @@ public class ReadStoryActivity extends Activity {
             input.close();
         } catch (Exception e) {
         }
-
     }
 }
