@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_settings"
+    tools:context="com.ingentive.presidentsinfo.activity.IntroductionActivity">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
+                android:id="@+id/tv_heading"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:textColor="#731c12"
+                android:textSize="32sp"
+                android:lineSpacingExtra="10dp"
+                app:boldFont="mrseavesot-bold.ttf" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                android:id="@+id/tv_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/tv_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:lineSpacingExtra="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@android:color/black"
+                app:italicFont="mrseavesot-italic.ttf" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

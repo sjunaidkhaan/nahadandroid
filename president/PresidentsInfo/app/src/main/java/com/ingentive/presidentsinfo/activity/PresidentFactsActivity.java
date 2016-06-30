@@ -108,11 +108,11 @@ public class PresidentFactsActivity extends Activity {
                     case R.id.randomize:
                         if (randomize.equals("on")) {
                             int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                            presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
-                            presidentInfo = new PresidentInfo();
-                            presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
-                            if (presidentInfo != null) {
-                                showPresident(presidentInfo);
+                            int presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
+                            PresidentInfo president_info = new PresidentInfo();
+                            president_info = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
+                            if (president_info != null) {
+                                showPresident(president_info);
                             }
                         }else {
                             Toast.makeText(PresidentFactsActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
@@ -152,11 +152,11 @@ public class PresidentFactsActivity extends Activity {
                     case R.id.randomize:
                         if (randomize.equals("on")) {
                             int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                            presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
-                            presidentInfo = new PresidentInfo();
-                            presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
-                            if (presidentInfo != null) {
-                                showPresident(presidentInfo);
+                            int presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
+                            PresidentInfo president_info = new PresidentInfo();
+                            president_info = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
+                            if (president_info != null) {
+                                showPresident(president_info);
                             }
                         } else {
                             Toast.makeText(PresidentFactsActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();

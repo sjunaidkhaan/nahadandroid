@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_p_f"
+    tools:context="com.ingentive.presidentsinfo.activity.PresidentFactsActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/myCoordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/myScrollingContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/president_margin_top">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/president_linear_layout_height"
+                        android:background="#0f1e33"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="6">
+
+                        <ImageView
+                            android:id="@+id/iv_p_f"
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:layout_weight="2"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="4">
+
+                            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                                android:id="@+id/tv_quotation"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="7dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="7dp"
+                                android:textColor="@android:color/white"
+                                android:textSize="23sp"
+                                android:layout_centerHorizontal="true"
+                                app:italicFont="mrseavesot-italic.ttf" />
+
+                            <ImageView
+                                android:layout_alignParentBottom="true"
+                                android:id="@+id/iv_sign"
+                                android:layout_below="@+id/tv_quotation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="5dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginLeft="25dp"
+                                android:layout_marginRight="25dp"
+                                />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/stars_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_p_f"
+                        android:layout_marginTop="@dimen/president_star_layout_margin_top"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ico_star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@drawable/ico_star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ico_star" />
+                    </LinearLayout>
+
+                    <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
+                        android:id="@+id/tv_p_f"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/stars_layout"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:text="PRESIDENTIAL FACTS"
+                        android:textColor="@android:color/white"
+                        android:textSize="25dp"
+                        app:boldFont="mrseavesot-bold.ttf" />
+
+                    <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                        android:id="@+id/tv_p_f_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:lineSpacingExtra="10dp"
+                        app:romanFont="mrseavesot-roman.ttf"
+                        android:scrollbars="vertical"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </ScrollView>
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

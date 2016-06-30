@@ -1,0 +1,139 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ingentive.presidentsinfo.fragment.CreditsFragment">
+
+    <RelativeLayout
+        android:id="@+id/top_layout_credits"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/bottom_layout"
+        android:background="@drawable/bg_contents">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/layout_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="65dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JOHN ADAMS ~ "
+                android:textColor="@android:color/white"
+                app:romanFont="mrseavesot-roman.ttf" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="American History Guild Founder"
+                android:textColor="@android:color/white"
+                app:italicFont="mrseavesot-italic.ttf" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_one"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WILLIAM POTTER ~ "
+                android:textColor="@android:color/white"
+                app:romanFont="mrseavesot-roman.ttf" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chief Historian and Narrator"
+                android:textColor="@android:color/white"
+                app:italicFont="mrseavesot-italic.ttf" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_two"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ZACH FRANZEN ~ "
+                android:textColor="@android:color/white"
+                app:romanFont="mrseavesot-roman.ttf" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Illustrator"
+                android:textColor="@android:color/white"
+                app:italicFont="mrseavesot-italic.ttf" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_three"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="J.ARRON GREENE ~ "
+                android:textColor="@android:color/white"
+                app:romanFont="mrseavesot-roman.ttf" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Creative Director"
+                android:textColor="@android:color/white"
+                app:italicFont="mrseavesot-italic.ttf" />
+        </LinearLayout>
+
+        <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_four"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="To learn more please visit us at"
+            android:textColor="@android:color/white"
+            app:italicFont="mrseavesot-italic.ttf" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center"
+            android:src="@drawable/credits_logo" />
+    </RelativeLayout>
+
+</FrameLayout>

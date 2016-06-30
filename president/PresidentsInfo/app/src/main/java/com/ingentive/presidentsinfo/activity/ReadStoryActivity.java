@@ -346,11 +346,11 @@ public class ReadStoryActivity extends Activity {
                             audio_layout.setVisibility(View.GONE);
                             mediaPlayer.stop();
                             int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
-                            storyId = getRandom(count);
-                            storyInfo = new StoryInfo();
-                            storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
-                            if (storyInfo != null) {
-                                showStory(storyInfo);
+                            int sId = getRandom(count);
+                            StoryInfo story_info = new StoryInfo();
+                            story_info = new Select().from(StoryInfo.class).where("story_id=?", sId).executeSingle();
+                            if (story_info != null) {
+                                showStory(story_info);
                             }
                         } else {
                             Toast.makeText(ReadStoryActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();
@@ -375,7 +375,6 @@ public class ReadStoryActivity extends Activity {
                 //Toast.makeText(getApplicationContext(), getMessage(menuItemId, true), Toast.LENGTH_SHORT).show();
                 switch (menuItemId) {
                     case R.id.audio:
-
                         mediaPlayer.stop();
                         if (new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + storyInfo.getStoryAudioName()).exists()) {
                             String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + storyInfo.getStoryAudioName();
@@ -404,11 +403,11 @@ public class ReadStoryActivity extends Activity {
                             audio_layout.setVisibility(View.GONE);
                             mediaPlayer.stop();
                             int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
-                            storyId = getRandom(count);
-                            storyInfo = new StoryInfo();
-                            storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();
-                            if (storyInfo != null) {
-                                showStory(storyInfo);
+                            int sId = getRandom(count);
+                            StoryInfo story_info = new StoryInfo();
+                            story_info = new Select().from(StoryInfo.class).where("story_id=?", sId).executeSingle();
+                            if (story_info != null) {
+                                showStory(story_info);
                             }
                         } else {
                             Toast.makeText(ReadStoryActivity.this, "Please Turn On Randomization", Toast.LENGTH_LONG).show();

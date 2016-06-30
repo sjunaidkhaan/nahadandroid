@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="font_size_small">5sp</dimen>
+    <dimen name="font_size_medium">15sp</dimen>
+    <dimen name="margin_left">25sp</dimen>
+    <dimen name="margin_right">25sp</dimen>
+    <dimen name="margin_top">160dp</dimen>
+    <dimen name="credits_margin_bottom">25sp</dimen>
+    <dimen name="credits_logo_margin_left">40dp</dimen>
+    <dimen name="credits_logo_margin_right">40dp</dimen>
+    <dimen name="credits_logo_margin_top">25sp</dimen>
+    <dimen name="credits_logo_margin_bottom">60dp</dimen>
+
+    <dimen name="president_margin_top">60dp</dimen>
+    <dimen name="president_linear_layout_height">280dp</dimen>
+    <dimen name="president_star_layout_margin_top">40dp</dimen>
+
+    <dimen name="settings_layout_margin_top">100dp</dimen>
+    <dimen name="settings_layout_margin_width">740dp</dimen>
+    <dimen name="settings_layout_margin_height">80dp</dimen>
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_read_story"
+    tools:context="com.ingentive.presidentsinfo.activity.QuickReadActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:text="THE COBRA'S BITE"
+                android:textColor="#731c12"
+                android:textSize="32sp"
+                app:boldFont="mrseavesot-bold.ttf"
+                android:scrollbars="vertical" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                android:id="@+id/tv_story"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/tv_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@android:color/black"
+                android:scrollbars="vertical"
+                app:romanFont="mrseavesot-roman.ttf" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
