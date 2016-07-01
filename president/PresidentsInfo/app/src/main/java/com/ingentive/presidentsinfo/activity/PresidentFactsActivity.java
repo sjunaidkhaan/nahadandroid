@@ -34,6 +34,8 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 import org.xml.sax.XMLReader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PresidentFactsActivity extends Activity {
@@ -107,11 +109,21 @@ public class PresidentFactsActivity extends Activity {
                         break;
                     case R.id.randomize:
                         if (randomize.equals("on")) {
-                            int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                            int presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
+                            int preId=0;
+                            List<Integer> arrayList = new ArrayList<Integer>();
+                            List<PresidentInfo> presidentInfoList = new ArrayList<PresidentInfo>();
+                            presidentInfoList = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute();
+                            for(int i=0;i<presidentInfoList.size();i++){
+                                arrayList.add(presidentInfoList.get(i).getPresId());
+                            }
+                            if(arrayList.size()>1){
+                                preId = getRandom(arrayList);
+                            }
                             PresidentInfo president_info = new PresidentInfo();
-                            president_info = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
+                            president_info = new Select().from(PresidentInfo.class).where("president_id=?", preId).executeSingle();
                             if (president_info != null) {
+                                presidentInfo=president_info;
+                                presId=preId;
                                 showPresident(president_info);
                             }
                         }else {
@@ -151,11 +163,21 @@ public class PresidentFactsActivity extends Activity {
                         break;
                     case R.id.randomize:
                         if (randomize.equals("on")) {
-                            int count = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute().size();
-                            int presId = getRandom(count);//r.nextInt((max - min) + 1) + min;
+                            int preId=0;
+                            List<Integer> arrayList = new ArrayList<Integer>();
+                            List<PresidentInfo> presidentInfoList = new ArrayList<PresidentInfo>();
+                            presidentInfoList = new Select().all().from(PresidentInfo.class).orderBy("president_id ASC").execute();
+                            for(int i=0;i<presidentInfoList.size();i++){
+                                arrayList.add(presidentInfoList.get(i).getPresId());
+                            }
+                            if(arrayList.size()>1){
+                                preId = getRandom(arrayList);
+                            }
                             PresidentInfo president_info = new PresidentInfo();
-                            president_info = new Select().from(PresidentInfo.class).where("president_id=?", presId).executeSingle();
+                            president_info = new Select().from(PresidentInfo.class).where("president_id=?", preId).executeSingle();
                             if (president_info != null) {
+                                presidentInfo=president_info;
+                                presId=preId;
                                 showPresident(president_info);
                             }
                         } else {
@@ -198,16 +220,24 @@ public class PresidentFactsActivity extends Activity {
                 findViewById(R.id.myScrollingContent), savedInstanceState);
     }
 
-    private int getRandom(int count) {
-        min = 1;
-        max = count;
-        r = new Random();
-        random = r.nextInt((max - min) + 1) + min;
-        if (random == presId && count > 1) {
-            getRandom(count);
-        }
-        return random;
+//    private int getRandom(int count) {
+//        min = 1;
+//        max = count;
+//        r = new Random();
+//        random = r.nextInt((max - min) + 1) + min;
+//        if (random == presId && count > 1) {
+//            getRandom(count);
+//        }
+//        return random;
+//    }
+public int getRandom(List<Integer> array) {
+    int rnd = new Random().nextInt(array.size());
+    random = array.get(rnd);
+    if (random == presId) {
+        getRandom(array);
     }
+    return random;
+}
 
     private void showPresident(PresidentInfo presInfo) {
         String mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main_images + File.separator + presInfo.getPresSignatureImageName();

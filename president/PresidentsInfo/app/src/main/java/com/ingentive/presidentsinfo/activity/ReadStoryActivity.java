@@ -64,6 +64,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -227,7 +228,7 @@ public class ReadStoryActivity extends Activity {
                 //tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription()));
                 tvQuickRead.setText(Html.fromHtml(storyInfo.getShortDescription(), null, new UlTagHandler()));
                 tvQuickRead.setTextSize(textSize);
-
+                mediaPlayer.stop();
                 btnRead.setSelected(false);
                 btnQuickRead.setSelected(true);
             }
@@ -245,11 +246,12 @@ public class ReadStoryActivity extends Activity {
         btnPrisidentFacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StoriesList storiesListModel=new StoriesList();
-                storiesListModel=new Select().from(StoriesList.class).where("president_id=?",storyInfo.getPresidentId()).executeSingle();
+//                StoriesList storiesListModel = new StoriesList();
+//                storiesListModel = new Select().from(StoriesList.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
                 PresidentInfo presidentInfo = new PresidentInfo();
                 PresidentsList presidentsModel = new PresidentsList();
                 presidentsModel = new Select().from(PresidentsList.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
+                // StoryInfo story_Info = new Select().from(StoryInfo.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
                 presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
                 if (presidentInfo == null) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
@@ -259,7 +261,7 @@ public class ReadStoryActivity extends Activity {
                     } else {
                         Toast.makeText(ReadStoryActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
-                } else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
+                } else {
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         mediaPlayer.stop();
@@ -272,28 +274,49 @@ public class ReadStoryActivity extends Activity {
                         mediaPlayer.stop();
                         finish();
                     }
-                }else if (storiesListModel != null && presidentInfo.getTimeStamp() < storiesListModel.getTimeStamp()) {
-                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
-                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-                        mediaPlayer.stop();
-                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
-                    } else {
-                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
-                        i.putExtra("president_id", storyInfo.getPresidentId());
-                        i.putExtra("story_id", storyInfo.getStoryId());
-                        startActivity(i);
-                        mediaPlayer.stop();
-                        finish();
-                    }
+                    // presidentinfo 1464786801
+                    // stories list 1466594974
                 }
-                else {
-                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
-                    i.putExtra("president_id", storyInfo.getPresidentId());
-                    i.putExtra("story_id", storyInfo.getStoryId());
-                    startActivity(i);
-                    mediaPlayer.stop();
-                    finish();
-                }
+
+//                else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
+//                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
+//                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+//                        mediaPlayer.stop();
+//                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
+//                    } else {
+//                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+//                        i.putExtra("president_id", storyInfo.getPresidentId());
+//                        i.putExtra("story_id", storyInfo.getStoryId());
+//                        startActivity(i);
+//                        mediaPlayer.stop();
+//                        finish();
+//                    }
+//                    // presidentinfo 1464786801
+//                    // stories list 1466594974
+//                }
+
+//                else if (presidentsModel != null && story_Info.getTimeStamp() < presidentsModel.getTimeStamp()) {
+//                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
+//                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+//                        mediaPlayer.stop();
+//                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
+//                    } else {
+//                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+//                        i.putExtra("president_id", storyInfo.getPresidentId());
+//                        i.putExtra("story_id", storyInfo.getStoryId());
+//                        startActivity(i);
+//                        mediaPlayer.stop();
+//                        finish();
+//                    }
+//                }
+//                else {
+//                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+//                    i.putExtra("president_id", storyInfo.getPresidentId());
+//                    i.putExtra("story_id", storyInfo.getStoryId());
+//                    startActivity(i);
+//                    mediaPlayer.stop();
+//                    finish();
+//                }
             }
         });
         mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.myCoordinator),
@@ -345,11 +368,22 @@ public class ReadStoryActivity extends Activity {
                         if (randomize.equals("on")) {
                             audio_layout.setVisibility(View.GONE);
                             mediaPlayer.stop();
-                            int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
-                            int sId = getRandom(count);
+                            //getRandom();
+                            int sId = 0;
+                            List<Integer> arrayList = new ArrayList<Integer>();
+                            List<StoryInfo> storyInfoList = new ArrayList<StoryInfo>();
+                            storyInfoList = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute();
+                            for (int i = 0; i < storyInfoList.size(); i++) {
+                                arrayList.add(storyInfoList.get(i).getStoryId());
+                            }
+                            if (arrayList.size() > 1) {
+                                sId = getRandom(arrayList);
+                            }
                             StoryInfo story_info = new StoryInfo();
                             story_info = new Select().from(StoryInfo.class).where("story_id=?", sId).executeSingle();
                             if (story_info != null) {
+                                storyInfo = story_info;
+                                storyId = sId;
                                 showStory(story_info);
                             }
                         } else {
@@ -402,11 +436,21 @@ public class ReadStoryActivity extends Activity {
                         if (randomize.equals("on")) {
                             audio_layout.setVisibility(View.GONE);
                             mediaPlayer.stop();
-                            int count = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute().size();
-                            int sId = getRandom(count);
+                            int sId = 0;
+                            List<Integer> arrayList = new ArrayList<Integer>();
+                            List<StoryInfo> storyInfoList = new ArrayList<StoryInfo>();
+                            storyInfoList = new Select().all().from(StoryInfo.class).orderBy("story_id ASC").execute();
+                            for (int i = 0; i < storyInfoList.size(); i++) {
+                                arrayList.add(storyInfoList.get(i).getStoryId());
+                            }
+                            if (arrayList.size() > 1) {
+                                sId = getRandom(arrayList);
+                            }
                             StoryInfo story_info = new StoryInfo();
                             story_info = new Select().from(StoryInfo.class).where("story_id=?", sId).executeSingle();
                             if (story_info != null) {
+                                storyInfo = story_info;
+                                storyId = sId;
                                 showStory(story_info);
                             }
                         } else {
@@ -451,13 +495,12 @@ public class ReadStoryActivity extends Activity {
         }
     }
 
-    private int getRandom(int count) {
-        min = 1;
-        max = count;
-        r = new Random();
-        random = r.nextInt((max - min) + 1) + min;
-        if (random == storyId && count > 1) {
-            getRandom(count);
+
+    public int getRandom(List<Integer> array) {
+        int rnd = new Random().nextInt(array.size());
+        random = array.get(rnd);
+        if (random == storyId) {
+            getRandom(array);
         }
         return random;
     }
@@ -539,8 +582,8 @@ public class ReadStoryActivity extends Activity {
     private class getPresidentInfo extends AsyncTask<Void, Void, Void> {
         int presiId = 0;
         int timeStamp = 0;
-        PresidentInfo mPresInfoUpdate;
-        PresidentInfo mPresInfoNew;
+        PresidentInfo mPresInfoUpdate = new PresidentInfo();
+        PresidentInfo mPresInfoNew = new PresidentInfo();
 
         public getPresidentInfo(int presiId, int timeStamp) {
             this.presiId = presiId;
@@ -561,7 +604,7 @@ public class ReadStoryActivity extends Activity {
             params.add(new BasicNameValuePair("timestamp", timeStamp + ""));
 
             ServiceHandler sh = new ServiceHandler();
-            String jsonStr = sh.makeServiceCall(urlPresidentInfo+"/"+System.currentTimeMillis(), ServiceHandler.POST, params);
+            String jsonStr = sh.makeServiceCall(urlPresidentInfo + "/" + System.currentTimeMillis(), ServiceHandler.POST, params);
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
@@ -588,7 +631,6 @@ public class ReadStoryActivity extends Activity {
                         mPresInfoUpdate = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
                         if (mPresInfoUpdate == null) {
                             mPresInfoNew = new PresidentInfo();
-                            mPresInfoNew = new PresidentInfo();
                             mPresInfoNew.presId = presId;
                             mPresInfoNew.presName = presName;
                             mPresInfoNew.presImageUrl = presImageUrl;
@@ -600,8 +642,15 @@ public class ReadStoryActivity extends Activity {
                             mPresInfoNew.backgroundImageName = presId + "_bg_" + presName + ".png";
                             mPresInfoNew.presFact = presFact;
                             mPresInfoNew.timeStamp = timeStamp;
+                            try {
+
+                                downloadImages(new URL(presImageUrl), presId + "_president_" + presName + ".png");
+                                downloadImages(new URL(presSignatureImageUrl), presId + "_sign_" + presName + ".png");
+                                downloadImages(new URL(backgroundImageUrl),  presId + "_bg_" + presName + ".png");
+                                mPresInfoNew.save();
+                            } catch (Exception e) {
+                            }
                         } else if (mPresInfoUpdate.getTimeStamp() < timeStamp) {
-                            mPresInfoUpdate = new PresidentInfo();
                             mPresInfoUpdate.presId = presId;
                             mPresInfoUpdate.presName = presName;
                             mPresInfoUpdate.presImageUrl = presImageUrl;
@@ -613,8 +662,15 @@ public class ReadStoryActivity extends Activity {
                             mPresInfoUpdate.backgroundImageName = presId + "_bg_" + presName + ".png";
                             mPresInfoUpdate.presFact = presFact;
                             mPresInfoUpdate.timeStamp = timeStamp;
-                        }
+                            try {
 
+                                downloadImages(new URL(presImageUrl), presId + "_president_" + presName + ".png");
+                                downloadImages(new URL(presSignatureImageUrl), presId + "_sign_" + presName + ".png");
+                                downloadImages(new URL(backgroundImageUrl),  presId + "_bg_" + presName + ".png");
+                                mPresInfoUpdate.save();
+                            } catch (Exception e) {
+                            }
+                        }
                         //info.save();
                     }
                 } catch (JSONException e) {
@@ -628,22 +684,32 @@ public class ReadStoryActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            if (mPresInfoUpdate != null) {
-                new downloadImage(mPresInfoUpdate).execute();
-            } else if (mPresInfoNew != null) {
-                new downloadImage(mPresInfoNew).execute();
-            } else {
-                hidepDialog();
-                PresidentInfo presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
-                if (presidentInfo != null) {
-                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
-                    i.putExtra("president_id", storyInfo.getPresidentId());
-                    i.putExtra("story_id", storyInfo.getStoryId());
-                    startActivity(i);
-                    mediaPlayer.stop();
-                    finish();
-                }
+
+            hidepDialog();
+            PresidentInfo presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
+            if (presidentInfo != null) {
+                Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                i.putExtra("president_id", storyInfo.getPresidentId());
+                i.putExtra("story_id", storyInfo.getStoryId());
+                startActivity(i);
+                mediaPlayer.stop();
+                finish();
+//            super.onPostExecute(result);
+//            if (mPresInfoUpdate != null) {
+//                new downloadImage(mPresInfoUpdate).execute();
+//            } else if (mPresInfoNew != null) {
+//                new downloadImage(mPresInfoNew).execute();
+//            } else {
+//                hidepDialog();
+//                PresidentInfo presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
+//                if (presidentInfo != null) {
+//                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+//                    i.putExtra("president_id", storyInfo.getPresidentId());
+//                    i.putExtra("story_id", storyInfo.getStoryId());
+//                    startActivity(i);
+//                    mediaPlayer.stop();
+//                    finish();
+//                }
             }
         }
     }
