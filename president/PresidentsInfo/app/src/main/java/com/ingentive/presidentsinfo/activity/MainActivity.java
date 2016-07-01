@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
+import com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
 import com.ingentive.presidentsinfo.activeandroid.PresidentsList;
 import com.ingentive.presidentsinfo.activeandroid.StoriesList;
@@ -184,14 +185,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.btn_read_story:
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 int id = sharedpreferences.getInt("first_story_id", 0);
-                StoryInfo storyInfo = new StoryInfo();
-                storyInfo = new Select().from(StoryInfo.class).where("story_id=?", id).executeSingle();
+                PresTSInFirstStory presTSInFirstStory=new PresTSInFirstStory();
+                presTSInFirstStory=new Select().from(PresTSInFirstStory.class).executeSingle();
                 conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
                 if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                     new getFirstStory().execute();
-                } else if (storyInfo != null) {
+                } else if (presTSInFirstStory != null) {
                     Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
-                    inte.putExtra("story_id", storyInfo.getStoryId());
+                    inte.putExtra("story_id", presTSInFirstStory.getsId());
                     startActivity(inte);
                 }else {
                     Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
@@ -453,6 +454,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             String sTitle = c.getString("title").toUpperCase();
                             int presId = Integer.parseInt(c.getString("president_id"));
                             int timestamp = Integer.parseInt(c.getString("timestamp"));
+                            int presidentTimeStamp = Integer.parseInt(c.getString("president_timestamp"));
 
                             StoriesList storiesList = new StoriesList();
                             storiesList = new Select().from(StoriesList.class).where("story_id = ?", sId).executeSingle();
@@ -462,6 +464,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 storiesModel.sTitle = sTitle;
                                 storiesModel.presId = presId;
                                 storiesModel.timeStamp = timestamp;
+                                storiesModel.presidentTimeStamp=presidentTimeStamp;
                                 storiesModel.save();
 
                             } else if (storiesList.getTimeStamp() < timestamp) {
@@ -469,6 +472,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 storiesList.sTitle = sTitle;
                                 storiesList.presId = presId;
                                 storiesList.timeStamp = timestamp;
+                                storiesList.presidentTimeStamp=presidentTimeStamp;
+                                storiesList.save();
+                            }
+                            else if (storiesList.getPresidentTimeStamp() < presidentTimeStamp) {
+                                storiesList.sId = sId;
+                                storiesList.sTitle = sTitle;
+                                storiesList.presId = presId;
+                                storiesList.timeStamp = timestamp;
+                                storiesList.presidentTimeStamp=presidentTimeStamp;
                                 storiesList.save();
                             }
                         }
@@ -526,12 +538,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         String audiofile = data.getString("audiofile");
                         String audiofile_url = data.getString("audiofile_url");
                         int timeStamp = Integer.parseInt(data.getString("timestamp"));
+                        int prestTmeStamp = Integer.parseInt(data.getString("president_timestamp"));
 
-                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        editor = sharedpreferences.edit();
-                        editor.putInt("first_story_id", sId);
-                        editor.commit();
-
+//                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//                        editor = sharedpreferences.edit();
+//                        editor.putInt("first_story_id", sId);
+//                        editor.commit();
+                        PresTSInFirstStory firstStory=new PresTSInFirstStory();
+                        firstStory=new Select().from(PresTSInFirstStory.class).executeSingle();
+                        if(firstStory==null){
+                            PresTSInFirstStory story=new PresTSInFirstStory();
+                            story.presId=presId;
+                            story.sId=sId;
+                            story.presidentTimeStamp=prestTmeStamp;
+                            story.save();
+                        }else {
+                            firstStory.presId=presId;
+                            firstStory.sId=sId;
+                            firstStory.presidentTimeStamp=prestTmeStamp;
+                            firstStory.save();
+                        }
                         storyInfoUpdate = new StoryInfo();
                         storyInfoUpdate = new Select().from(StoryInfo.class).where("story_id=?", sId).executeSingle();
                         if (storyInfoUpdate == null) {
@@ -546,6 +572,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             storyInfoNew.storyAudioName = audiofile;
                             storyInfoNew.storyAudioUrl = audiofile_url;
                             storyInfoNew.timeStamp = timeStamp;
+
                             //storyInfoNew.save();
                         } else if (storyInfoUpdate.getTimeStamp() < timeStamp) {
                             storyInfoUpdate.storyId = sId;
@@ -635,6 +662,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         String audiofile = data.getString("audiofile");
                         String audiofile_url = data.getString("audiofile_url");
                         int timeStamp = Integer.parseInt(data.getString("timestamp"));
+
 
                         storyInfo = new StoryInfo();
                         storyInfo = new Select().from(StoryInfo.class).where("story_id=?", storyId).executeSingle();

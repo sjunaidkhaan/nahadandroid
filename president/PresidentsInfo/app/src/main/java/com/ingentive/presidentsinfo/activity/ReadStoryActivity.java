@@ -35,6 +35,7 @@ import android.widget.VideoView;
 
 import com.activeandroid.query.Select;
 import com.ingentive.presidentsinfo.R;
+import com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory;
 import com.ingentive.presidentsinfo.activeandroid.PresidentInfo;
 import com.ingentive.presidentsinfo.activeandroid.PresidentsList;
 import com.ingentive.presidentsinfo.activeandroid.SettingsModel;
@@ -248,12 +249,16 @@ public class ReadStoryActivity extends Activity {
             public void onClick(View v) {
 //                StoriesList storiesListModel = new StoriesList();
 //                storiesListModel = new Select().from(StoriesList.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
+
                 PresidentInfo presidentInfo = new PresidentInfo();
                 PresidentsList presidentsModel = new PresidentsList();
                 presidentsModel = new Select().from(PresidentsList.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
-                // StoryInfo story_Info = new Select().from(StoryInfo.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
+                 StoriesList storyList= new Select().from(StoriesList.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
                 presidentInfo = new Select().from(PresidentInfo.class).where("president_id=?", storyInfo.getPresidentId()).executeSingle();
-                if (presidentInfo == null) {
+
+                PresTSInFirstStory firstStory=new PresTSInFirstStory();
+                firstStory=new Select().from(PresTSInFirstStory.class).executeSingle();
+                if(firstStory!=null && presidentInfo!=null && firstStory.presId==storyInfo.getPresidentId()&&presidentInfo.getTimeStamp()<firstStory.getPresidentTimeStamp()){
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         new getPresidentInfo(storyInfo.getPresidentId(), 0).execute();
@@ -261,24 +266,16 @@ public class ReadStoryActivity extends Activity {
                     } else {
                         Toast.makeText(ReadStoryActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
-                } else {
+                }else if (presidentInfo == null) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                        new getPresidentInfo(storyInfo.getPresidentId(), 0).execute();
                         mediaPlayer.stop();
-                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
                     } else {
-                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
-                        i.putExtra("president_id", storyInfo.getPresidentId());
-                        i.putExtra("story_id", storyInfo.getStoryId());
-                        startActivity(i);
-                        mediaPlayer.stop();
-                        finish();
+                        Toast.makeText(ReadStoryActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
-                    // presidentinfo 1464786801
-                    // stories list 1466594974
                 }
-
-//                else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
+//                else {
 //                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
 //                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
 //                        mediaPlayer.stop();
@@ -295,28 +292,45 @@ public class ReadStoryActivity extends Activity {
 //                    // stories list 1466594974
 //                }
 
-//                else if (presidentsModel != null && story_Info.getTimeStamp() < presidentsModel.getTimeStamp()) {
-//                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
-//                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-//                        mediaPlayer.stop();
-//                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
-//                    } else {
-//                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
-//                        i.putExtra("president_id", storyInfo.getPresidentId());
-//                        i.putExtra("story_id", storyInfo.getStoryId());
-//                        startActivity(i);
-//                        mediaPlayer.stop();
-//                        finish();
-//                    }
-//                }
-//                else {
-//                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
-//                    i.putExtra("president_id", storyInfo.getPresidentId());
-//                    i.putExtra("story_id", storyInfo.getStoryId());
-//                    startActivity(i);
-//                    mediaPlayer.stop();
-//                    finish();
-//                }
+                else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
+                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
+                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                        mediaPlayer.stop();
+                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
+                    } else {
+                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                        i.putExtra("president_id", storyInfo.getPresidentId());
+                        i.putExtra("story_id", storyInfo.getStoryId());
+                        startActivity(i);
+                        mediaPlayer.stop();
+                        finish();
+                    }
+                    // presidentinfo 1464786801
+                    // stories list 1466594974
+                }
+
+                else if (presidentInfo.getTimeStamp()<storyList.getPresidentTimeStamp()) {
+                    conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryActivity.this);
+                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
+                        mediaPlayer.stop();
+                        new getPresidentInfo(presidentInfo.getPresId(), presidentInfo.getTimeStamp()).execute();
+                    } else {
+                        Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                        i.putExtra("president_id", storyInfo.getPresidentId());
+                        i.putExtra("story_id", storyInfo.getStoryId());
+                        startActivity(i);
+                        mediaPlayer.stop();
+                        finish();
+                    }
+                }
+                else {
+                    Intent i = new Intent(ReadStoryActivity.this, PresidentRevealActivity.class);
+                    i.putExtra("president_id", storyInfo.getPresidentId());
+                    i.putExtra("story_id", storyInfo.getStoryId());
+                    startActivity(i);
+                    mediaPlayer.stop();
+                    finish();
+                }
             }
         });
         mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.myCoordinator),
@@ -517,6 +531,12 @@ public class ReadStoryActivity extends Activity {
 
             seekbar.setProgress((int) startTime);
             myHandler.postDelayed(this, 1000);
+            double totalTime=mediaPlayer.getDuration();
+            Log.i("totalTime :  "+totalTime,"  currentPosition :  "+startTime);
+            if(startTime>=totalTime){
+                mediaPlayer.stop();
+                audio_layout.setVisibility(View.GONE);
+            }
         }
     };
 

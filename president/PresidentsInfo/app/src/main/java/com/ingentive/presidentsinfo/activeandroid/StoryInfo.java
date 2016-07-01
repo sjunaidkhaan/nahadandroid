@@ -42,6 +42,7 @@ public class StoryInfo extends Model {
     @Column(name = "timestamp")
     public int timeStamp;
 
+
     public int getStoryId() {
         return storyId;
     }
@@ -143,6 +144,7 @@ public class StoryInfo extends Model {
         this.storyAudioUrl = "";
         this.timeStamp = 0;
         this.storyMoral="";
+
     }
     public StoryInfo(int storyId, int presidentId, String storyTitle, String descriptionHeading,
                           String shortDescription, String longDescription, String backgroundImage,

@@ -56,6 +56,15 @@ public class StoriesList extends Model {
 
     @Column(name = "time_stamp")
     public int timeStamp;
+    public int getPresidentTimeStamp() {
+        return presidentTimeStamp;
+    }
+
+    public void setPresidentTimeStamp(int presidentTimeStamp) {
+        this.presidentTimeStamp = presidentTimeStamp;
+    }
+    @Column(name = "presidentTimestamp")
+    public int presidentTimeStamp;
 
     public StoriesList() {
         super();
@@ -63,6 +72,7 @@ public class StoriesList extends Model {
         this.sTitle = "";
         this.presId=0;
         this.timeStamp = 0;
+        this.presidentTimeStamp=0;
     }
     public StoriesList(int sId, String sTitle,int presId, int time_stamp) {
         super();

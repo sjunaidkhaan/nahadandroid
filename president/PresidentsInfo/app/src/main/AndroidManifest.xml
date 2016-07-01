@@ -41,7 +41,8 @@
             com.ingentive.presidentsinfo.activeandroid.StoriesList,
              com.ingentive.presidentsinfo.activeandroid.PresidentInfo,
              com.ingentive.presidentsinfo.activeandroid.StoryInfo,
-             com.ingentive.presidentsinfo.activeandroid.SettingsModel" />
+             com.ingentive.presidentsinfo.activeandroid.SettingsModel,
+             com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory" />
 
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
