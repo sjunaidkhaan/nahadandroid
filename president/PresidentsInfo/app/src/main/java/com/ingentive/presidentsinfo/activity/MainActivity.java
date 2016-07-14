@@ -343,6 +343,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     String error = jsonObj.getString("Error");
 
                     if (code.equals("200")) {
+
+                        new Delete().from(PresidentsList.class).execute();
+
                         JSONArray data = jsonObj.getJSONArray("DATA");
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject c = data.getJSONObject(i);
@@ -363,6 +366,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 presidentsListModel.presidentName = presidentName;
                                 presidentsListModel.timeStamp = timestamp;
                                 presidentsListModel.save();
+                            }
+                        }
+
+                        List<PresidentInfo> prsesInfos=new ArrayList<PresidentInfo>();
+                        prsesInfos=new Select().all().from(PresidentInfo.class).execute();
+
+                        for(int i=0;i<prsesInfos.size();i++){
+                            PresidentsList president=new PresidentsList();
+                            president=new Select().from(PresidentsList.class).where("president_id = ?",prsesInfos.get(i).getPresId()).executeSingle();
+                            if(president==null){
+                                new Delete().from(PresidentInfo.class).where("president_id = ?",prsesInfos.get(i).getPresId()).execute();
                             }
                         }
                     }
@@ -398,7 +412,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             android.util.Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) {
                 try {
-
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONObject statusObj = jsonObj.getJSONObject("Success");
                     String code = statusObj.getString("code");
@@ -406,6 +419,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     String error = jsonObj.getString("Error");
 
                     if (code.equals("200")) {
+
+                        new Delete().from(StoriesList.class).execute();
+
                         JSONArray data = jsonObj.getJSONArray("DATA");
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject c = data.getJSONObject(i);
@@ -441,6 +457,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 storiesList.timeStamp = timestamp;
                                 storiesList.presidentTimeStamp=presidentTimeStamp;
                                 storiesList.save();
+                            }
+                        }
+
+                        List<StoryInfo> storyInfos=new ArrayList<StoryInfo>();
+                        storyInfos=new Select().all().from(StoryInfo.class).execute();
+
+                        for(int i=0;i<storyInfos.size();i++){
+                            StoriesList story=new StoriesList();
+                            story=new Select().from(StoriesList.class).where("story_id = ?",storyInfos.get(i).getStoryId()).executeSingle();
+                            if(story==null){
+                                new Delete().from(StoryInfo.class).where("story_id = ?",storyInfos.get(i).getStoryId()).execute();
                             }
                         }
                     }
@@ -561,9 +588,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 new DownloadFile(storyInfoUpdate).execute();
             } else {
                 hidepDialog();
-                firstStory();
-            }
+                //firstStory();
+                //Toast.makeText(MainActivity.this,"First Story not exist",Toast.LENGTH_LONG).show();
 
+                PresTSInFirstStory presTSInFirstStory=new Select().from(PresTSInFirstStory.class).executeSingle();
+              if (presTSInFirstStory != null) {
+                    Intent inte = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
+                    inte.putExtra("story_id", presTSInFirstStory.getsId());
+                    startActivity(inte);
+                }else {
+                  Toast.makeText(MainActivity.this,"First Story not exist",Toast.LENGTH_LONG).show();
+              }
+            }
         }
     }
 

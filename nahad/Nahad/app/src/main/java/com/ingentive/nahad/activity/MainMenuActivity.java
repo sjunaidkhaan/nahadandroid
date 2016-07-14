@@ -162,6 +162,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
                         ivLogo.invalidate();
                         iv_menu.setVisibility(View.VISIBLE);
                         listView.setVisibility(View.GONE);
+                        tvSelectedLayoutName.setVisibility(View.GONE);
                         break;
                     }
                 }
@@ -194,6 +195,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
             case R.id.logo:
                 iv_menu.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
+                tvSelectedLayoutName.setVisibility(View.GONE);
                 break;
             case R.id.tv_institute_handbook_layout:
                 tvSelectedLayoutName.setVisibility(View.VISIBLE);
@@ -242,6 +244,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
         //right_layout.setBackgroundColor(0xFFFFFFFF);
         iv_menu.setVisibility(View.GONE);
         listView.setVisibility(View.VISIBLE);
+        tvSelectedLayoutName.setVisibility(View.VISIBLE);
         listView.setAdapter(mAdapter);
         this.category=category;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -827,19 +830,19 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
             hidepDialog();
         }
     }
-    @Override
-    protected void onRestart(){
-        super.onRestart();
-       // mAdapter.notifyDataSetChanged();
-
-        particularList = new ArrayList<AddFilesModel>();
-        select = new Select();
-        particularList = select.all().from(AddFilesModel.class).where("category_id=?", this.category).execute();
-        //particularList = DatabaseHandler.getInstance(MainMenuActivity.this).getParticularCategory(category);
-        mAdapter = new MainMenuAdapter(MainMenuActivity.this, particularList, R.layout.custom_row_menu);
-        //right_layout.setBackgroundColor(0xFFFFFFFF);
-        iv_menu.setVisibility(View.GONE);
-        listView.setVisibility(View.VISIBLE);
-        listView.setAdapter(mAdapter);
-    }
+//    @Override
+//    protected void onRestart(){
+//        super.onRestart();
+//       // mAdapter.notifyDataSetChanged();
+//
+//        particularList = new ArrayList<AddFilesModel>();
+//        select = new Select();
+//        particularList = select.all().from(AddFilesModel.class).where("category_id=?", this.category).execute();
+//        //particularList = DatabaseHandler.getInstance(MainMenuActivity.this).getParticularCategory(category);
+//        mAdapter = new MainMenuAdapter(MainMenuActivity.this, particularList, R.layout.custom_row_menu);
+//        //right_layout.setBackgroundColor(0xFFFFFFFF);
+//        iv_menu.setVisibility(View.GONE);
+//        listView.setVisibility(View.VISIBLE);
+//        listView.setAdapter(mAdapter);
+//    }
 }

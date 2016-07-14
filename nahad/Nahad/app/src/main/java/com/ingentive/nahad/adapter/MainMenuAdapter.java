@@ -79,27 +79,27 @@ public class MainMenuAdapter extends BaseAdapter {
         vh.tvItem.setText(itemList.get(postion).getFileTitle());
         tvItem = vh.tvItem;
         iv_radio = vh.iv_radio;
-        custom_row_menu_layout = vh.custom_row_menu_layout;
-        iv_radio.setBackgroundResource(R.drawable.bullseye);
+//        custom_row_menu_layout = vh.custom_row_menu_layout;
+//        iv_radio.setBackgroundResource(R.drawable.bullseye);
 
-        vh.custom_row_menu_layout.setOnTouchListener(
-                new TextView.OnTouchListener() {
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                custom_row_menu_layout.setBackgroundResource(R.drawable.rectangle_fourteen);
-                                iv_radio.setBackgroundResource(R.drawable.radio);
-                                tvItem.setTextColor(Color.WHITE);
-                                break;
-                            case MotionEvent.ACTION_UP:
-                                custom_row_menu_layout.setBackgroundResource(R.drawable.rectangle_four_copy);
-                                iv_radio.setBackgroundResource(R.drawable.bullseye);
-                                break;
-                        }
-                        return false;
-                    }
-                }
-        );
+//        vh.custom_row_menu_layout.setOnTouchListener(
+//                new TextView.OnTouchListener() {
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        switch (event.getAction()) {
+//                            case MotionEvent.ACTION_DOWN:
+//                                custom_row_menu_layout.setBackgroundResource(R.drawable.rectangle_fourteen);
+//                                iv_radio.setBackgroundResource(R.drawable.radio);
+//                                tvItem.setTextColor(Color.WHITE);
+//                                break;
+//                            case MotionEvent.ACTION_UP:
+//                                custom_row_menu_layout.setBackgroundResource(R.drawable.rectangle_four_copy);
+//                                iv_radio.setBackgroundResource(R.drawable.bullseye);
+//                                break;
+//                        }
+//                        return false;
+//                    }
+//                }
+//        );
         return vi;
     }
 

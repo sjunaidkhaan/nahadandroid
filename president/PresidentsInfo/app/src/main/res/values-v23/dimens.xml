@@ -26,53 +26,60 @@
 
     <!--ActivityPresidentFacts dimens starts-->
     <dimen name="pf_scrollview_margin_top">30dp</dimen>
-    <dimen name="pf_scrollview_linear_layout">180dp</dimen>
-    <dimen name="pf_tv_quotation_margin_left">7dp</dimen>
+    <dimen name="pf_scrollview_linear_layout_height">180dp</dimen>
+    <dimen name="pf_padding">5dp</dimen>
     <dimen name="pf_tv_quotation_margin_right">7dp</dimen>
+    <dimen name="pf_tv_quotation_margin_left">7dp</dimen>
     <dimen name="pf_tv_quotation_margin_top">5dp</dimen>
     <dimen name="pf_tv_quotation_text_size">23sp</dimen>
-    <dimen name="pf_padding">5dp</dimen>
+    <dimen name="pf_iv_sign_margin_bottom">5dp</dimen>
     <dimen name="pf_iv_sign_margin_lseft">25dp</dimen>
     <dimen name="pf_iv_sign_margin_rignt">25dp</dimen>
-    <dimen name="pf_iv_sign_margin_bottom">5dp</dimen>
     <dimen name="pf_layout_starts_margin_top">10dp</dimen>
     <dimen name="pf_iv_start_margin_left">10dp</dimen>
     <dimen name="pf_iv_start_margin_right">10dp</dimen>
-    <dimen name="pf_tv_margin_top">20dp</dimen>
+    <dimen name="pf_tv_text_margin_top">10dp</dimen>
     <dimen name="pf_tv_text_size">20dp</dimen>
     <dimen name="pf_tv_text_padding_left">10dp</dimen>
     <dimen name="pf_tv_text_padding_right">10dp</dimen>
     <dimen name="pf_tv_text_line_spacing_extra">10dp</dimen>
-    <dimen name="pf_tv_text_margin_top">10dp</dimen>
     <!--ActivityPresidentFacts dimens end-->
 
     <!--ActivityPresidentReveal dimens starts-->
-    <dimen name="pr_header_layout_padding">10dp</dimen>
-    <dimen name="pr_header_layout_iv_margin_left">20dp</dimen>
-    <dimen name="pr_header_layout_iv_margin_right">20dp</dimen>
     <dimen name="pr_header_layout_tv_text_size">23sp</dimen>
-    <dimen name="pr_center_layout_iv_margin_left">45dp</dimen>
+    <dimen name="pr_header_layout_iv_margin_left">15dp</dimen>
+    <dimen name="pr_header_layout_iv_margin_right">15dp</dimen>
+    <dimen name="pr_center_layout_iv_margin_bottom">10dp</dimen>
+    <dimen name="pr_center_layout_iv_margin_left">35dp</dimen>
     <dimen name="pr_center_layout_iv_margin_right">25dp</dimen>
     <dimen name="pr_center_layout_iv_margin_top">10dp</dimen>
-    <dimen name="pr_center_layout_iv_margin_bottom">10dp</dimen>
     <dimen name="pr_center_layout_sv_margin_top">130dp</dimen>
-    <dimen name="pr_center_layout_tv_padding_right">20dp</dimen>
-    <dimen name="pr_center_layout_tv_padding_left">20dp</dimen>
-    <dimen name="pr_center_layout_tv_text_size">20sp</dimen>
-    <dimen name="pr_center_layout_tv_line_spacing_extra">10dp</dimen>
-    <dimen name="pr_moral_button_margin_bottom">10dp</dimen>
-    <dimen name="pr_moral_button_padding_right">10dp</dimen>
+    <dimen name="pr_center_tv_moral_margin_left">20dp</dimen>
+    <dimen name="pr_center_tv_moral_margin_right">20dp</dimen>
+    <dimen name="pr_center_tv_moral_text_size">20sp</dimen>
+    <dimen name="pr_center_button_moral_text_size">14sp</dimen>
     <dimen name="pr_moral_button_padding_left">10dp</dimen>
+    <dimen name="pr_moral_button_padding_right">10dp</dimen>
+    <dimen name="pr_moral_button_margin_bottom">10dp</dimen>
     <dimen name="pr_bottom_layout_margin_bottom">50dp</dimen>
     <dimen name="pr_bottom_layout_tv_back_to_story_text_size">25sp</dimen>
     <dimen name="pr_bottom_layout_tv_back_to_story_margin_left">10dp</dimen>
     <dimen name="pr_bottom_layout_tv_p_f_margin_left">20dp</dimen>
     <dimen name="pr_bottom_layout_tv_p_f_text_size">25sp</dimen>
     <dimen name="pr_bottom_layout_tv_p_f_margin_right">10dp</dimen>
+    <dimen name="pr_header_layout_padding">10dp</dimen>
+    <dimen name="pr_center_layout_tv_line_spacing_extra">10dp</dimen>
     <!--End ActivityPresidentReveal dimens starts-->
 
+
+    <!--<dimen name="pr_center_layout_tv_padding_right">20dp</dimen>-->
+    <!--<dimen name="pr_center_layout_tv_padding_left">20dp</dimen>-->
+    <!--<dimen name="pr_center_layout_tv_text_size">20sp</dimen>-->
+
     <!--ActivityReadStory dimens starts-->
+    <dimen name="read_story_tv_heading_text_size">32sp</dimen>
     <dimen name="read_story_buttons_layout_padding">5dp</dimen>
+    <!--<dimen name="read_story_button_quick_read_padding">5dp</dimen>-->
     <dimen name="read_story_tv_title_margin_top">18dp</dimen>
     <dimen name="read_story_tv_title_text_size">32sp</dimen>
     <dimen name="read_story_tv_title_line_spacing_extra">10dp</dimen>
@@ -82,7 +89,6 @@
     <dimen name="read_story_tv_quick_read_margin_right">15dp</dimen>
     <dimen name="read_story_nested_scroll_view_margin_bottom">40dp</dimen>
     <dimen name="read_story_tv_heading_margin_top">18dp</dimen>
-    <dimen name="read_story_tv_heading_text_size">32sp</dimen>
     <dimen name="read_story_tv_heading_line_spacing_extra">10dp</dimen>
     <dimen name="read_story_tv_story_line_spacing_extra">10dp</dimen>
     <dimen name="read_story_tv_story_margin_left">15dp</dimen>
@@ -95,6 +101,10 @@
     <dimen name="read_story_seekbar_margin_left">3dp</dimen>
     <dimen name="read_story_seekbar_margin_right">3dp</dimen>
     <dimen name="read_story_tv_song_duration_margin_bottom">2dp</dimen>
+
+    <dimen name="read_story_button_pause_margin_left">5dp</dimen>
+    <dimen name="read_story_button_rewind_margin_left">5dp</dimen>
+    <dimen name="read_story_button_rewind_margin_right">5dp</dimen>
     <!--End ActivityReadStory dimens starts-->
 
     <!--ActivitySettings dimens starts-->

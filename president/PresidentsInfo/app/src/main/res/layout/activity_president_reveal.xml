@@ -14,30 +14,40 @@
         android:padding="@dimen/pr_header_layout_padding"
         android:background="@color/colorPRHeaderBackground">
 
-        <ImageView
-            android:id="@+id/iv_left_star"
-            style="@style/ActivitPRHeaderStarImageView"
-            android:layout_marginLeft="@dimen/pr_header_layout_iv_margin_left"
-            />
-
-        <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
-            android:id="@+id/tv_header"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="PRESIDERNT NAME"
-            style="@style/ActivitPRTextColor"
-            android:textSize="@dimen/pr_header_layout_tv_text_size"
-            app:boldFont="mrseavesot-bold.ttf" />
+            android:weightSum="10"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_right_star"
-            style="@style/ActivitPRHeaderStarImageView"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/pr_header_layout_iv_margin_right"/>
+            <ImageView
+                android:layout_weight="2"
+                android:id="@+id/iv_left_star"
+                style="@style/ActivitPRHeaderStarImageView"
+                android:layout_marginLeft="@dimen/pr_header_layout_iv_margin_left" />
+
+            <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
+                android:id="@+id/tv_header"
+                android:layout_width="wrap_content"
+                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="PRESIDERNT NAME"
+                style="@style/ActivitPRTextColor"
+                android:textSize="@dimen/pr_header_layout_tv_text_size"
+                app:boldFont="mrseavesot-bold.ttf" />
+
+            <ImageView
+                android:id="@+id/iv_right_star"
+                android:layout_weight="2"
+                style="@style/ActivitPRHeaderStarImageView"
+                android:layout_marginRight="@dimen/pr_header_layout_iv_margin_right"/>
+
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -73,7 +83,7 @@
                 android:background="@color/colorPRTextViewMoralBackground"
                 android:lineSpacingExtra="@dimen/pr_center_layout_tv_line_spacing_extra"
                 android:scrollbars="vertical"
-               android:visibility="gone"
+                android:visibility="gone"
                 app:boldFont="mrseavesot-bold.ttf" />
         </ScrollView>
     </RelativeLayout>
@@ -103,14 +113,14 @@
         <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
             android:id="@+id/tv_back_story"
             android:layout_alignParentLeft="true"
-            android:text="@string/string_p_r_tv_back_to_story"
+
             style="@style/ActivitPRBottomTextView"
             android:layout_marginLeft="@dimen/pr_bottom_layout_tv_back_to_story_margin_left"
             app:italicFont="mrseavesot-italic.ttf" />
 
         <ImageView
             android:id="@+id/iv_star_bottom"
-           style="@style/ActivitPRHeaderStarImageView"
+            style="@style/ActivitPRHeaderStarImageView"
             android:layout_centerInParent="true"
             />
 

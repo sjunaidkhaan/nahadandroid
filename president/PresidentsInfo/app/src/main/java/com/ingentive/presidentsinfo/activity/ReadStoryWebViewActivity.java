@@ -263,8 +263,7 @@ public class ReadStoryWebViewActivity extends Activity {
                     } else {
                         Toast.makeText(ReadStoryWebViewActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                     }
-                }
-                else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
+                } else if (presidentsModel != null && presidentInfo.getTimeStamp() < presidentsModel.getTimeStamp()) {
                     conn = NetworkChangeReceiver.getConnectivityStatus(ReadStoryWebViewActivity.this);
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         mediaPlayer.stop();
@@ -622,7 +621,6 @@ public class ReadStoryWebViewActivity extends Activity {
                             mPresInfoNew.presFact = presFact;
                             mPresInfoNew.timeStamp = timeStamp;
                             try {
-
                                 downloadImages(new URL(presImageUrl), presId + "_president_" + presName + ".png");
                                 downloadImages(new URL(presSignatureImageUrl), presId + "_sign_" + presName + ".png");
                                 downloadImages(new URL(backgroundImageUrl), presId + "_bg_" + presName + ".png");
