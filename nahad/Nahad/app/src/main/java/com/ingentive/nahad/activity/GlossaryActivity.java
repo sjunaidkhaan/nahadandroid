@@ -49,7 +49,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
     private String email;
     private String token;
     private String urlToken = "&token=";
-    private String urlGlossary = "http://pdfcms.azurewebsites.net/api/glossaries/?email=";
+    private String urlGlossary = "http://nahad.systemsinteractive.ca/api/glossaries/?email=";
     private ProgressDialog pDialog;
     private List<GlossaryModel> glossaryModelList = new ArrayList<GlossaryModel>();
     private List<GlossaryModel> glossaryList = new ArrayList<GlossaryModel>();

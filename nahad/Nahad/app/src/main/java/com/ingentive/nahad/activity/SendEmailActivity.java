@@ -62,7 +62,8 @@ public class SendEmailActivity extends Activity {
     private TextView tvDone;
     private Button btnSend;
     private EditText etEmail, etSubject, etBody, etName;
-    private String urlSendEmail = "http://pdfcms.azurewebsites.net/api/files/sendemail/?email=";
+    //    private String urlSendEmail = "http://pdfcms.azurewebsites.net/api/files/sendemail/?email=";
+    private String urlSendEmail = "http://nahad.systemsinteractive.ca/api/files/sendemail/?email=";
     private String email;
     private String token;
     private String urlToken = "&token=";

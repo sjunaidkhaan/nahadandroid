@@ -20,6 +20,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -34,6 +35,7 @@ import com.ingentive.nahad.activity.MainMenuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by PC on 17-06-2016.
@@ -124,6 +126,24 @@ public class TocAdapter extends BaseExpandableListAdapter {
             vhp.iv_parent.setVisibility(View.GONE);
         }
         vhp.tv_parent.setText(parentList.get(groupPosition).getName().toString());
+
+        vhp.tv_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (parentList.get(groupPosition).getTocChildrenAray().size() > 0) {
+
+                } else {
+                    Intent i = new Intent(mContext, BookInsideActivity.class);
+                    i.putExtra("book_name", bookName);
+                    i.putExtra("book_title", bookTitle);
+                    i.putExtra("file_id", fileId);
+                    i.putExtra("page_no", parentList.get(groupPosition).getPageNo());
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(i);
+                }
+            }
+        });
 
         return vi;
     }
@@ -217,13 +237,13 @@ public class TocAdapter extends BaseExpandableListAdapter {
             } else {
                 vhc = (ViewHolderChild) childView.getTag();
             }
+
             tocChildrenModel = new TocChildrenModel();
             tocChildrenModel = chldrenList.get(groupPosition);
-            //String ch_name = tocChildrenModel.getName();
+            String ch_name = tocChildrenModel.getName();
             final ImageView iv_child_chek;
             final TextView tv_child;
-            iv_child_chek = vhc.iv_child_chek;
-            tv_child = vhc.tv_child;
+
 
             if (tocChildrenModel == null) {
                 vhc.tv_child.setVisibility(View.INVISIBLE);
@@ -232,20 +252,22 @@ public class TocAdapter extends BaseExpandableListAdapter {
             }
             if (tocChildrenModel.getTocSubChildrenArray().size() > 0) {
                 vhc.iv_child.setVisibility(View.VISIBLE);
+                vhc.iv_child_chek.setVisibility(View.INVISIBLE);
             } else {
                 vhc.iv_child.setVisibility(View.INVISIBLE);
                 vhc.iv_child_chek.setVisibility(View.VISIBLE);
-                if (new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?", chldrenList.get(groupPosition).getFileId(), chldrenList.get(groupPosition).getPageNo(),chldrenList.get(groupPosition).getTopicId()).executeSingle() != null) {
-                    iv_child_chek.setBackgroundResource(R.drawable.checkbox_checked);
+                if (new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?", chldrenList.get(groupPosition).getFileId(), chldrenList.get(groupPosition).getPageNo(), chldrenList.get(groupPosition).getTopicId()).executeSingle() != null) {
+                    vhc.iv_child_chek.setBackgroundResource(R.drawable.checkbox_checked);
                 } else {
-                    iv_child_chek.setBackgroundResource(R.drawable.checkbox_unchecked);
+                    vhc.iv_child_chek.setBackgroundResource(R.drawable.checkbox_unchecked);
                 }
             }
-
+            iv_child_chek = vhc.iv_child_chek;
+            tv_child = vhc.tv_child;
             vhc.iv_child_chek.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pageNO=chldrenList.get(groupPosition).getPageNo();
+                    int pageNO = chldrenList.get(groupPosition).getPageNo();
                     if (new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?", chldrenList.get(groupPosition).getFileId(), chldrenList.get(groupPosition).getPageNo(), chldrenList.get(groupPosition).getTopicId()).executeSingle() != null) {
                         iv_child_chek.setBackgroundResource(R.drawable.checkbox_unchecked);
                         new Delete().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?", chldrenList.get(groupPosition).getFileId(), chldrenList.get(groupPosition).getPageNo(), chldrenList.get(groupPosition).getTopicId()).execute();
@@ -254,7 +276,7 @@ public class TocAdapter extends BaseExpandableListAdapter {
                         EmailSelectedTemp temp = new EmailSelectedTemp();
                         temp.fileId = chldrenList.get(groupPosition).getFileId();
                         temp.pageNo = chldrenList.get(groupPosition).getPageNo();
-                        temp.topicId=chldrenList.get(groupPosition).getTopicId();
+                        temp.topicId = chldrenList.get(groupPosition).getTopicId();
                         temp.save();
                     } else {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContentsActivity.contentsActivity);
@@ -272,14 +294,20 @@ public class TocAdapter extends BaseExpandableListAdapter {
             vhc.tv_child.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pageNo=chldrenList.get(groupPosition).getPageNo();
-                    Intent i = new Intent(mContext, BookInsideActivity.class);
-                    i.putExtra("book_name", bookName);
-                    i.putExtra("book_title", bookTitle);
-                    i.putExtra("file_id", fileId);
-                    i.putExtra("page_no", chldrenList.get(groupPosition).getPageNo());
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(i);
+                    if (chldrenList.get(groupPosition).getTocSubChildrenArray().size() > 0) {
+
+                    } else {
+                        int pageNo = chldrenList.get(groupPosition).getPageNo();
+                        Intent i = new Intent(mContext, BookInsideActivity.class);
+                        i.putExtra("book_name", bookName);
+                        i.putExtra("book_title", bookTitle);
+                        i.putExtra("file_id", fileId);
+                        i.putExtra("page_no", chldrenList.get(groupPosition).getPageNo());
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(i);
+                    }
+
+
                     //((Activity)mContext).finish();
                 }
             });
@@ -294,7 +322,7 @@ public class TocAdapter extends BaseExpandableListAdapter {
         }
 
         @Override
-        public View getChildView(int groupPosition, int childPosition,
+        public View getChildView(final int groupPositionSubChild, final int childPositionSubChild,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
             View childView = convertView;
 
@@ -313,11 +341,10 @@ public class TocAdapter extends BaseExpandableListAdapter {
             }
             final ImageView iv_sub_child_check;
             final TextView tv_sub_child;
-            iv_sub_child_check = vhsc.iv_sub_child_check;
-            tv_sub_child = vhsc.tv_sub_child;
+
             if (tocChildrenModel.getTocSubChildrenArray().size() > 0) {
                 tocSubChildrenModel = new TocSubChildrenModel();
-                tocSubChildrenModel = tocChildrenModel.getTocSubChildrenArray().get(childPosition);
+                tocSubChildrenModel = tocChildrenModel.getTocSubChildrenArray().get(childPositionSubChild);
                 String sub_ch_name = tocSubChildrenModel.getName();
                 Log.d("", "");
                 if (sub_ch_name == null) {
@@ -329,71 +356,108 @@ public class TocAdapter extends BaseExpandableListAdapter {
                     if (new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
                             tocSubChildrenModel.getFileId(),
                             tocSubChildrenModel.getPageNo(),
-                            tocChildrenModel.getTopicId()).executeSingle() != null) {
-                        iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_checked);
+                            tocSubChildrenModel.getTopicId()).executeSingle() != null) {
+                        vhsc.iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_checked);
                     } else {
-                        iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_unchecked);
+                        vhsc.iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_unchecked);
                     }
                 }
-                vhsc.iv_sub_child_check.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            }
+            iv_sub_child_check = vhsc.iv_sub_child_check;
+            tv_sub_child = vhsc.tv_sub_child;
 
-                        if (new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
+            vhsc.iv_sub_child_check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tocSubChildrenModel =new TocSubChildrenModel();
+                    tocSubChildrenModel = chldrenList.get(groupPositionSubChild).getTocSubChildrenArray().get(childPositionSubChild);
+                    if (new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
+                            tocSubChildrenModel.getFileId(),
+                            tocSubChildrenModel.getPageNo(),
+                            tocSubChildrenModel.getTopicId()).executeSingle() != null) {
+                        iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_unchecked);
+                        new Delete().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
                                 tocSubChildrenModel.getFileId(),
                                 tocSubChildrenModel.getPageNo(),
-                                tocChildrenModel.getTopicId()).executeSingle() != null) {
-                            iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_unchecked);
-                            new Delete().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
-                                    tocSubChildrenModel.getFileId(),
-                                    tocSubChildrenModel.getPageNo(),
-                                    tocSubChildrenModel.topicId).execute();
-                        } else if (new Select().all().from(EmailSelectedTemp.class).where("file_id=?", tocSubChildrenModel.getFileId()).execute().size() < 5) {
-                            iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_checked);
-                            EmailSelectedTemp temp = new EmailSelectedTemp();
-                            temp.fileId = tocSubChildrenModel.getFileId();
-                            temp.pageNo = tocSubChildrenModel.getPageNo();
-                            temp.topicId=tocSubChildrenModel.getTopicId();
-                            temp.save();
-                        } else {
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContentsActivity.contentsActivity);
-                            alertDialog.setMessage("You can select maximum 5 pages!");
-                            alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
+                                tocSubChildrenModel.topicId).execute();
+                    } else if (new Select().all().from(EmailSelectedTemp.class).where("file_id=?", tocSubChildrenModel.getFileId()).execute().size() < 5) {
+                        iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_checked);
+                        EmailSelectedTemp temp = new EmailSelectedTemp();
+                        temp.fileId = tocSubChildrenModel.getFileId();
+                        temp.pageNo = tocSubChildrenModel.getPageNo();
+                        temp.topicId=tocSubChildrenModel.getTopicId();
+                        temp.save();
+                    } else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContentsActivity.contentsActivity);
+                        alertDialog.setMessage("You can select maximum 5 pages!");
+                        alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-                            alertDialog.show();
-                        }
+                            }
+                        });
+                        alertDialog.show();
                     }
-                });
 
-                vhsc.tv_sub_child.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int pageNo=tocSubChildrenModel.getPageNo();
-                        Intent i = new Intent(mContext, BookInsideActivity.class);
-                        i.putExtra("book_name", bookName);
-                        i.putExtra("book_title", bookTitle);
-                        i.putExtra("file_id", fileId);
-                        i.putExtra("page_no", tocSubChildrenModel.getPageNo());
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mContext.startActivity(i);
-                        //((Activity)mContext).finish();
-                    }
-                });
-            }
+//                        EmailSelectedTemp model = new Select().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
+//                                tocSubChildrenModel.getFileId(),
+//                                tocSubChildrenModel.getPageNo(),
+//                                tocChildrenModel.getTopicId()).executeSingle();
+//                        if (model != null) {
+//                            iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_unchecked);
+//                            new Delete().from(EmailSelectedTemp.class).where("file_id=? AND page_no=? AND topic_id=?",
+//                                    tocSubChildrenModel.getFileId(),
+//                                    tocSubChildrenModel.getPageNo(),
+//                                    tocChildrenModel.getTopicId()).execute();
+//                        } else if (new Select().all().from(EmailSelectedTemp.class).where("file_id=?", tocSubChildrenModel.getFileId()).execute().size() < 5) {
+//                            EmailSelectedTemp temp = new EmailSelectedTemp();
+//                            temp.fileId = tocSubChildrenModel.getFileId();
+//                            temp.pageNo = tocSubChildrenModel.getPageNo();
+//                            temp.topicId = tocChildrenModel.getTopicId();
+//                            long res = temp.save();
+//                            if (res > 0) {
+//                                iv_sub_child_check.setBackgroundResource(R.drawable.checkbox_checked);
+//                            }
+//
+//
+//                        } else {
+//                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContentsActivity.contentsActivity);
+//                            alertDialog.setMessage("You can select maximum 5 pages!");
+//                            alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                }
+//                            });
+//                            alertDialog.show();
+//                        }
+                }
+            });
+
+            vhsc.tv_sub_child.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pageNo = tocSubChildrenModel.getPageNo();
+                    Intent i = new Intent(mContext, BookInsideActivity.class);
+                    i.putExtra("book_name", bookName);
+                    i.putExtra("book_title", bookTitle);
+                    i.putExtra("file_id", fileId);
+                    i.putExtra("page_no", tocSubChildrenModel.getPageNo());
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(i);
+                    //((Activity)mContext).finish();
+                }
+            });
+
             return childView;
         }
 
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            //return chldrenList.get(groupPosition).getTocSubChildrenArray().size();
-            if (chldrenList.get(groupPosition).getTocSubChildrenArray().size() == 0) {
-                return 0;
-            }
-            return 1;
+            return chldrenList.get(groupPosition).getTocSubChildrenArray().size();
+//            if (chldrenList.get(groupPosition).getTocSubChildrenArray().size() == 0) {
+//                return 0;
+//            }
+//            return 1;
         }
 
         @Override
@@ -413,6 +477,7 @@ public class TocAdapter extends BaseExpandableListAdapter {
         //gets the name of each item
         public Object getChild(int i, int i1) {
             return chldrenList.get(i).getTocSubChildrenArray().get(i1);
+
         }
 
         @Override
@@ -424,6 +489,8 @@ public class TocAdapter extends BaseExpandableListAdapter {
         public boolean hasStableIds() {
             return true;
         }
+
+
 
 
         @Override

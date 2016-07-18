@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,9 +72,9 @@ import java.util.List;
 public class MainMenuActivity extends Activity implements View.OnClickListener {
 
     //private String urlGetAllFiles = "http://pdfcms.azurewebsites.net/api/files?email=&token=";
-    private String urlAllFiles1 = "http://pdfcms.azurewebsites.net/api/files?email=";
+    private String urlAllFiles1 = "http://nahad.systemsinteractive.ca/api/files?email=";
     private String urlToken = "&token=";
-    private String urlTableOfContents = "http://pdfcms.azurewebsites.net/api/tocs/get/";
+    private String urlTableOfContents = "http://nahad.systemsinteractive.ca/api/tocs/get/";
     private ProgressDialog pDialog;
     private String email;
     private String token;
@@ -97,6 +99,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
     private List<AddFilesModel> particularList;
     private List<Integer> idsForToc;
     private List<Integer> idsForDowndload;
+    int category=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,10 +243,11 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
         iv_menu.setVisibility(View.GONE);
         listView.setVisibility(View.VISIBLE);
         listView.setAdapter(mAdapter);
-
+        this.category=category;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 new Delete().from(EmailSelectedTemp.class).where("file_id=?", particularList.get(position).getFileId()).execute();
                 book_intent = new Intent(MainMenuActivity.this, BookInsideActivity.class);
                 book_intent.putExtra("book_name", particularList.get(position).getFileName());
@@ -822,5 +826,20 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
             //progressDialog.hide();
             hidepDialog();
         }
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+       // mAdapter.notifyDataSetChanged();
+
+        particularList = new ArrayList<AddFilesModel>();
+        select = new Select();
+        particularList = select.all().from(AddFilesModel.class).where("category_id=?", this.category).execute();
+        //particularList = DatabaseHandler.getInstance(MainMenuActivity.this).getParticularCategory(category);
+        mAdapter = new MainMenuAdapter(MainMenuActivity.this, particularList, R.layout.custom_row_menu);
+        //right_layout.setBackgroundColor(0xFFFFFFFF);
+        iv_menu.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
+        listView.setAdapter(mAdapter);
     }
 }

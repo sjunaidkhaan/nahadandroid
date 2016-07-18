@@ -50,7 +50,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private ImageButton ibtnEmail, ibtnProcees;
     private EditText etEmail;
-    private String urlLogin = "http://pdfcms.azurewebsites.net/api/subscribers/auth";
+    private String urlLogin = "http://nahad.systemsinteractive.ca/api/subscribers/auth";
     private int conn = 0;
     private ProgressDialog pDialog;
     public static final String KEY_EMAIL = "email";
@@ -180,8 +180,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         protected Void doInBackground(Void... arg0) {
 
             List<NameValuePair> params = new LinkedList<NameValuePair>();
-            params.add(new BasicNameValuePair(KEY_EMAIL, mEmail +
-                    ""));
+            params.add(new BasicNameValuePair(KEY_EMAIL, mEmail + ""));
 
             ServiceHandler sh = new ServiceHandler();
             String jsonStr = sh.makeServiceCall(urlLogin, ServiceHandler.POST, params);
