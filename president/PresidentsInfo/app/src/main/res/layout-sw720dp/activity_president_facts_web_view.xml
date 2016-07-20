@@ -49,19 +49,27 @@
                             android:layout_height="fill_parent"
                             android:layout_weight="4">
 
-                            <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
-                                android:id="@+id/tv_quotation"
+                            <ScrollView
+                                android:id="@+id/childScroll"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_above="@+id/iv_sign"
                                 android:layout_marginRight="@dimen/pf_tv_quotation_margin_right"
                                 android:paddingRight="@dimen/pf_tv_quotation_margin_left"
                                 android:layout_marginTop="@dimen/pf_tv_quotation_margin_top"
                                 android:layout_marginLeft="@dimen/pf_tv_quotation_margin_left"
-                                android:layout_above="@+id/iv_sign"
-                                style="@style/ActivitPFTextColor"
-                                android:textSize="23sp"
-                                android:layout_centerHorizontal="true"
-                                app:italicFont="mrseavesot-italic.ttf" />
+                                android:layout_alignParentTop="true"
+                                android:fillViewport="true">
+
+                                <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
+                                    android:id="@+id/tv_quotation"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/ActivitPFTextColor"
+                                    android:textSize="@dimen/pf_tv_quotation_text_size"
+                                    app:italicFont="mrseavesot-italic.ttf" />
+
+                            </ScrollView>
 
                             <ImageView
                                 android:layout_alignParentBottom="true"
@@ -118,20 +126,19 @@
                         android:textSize="@dimen/pf_tv_text_size"
                         app:boldFont="mrseavesot-bold.ttf" />
 
-                    <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                    <WebView
                         android:id="@+id/tv_p_f_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/pf_tv_text_padding_left"
                         android:paddingRight="@dimen/pf_tv_text_padding_right"
                         android:lineSpacingExtra="@dimen/pf_tv_text_line_spacing_extra"
-                        app:romanFont="mrseavesot-roman.ttf"
                         android:scrollbars="vertical"
-                        android:layout_marginTop="@dimen/pf_tv_text_margin_top"
-                        style="@style/ActivitPFTextColor" />
+                        android:layout_marginBottom="20dp"
+                        android:layout_below="@+id/tv_p_f"
+                        android:layout_marginTop="@dimen/pf_tv_text_margin_top"/>
                 </LinearLayout>
             </ScrollView>
-
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

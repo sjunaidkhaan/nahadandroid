@@ -17,9 +17,7 @@
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_quick_read"
             style="@style/ActivityReadStoryTopButton"
-            android:padding="30dp"
             android:text="@string/string_read_story_button_quick_read"
-            android:textSize="28sp"
             app:romanFont="mrseavesot-roman.ttf" />
 
         <View
@@ -30,9 +28,7 @@
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_read"
             style="@style/ActivityReadStoryTopButton"
-            android:padding="30dp"
             android:text="@string/string_read_story_button_read"
-            android:textSize="28sp"
             app:romanFont="mrseavesot-roman.ttf" />
     </LinearLayout>
 
@@ -50,13 +46,14 @@
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
                 android:id="@+id/tv_title"
-                style="@style/ActivityReadStoryTextViewHeadingTitle" />
+                style="@style/ActivityReadStoryTextViewHeadingTitle"
+                app:boldFont="mrseavesot-bold.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
                 android:id="@+id/tv_quick_read"
-                style="@style/ActivityReadStoryTextViewStoryTextViewQuickRead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/ActivityReadStoryTextViewStoryTextViewQuickRead"
                 android:layout_below="@+id/tv_title"
                 app:romanFont="mrseavesot-roman.ttf" />
 
@@ -86,13 +83,14 @@
                     style="@style/ActivityReadStoryTextViewHeadingTitle"
                     app:boldFont="mrseavesot-bold.ttf" />
                 <!--android:text="THE COBRA'S BITE"-->
-                <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                <WebView
                     android:id="@+id/tv_story"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="20dp"
                     style="@style/ActivityReadStoryTextViewStoryTextViewQuickRead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:layout_below="@+id/tv_heading"
-                    app:romanFont="mrseavesot-roman.ttf" />
+                     />
 
                 <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
                     android:id="@+id/btn_presidents_facts"
@@ -104,12 +102,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/read_story_button_p_f_margin_top"
                     android:background="@drawable/settings_btn_selector"
-                    android:paddingBottom="50dp"
-                    android:paddingLeft="80dp"
-                    android:paddingRight="80dp"
-                    android:paddingTop="50dp"
                     android:text="@string/string_read_story_button_p_r"
-                    android:textSize="30sp"
                     app:romanFont="mrseavesot-roman.ttf" />
             </RelativeLayout>
 
@@ -124,8 +117,6 @@
         android:background="@drawable/header_two_bg"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="30dp"
-        android:paddingTop="30dp"
         android:visibility="gone">
 
         <ImageView
@@ -161,5 +152,6 @@
             android:layout_marginBottom="@dimen/read_story_tv_song_duration_margin_bottom"
             android:gravity="center_vertical"
             android:text="00:00:00" />
+
     </LinearLayout>
 </RelativeLayout>

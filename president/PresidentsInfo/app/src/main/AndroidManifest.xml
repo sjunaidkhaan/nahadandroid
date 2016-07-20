@@ -6,11 +6,11 @@
         android:minSdkVersion="15"
         android:targetSdkVersion="23" />
 
-    <!--<supports-screens-->
-        <!--android:anyDensity="true"-->
-        <!--android:largeScreens="true"-->
-        <!--android:normalScreens="true"-->
-        <!--android:smallScreens="true" />-->
+    <!-- <supports-screens -->
+    <!-- android:anyDensity="true" -->
+    <!-- android:largeScreens="true" -->
+    <!-- android:normalScreens="true" -->
+    <!-- android:smallScreens="true" /> -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -37,26 +37,27 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.ingentive.presidentsinfo.activeandroid.PresidentsList,
-            com.ingentive.presidentsinfo.activeandroid.StoriesList,
-             com.ingentive.presidentsinfo.activeandroid.PresidentInfo,
-             com.ingentive.presidentsinfo.activeandroid.StoryInfo,
-             com.ingentive.presidentsinfo.activeandroid.SettingsModel,
-             com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory" />
+            android:value="com.ingentive.presidentsinfo.activeandroid.PresidentsList,             com.ingentive.presidentsinfo.activeandroid.StoriesList,              com.ingentive.presidentsinfo.activeandroid.PresidentInfo,              com.ingentive.presidentsinfo.activeandroid.StoryInfo,              com.ingentive.presidentsinfo.activeandroid.SettingsModel,              com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory" />
 
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.ReadStoryActivity" />
-        <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.IntroductionActivity" />
-        <activity android:name=".activity.PresidentFactsActivity" />
-        <activity android:name=".activity.QuickReadActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReadStoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.IntroductionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PresidentFactsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.QuickReadActivity"
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".common.NetworkChangeReceiver"
@@ -67,7 +68,12 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.PresidentRevealActivity"></activity>
+        <activity android:name=".activity.PresidentRevealActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PresidentFactsWebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReadStoryWebViewActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

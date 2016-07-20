@@ -32,11 +32,11 @@ public class PresidentRevealActivity extends Activity {
     private TextView tvHeader, tvBactToStory, tvPF, tvMoral;
     private ImageView ivPresident;
     private Button btnMoral;
-    int presidentId;
-    int storyId;
-    StoryInfo storyInfo;
+    private int presidentId;
+    private int storyId;
+    private StoryInfo storyInfo;
     private String folder_main_images = "Presidents_Stories/Images";
-    int textSize ;
+    private int textSize ;
     private SettingsModel settingsModel;
 
     @Override
@@ -64,6 +64,7 @@ public class PresidentRevealActivity extends Activity {
         ivPresident = (ImageView) findViewById(R.id.iv_president);
         btnMoral = (Button) findViewById(R.id.btn_moral);
         tvBactToStory.setText("< Back to Story");
+        tvPF.setText("Presidential Fact >");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             presidentId = extras.getInt("president_id");
@@ -88,8 +89,7 @@ public class PresidentRevealActivity extends Activity {
             public void onClick(View v) {
                 if(!storyInfo.getStoryMoral().isEmpty()){
                     tvMoral.setVisibility(View.VISIBLE);
-                    //tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
-                    tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral(), null, new UlTagHandler()));
+                    tvMoral.setText(Html.fromHtml(storyInfo.getStoryMoral()));
                     tvMoral.setTextSize(textSize);
                 }
             }
@@ -97,7 +97,7 @@ public class PresidentRevealActivity extends Activity {
         tvBactToStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(PresidentRevealActivity.this,ReadStoryActivity.class);
+                Intent i=new Intent(PresidentRevealActivity.this,ReadStoryWebViewActivity.class);
                 i.putExtra("story_id",storyInfo.getStoryId());
                 startActivity(i);
                 finish();
@@ -106,7 +106,7 @@ public class PresidentRevealActivity extends Activity {
         tvPF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(PresidentRevealActivity.this,PresidentFactsActivity.class);
+                Intent i=new Intent(PresidentRevealActivity.this,PresidentFactsWebViewActivity.class);
                 i.putExtra("president_id",storyInfo.getPresidentId());
                 startActivity(i);
                 finish();
@@ -122,14 +122,6 @@ public class PresidentRevealActivity extends Activity {
             e.getMessage();
             Log.d("", "" + e.getMessage());
             return null;
-        }
-    }
-    public class UlTagHandler implements Html.TagHandler{
-        @Override
-        public void handleTag(boolean opening, String tag, Editable output,
-                              XMLReader xmlReader) {
-            //if(tag.equals("ul") && !opening) output.append("\n");
-           // if(tag.equals("li") && opening) output.append("\n\t•");
         }
     }
 }

@@ -211,25 +211,25 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                             new getStoryInfo(storyId, storyInfo.getTimeStamp()).execute();
                         } else {
-                            intent = new Intent(SettingsActivity.this, ReadStoryActivity.class);
+                            intent = new Intent(SettingsActivity.this, ReadStoryWebViewActivity.class);
                             intent.putExtra("story_id", storyId);
                             startActivity(intent);
                             finish();
                         }
                     } else {
-                        intent = new Intent(SettingsActivity.this, ReadStoryActivity.class);
+                        intent = new Intent(SettingsActivity.this, ReadStoryWebViewActivity.class);
                         intent.putExtra("story_id", storyId);
                         startActivity(intent);
                         finish();
                     }
                 } else {
                     if (from.equals("president")) {
-                        Intent i = new Intent(SettingsActivity.this, PresidentFactsActivity.class);
+                        Intent i = new Intent(SettingsActivity.this, PresidentFactsWebViewActivity.class);
                         i.putExtra("president_id", presidentId);
                         startActivity(i);
                         finish();
                     } else {
-                        Intent i = new Intent(SettingsActivity.this, ReadStoryActivity.class);
+                        Intent i = new Intent(SettingsActivity.this, ReadStoryWebViewActivity.class);
                         i.putExtra("story_id", storyId);
                         startActivity(i);
                         finish();
@@ -337,7 +337,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 StoryInfo sinfo = new StoryInfo();
                 sinfo = new Select().from(StoryInfo.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
                 if (sinfo != null) {
-                    Intent intent = new Intent(SettingsActivity.this, ReadStoryActivity.class);
+                    Intent intent = new Intent(SettingsActivity.this, ReadStoryWebViewActivity.class);
                     intent.putExtra("story_id", sinfo.getStoryId());
                     startActivity(intent);
                 }
@@ -398,7 +398,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             storyInfo = new StoryInfo();
             storyInfo = new Select().from(StoryInfo.class).where("story_id=?", info.getStoryId()).executeSingle();
             if (storyInfo != null) {
-                Intent intent = new Intent(SettingsActivity.this, ReadStoryActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, ReadStoryWebViewActivity.class);
                 intent.putExtra("story_id", storyInfo.getStoryId());
                 startActivity(intent);
             }

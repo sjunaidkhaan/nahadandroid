@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PresidentsInfo</string>
+    <string name="app_name">President Revealed</string>
     <string name="credits">Credits</string>
     <string name="p_f">Presidential Facts</string>
     <string name="contents">Contents</string>
@@ -7,31 +7,39 @@
     <string name="introduction">Introduction</string>
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
 
-
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-
     <string name="nav_item_contacts">CONTACTS</string>
     <string name="nav_item_qr_history">QR HISTORY</string>
     <string name="nav_item_profile">PROFILE</string>
     <string name="nav_item_settings">SETTINGS</string>
 
-<string name="html1">
-        <![CDATA[
-        ]]>
-    </string>
+    <string name="string_p_f">PRESIDENTIAL FACTS</string>
+    <string name="string_p_r_moral_button">THE MORAL OF THIS STORY</string>
+    <string name="string_p_r_tv_back_to_story">Back to Story</string>
+    <string name="string_p_r_tv_p_f">Presidential Fact</string>
+    <string name="string_read_story_button_quick_read">Quick Read</string>
+    <string name="string_read_story_button_read">Read</string>
+    <string name="string_read_story_button_p_r"> PRESIDENT REVEALED</string>
+    <string name="string_settings_tv_settings">SETTINGS</string>
+    <string name="string_settings_tv_font_size">FONT SIZE</string>
+    <string name="string_settings_button_small">SMALL</string>
+    <string name="string_settings_button_medium">MEDIUM</string>
+    <string name="string_settings_button_large">LARGE</string>
+    <string name="string_settings_tv_randomize">TURN RANDOMIZATION</string>
+    <string name="string_settings_button_on">ON</string>
+    <string name="string_settings_button_off">OFF</string>
 
-    <!--<string name="nav_item_section">Section</string>-->
-
-    <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_contacts</item>
         <item>@string/nav_item_qr_history</item>
         <item>@string/nav_item_profile</item>
         <item>@string/nav_item_settings</item>
-        <!--<item>@string/nav_item_section</item>-->
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
+
+
+

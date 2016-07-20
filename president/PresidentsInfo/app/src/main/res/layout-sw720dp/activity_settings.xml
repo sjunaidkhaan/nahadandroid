@@ -9,145 +9,101 @@
 
     <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
         android:id="@+id/tv_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/settings_layout_margin_top"
-        android:gravity="center_horizontal"
-        android:text="SETTINGS"
-        android:textColor="#731c12"
+        style="@style/ActivitySettingsTextView"
+        android:layout_marginTop="@dimen/settings_tv_settings_margin_top"
+        android:text="@string/string_settings_tv_settings"
+        android:textColor="@color/colorTextViewSettings"
         app:boldFont="mrseavesot-bold.ttf"
-        android:textSize="80sp" />
+        android:textSize="@dimen/settings_tv_settings_text_size"/>
 
     <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
         android:id="@+id/tv_font_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/ActivitySettingsTextView"
         android:layout_below="@+id/tv_settings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:gravity="center_horizontal"
-        android:text="FONT SIZE"
+        android:layout_marginTop="@dimen/settings_tv_font_layout_margin_top"
+        android:text="@string/string_settings_tv_font_size"
         app:boldFont="mrseavesot-bold.ttf"
-        android:textColor="#455676"
-        android:textSize="60sp" />
+        android:textColor="@color/colorTextViewFontSize"
+        android:textSize="@dimen/settings_tv_font_size_text_size" />
 
     <LinearLayout
         android:id="@+id/font_layout"
-        android:layout_width="@dimen/settings_layout_margin_width"
-        android:layout_height="@dimen/settings_layout_margin_height"
         android:layout_below="@+id/tv_font_size"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:gravity="center_horizontal"
+        style="@style/ActivitySettingsFontRandomizeLayoutButtonBackToStory"
+        android:layout_marginTop="@dimen/settings_font_layout_margin_top"
+        android:layout_marginLeft="@dimen/settings_font_layout_margin_left"
+        android:layout_marginRight="@dimen/settings_font_layout_margin_right"
         android:orientation="horizontal"
         android:weightSum="3">
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/settings_btn_selector"
-            android:text="SMALL"
-            android:textSize="30sp"
+            style="@style/ActivitySettingsFontSizeRandomizeButtons"
             app:romanFont="mrseavesot-roman.ttf"
-            android:textColor="@android:color/white" />
+            android:text="@string/string_settings_button_small"/>
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:layout_toRightOf="@+id/btn_small"
             android:id="@+id/btn_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/settings_btn_selector"
-            android:text="MEDIUM"
-            android:textSize="30sp"
-            app:romanFont="mrseavesot-bold.ttf"
-            android:textColor="@android:color/white" />
+            style="@style/ActivitySettingsFontSizeRandomizeButtons"
+            android:layout_marginLeft="@dimen/settings_button_medium_margin_left"
+            android:layout_marginRight="@dimen/settings_button_medium_margin_right"
+            android:text="@string/string_settings_button_medium"
+            app:romanFont="mrseavesot-roman.ttf"/>
 
-        <com.ingentive.presidentsinfo.customview.CustomButtonBoldFont
+        <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:layout_toRightOf="@+id/btn_medium"
             android:id="@+id/btn_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/settings_btn_selector"
-            android:text="LARGE"
-            android:textSize="30sp"
-            android:layout_weight="1"
-            app:romanFont="mrseavesot-roman.ttf"
-            android:textColor="@android:color/white" />
+            style="@style/ActivitySettingsFontSizeRandomizeButtons"
+            android:text="@string/string_settings_button_large"
+            app:romanFont="mrseavesot-roman.ttf"/>
     </LinearLayout>
 
     <com.ingentive.presidentsinfo.customview.CustomTextViewBoldFont
         android:id="@+id/tv_randomization"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/ActivitySettingsTextView"
         android:layout_below="@+id/font_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:gravity="center_horizontal"
-        android:text="TURN RANDOMIZATION"
+        android:layout_marginTop="@dimen/settings_tv_randomize_margin_top"
+        android:text="@string/string_settings_tv_randomize"
         app:boldFont="mrseavesot-bold.ttf"
-        android:textColor="#455676"
-        android:textSize="50sp" />
+        android:textColor="@color/colorTextViewRandomization"
+        android:textSize="@dimen/settings_tv_randomize_text_size" />
 
     <LinearLayout
         android:id="@+id/randomization_layout"
-        android:layout_width="@dimen/settings_layout_margin_width"
-        android:layout_height="@dimen/settings_layout_margin_height"
+        style="@style/ActivitySettingsFontRandomizeLayoutButtonBackToStory"
         android:layout_below="@+id/tv_randomization"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="120dp"
-        android:layout_marginLeft="120dp"
-        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/settings_tv_randomization_layout_margin_top"
+        android:layout_marginRight="@dimen/settings_tv_randomization_layout_margin_right"
+        android:layout_marginLeft="@dimen/settings_tv_randomization_layout_margin_left"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_on"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:background="@drawable/settings_btn_selector"
-            android:text="ON"
-            android:textSize="30sp"
-            app:romanFont="mrseavesot-roman.ttf"
-            android:layout_weight="1"
-            android:textColor="@android:color/white" />
+            style="@style/ActivitySettingsFontSizeRandomizeButtons"
+            android:layout_marginRight="@dimen/settings_button_on_margin_right"
+            android:text="@string/string_settings_button_on"
+            app:romanFont="mrseavesot-roman.ttf"/>
 
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_off"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:background="@drawable/settings_btn_selector"
-            android:text="OFF"
-            android:textSize="30sp"
-            android:layout_weight="1"
-            app:romanFont="mrseavesot-roman.ttf"
-            android:textColor="@android:color/white" />
+            style="@style/ActivitySettingsFontSizeRandomizeButtons"
+            android:layout_marginLeft="@dimen/settings_button_off_margin_left"
+            android:text="@string/string_settings_button_off"
+            app:romanFont="mrseavesot-roman.ttf" />
     </LinearLayout>
 
     <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
-        android:layout_marginTop="60dp"
-        android:layout_below="@+id/randomization_layout"
         android:id="@+id/btn_back_to_story"
-        android:layout_width="@dimen/settings_layout_margin_width"
-        android:layout_height="@dimen/settings_layout_margin_height"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/settings_button_back_to_story_margin_top"
+        android:layout_below="@+id/randomization_layout"
+        style="@style/ActivitySettingsFontRandomizeLayoutButtonBackToStory"
         android:background="@drawable/settings_btn_selector"
-        android:text="Back To Story"
-        android:layout_marginLeft="140dp"
-        android:layout_marginRight="140dp"
-        app:boldFont="mrseavesot-roman.ttf"
-        android:textColor="@android:color/white" />
+        android:text="@string/string_p_r_tv_back_to_story"
+        android:layout_marginLeft="@dimen/settings_button_back_to_story_margin_left"
+        android:layout_marginRight="@dimen/settings_button_back_to_story_margin_right"
+        app:romanFont="mrseavesot-roman.ttf"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/settings_button_text_size"/>
 </RelativeLayout>

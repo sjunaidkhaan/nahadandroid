@@ -86,13 +86,12 @@
                     style="@style/ActivityReadStoryTextViewHeadingTitle"
                     app:boldFont="mrseavesot-bold.ttf" />
                 <!--android:text="THE COBRA'S BITE"-->
-                <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
+                <WebView
                     android:id="@+id/tv_story"
                     style="@style/ActivityReadStoryTextViewStoryTextViewQuickRead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/tv_heading"
-                    app:romanFont="mrseavesot-roman.ttf" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_heading" />
 
                 <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
                     android:id="@+id/btn_presidents_facts"

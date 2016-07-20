@@ -59,10 +59,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageButton ibtnHome;
     private RelativeLayout relativeLayout, creditsLayout;
     private ListView listView;
-    private TextAdapter mAdapter;
     private PresidentsListAdapter presidentsListAdapter;
-    private TextModel model = new TextModel();
-    private List<TextModel> list = new ArrayList<TextModel>();
     private ProgressDialog mProgressDialog;
     private int conn = 0;
     private StoriesListAdapter storiesListAdapter;
@@ -75,17 +72,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private List<StoriesList> storiesLists;
     private StoryInfo storyInfo;
     private PresidentInfo presidentInfo;
-    private Select select;
-    String dwnload_file_path = "http://vprbbc.streamguys.net/vprbbc24.mp3";
-    private ProgressDialog pdialog;
     private String folder_main = "Presidents_Stories";
     private String folder_main_images = "Presidents_Stories/Images";
-    //private PresidentsList presidentsListModel;
     SharedPreferences sharedpreferences;
     private String MyPREFERENCES = "MyPrefs";
-    private SharedPreferences.Editor editor;
-    private int firstStoryId = 0;
-    String timeStamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,41 +181,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                     new getFirstStory().execute();
                 } else if (presTSInFirstStory != null) {
-                    Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
+                    Intent inte = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
                     inte.putExtra("story_id", presTSInFirstStory.getsId());
                     startActivity(inte);
                 }else {
                     Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
                 }
-
-
-//                storyInfo = new Select().from(StoryInfo.class).where("story_id=?", id).executeSingle();
-//                if (storyInfo != null) {
-//                    StoriesList storiesList = new StoriesList();
-//                    storiesList = new Select().from(StoriesList.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
-//                    if (storiesList != null && storiesList.getTimeStamp() < storyInfo.getTimeStamp()) {
-//                        conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
-//                        if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-//                            new getStoryInfo(storyInfo.getStoryId(), storyInfo.getTimeStamp()).execute();
-//                        } else {
-//                            Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
-//                            inte.putExtra("story_id", storyInfo.getStoryId());
-//                            startActivity(inte);
-//                        }
-//                    } else {
-//                        Intent inte = new Intent(MainActivity.this, ReadStoryActivity.class);
-//                        inte.putExtra("story_id", storyInfo.getStoryId());
-//                        startActivity(inte);
-//                    }
-//                } else {
-//                    conn = NetworkChangeReceiver.getConnectivityStatus(MainActivity.this);
-//                    if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
-//                        new getFirstStory().execute();
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "Please make sure, your network connection is ON ", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-
                 break;
             case R.id.ibtn_home:
                 relativeLayout.setVisibility(View.VISIBLE);
@@ -282,12 +243,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         new getPresidentInfo(presId, presidentInfo.getTimeStamp()).execute();
                     } else {
-                        Intent intent = new Intent(MainActivity.this, PresidentFactsActivity.class);
+                        Intent intent = new Intent(MainActivity.this, PresidentFactsWebViewActivity.class);
                         intent.putExtra("president_id", presId);
                         startActivity(intent);
                     }
                 } else {
-                    Intent intent = new Intent(MainActivity.this, PresidentFactsActivity.class);
+                    Intent intent = new Intent(MainActivity.this, PresidentFactsWebViewActivity.class);
                     intent.putExtra("president_id", presId);
                     startActivity(intent);
                 }
@@ -334,12 +295,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     if (conn == NetworkChangeReceiver.TYPE_MOBILE || conn == NetworkChangeReceiver.TYPE_WIFI) {
                         new getStoryInfo(storyId, storyInfo.getTimeStamp()).execute();
                     } else {
-                        Intent intent = new Intent(MainActivity.this, ReadStoryActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
                         intent.putExtra("story_id", storyId);
                         startActivity(intent);
                     }
                 } else {
-                    Intent intent = new Intent(MainActivity.this, ReadStoryActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
                     intent.putExtra("story_id", storyId);
                     startActivity(intent);
                 }
@@ -376,8 +337,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
-                    //String status = jsonObj.getString("Success");
-                    //JSONArray status = jsonObj.getJSONArray("Success");
                     JSONObject statusObj = jsonObj.getJSONObject("Success");
                     String code = statusObj.getString("code");
                     String content = statusObj.getString("content");
@@ -540,10 +499,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         int timeStamp = Integer.parseInt(data.getString("timestamp"));
                         int prestTmeStamp = Integer.parseInt(data.getString("president_timestamp"));
 
-//                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//                        editor = sharedpreferences.edit();
-//                        editor.putInt("first_story_id", sId);
-//                        editor.commit();
                         PresTSInFirstStory firstStory=new PresTSInFirstStory();
                         firstStory=new Select().from(PresTSInFirstStory.class).executeSingle();
                         if(firstStory==null){
@@ -716,7 +671,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 StoryInfo sinfo = new StoryInfo();
                 sinfo = new Select().from(StoryInfo.class).where("story_id=?", storyInfo.getStoryId()).executeSingle();
                 if (sinfo != null) {
-                    Intent intent = new Intent(MainActivity.this, ReadStoryActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
                     intent.putExtra("story_id", sinfo.getStoryId());
                     startActivity(intent);
                 }
@@ -828,7 +783,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         StoryInfo storyInfo = new StoryInfo();
         storyInfo = new Select().from(StoryInfo.class).orderBy("story_id ASC").executeSingle();
         if (storyInfo != null) {
-            Intent intent = new Intent(MainActivity.this, ReadStoryActivity.class);
+            Intent intent = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
             intent.putExtra("story_id", storyInfo.getStoryId());
             startActivity(intent);
         }
@@ -859,7 +814,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 // downlod the file
                 InputStream input = new BufferedInputStream(url_.openStream());
-               //Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "NAHAD_PDF" + File.separator + bookName;
                 OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator  + folder_main + File.separator+ info.getStoryAudioName());
 
                 byte data[] = new byte[1024];
@@ -889,7 +843,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             storyInfo = new StoryInfo();
             storyInfo = new Select().from(StoryInfo.class).where("story_id=?", info.getStoryId()).executeSingle();
             if (storyInfo != null) {
-                Intent intent = new Intent(MainActivity.this, ReadStoryActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReadStoryWebViewActivity.class);
                 intent.putExtra("story_id", info.getStoryId());
                 startActivity(intent);
             }
@@ -929,7 +883,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             PresidentInfo pInfo = new PresidentInfo();
             pInfo = new Select().from(PresidentInfo.class).where("president_id=?", info.getPresId()).executeSingle();
             if (pInfo != null) {
-                Intent intent = new Intent(MainActivity.this, PresidentFactsActivity.class);
+                Intent intent = new Intent(MainActivity.this, PresidentFactsWebViewActivity.class);
                 intent.putExtra("president_id", pInfo.getPresId());
                 startActivity(intent);
             }
@@ -941,13 +895,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         try {
             URLConnection conexion = url_.openConnection();
             conexion.connect();
-            // this will be useful so that you can show a tipical 0-100% progress bar
-            int lenghtOfFile = conexion.getContentLength();
-
             // downlod the file
             InputStream input = new BufferedInputStream(url_.openStream());
             OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator  + folder_main_images + File.separator+ imageName);
-            //OutputStream output = new FileOutputStream("/sdcard/" + folder_main_images + "/" + imageName);
 
             byte data[] = new byte[1024];
 

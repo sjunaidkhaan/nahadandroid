@@ -18,23 +18,19 @@
             android:id="@+id/layout_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginBottom="@dimen/main_credits_linear_layouts_margin_bottom"
+            android:layout_marginTop="@dimen/main_credits_linear_layouts_margin_top"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="JOHN ADAMS ~ "
-                android:textColor="@android:color/white"
                 app:romanFont="mrseavesot-roman.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="American History Guild Founder"
-                android:textColor="@android:color/white"
                 app:italicFont="mrseavesot-italic.ttf" />
         </LinearLayout>
 
@@ -43,22 +39,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_one"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="@dimen/main_credits_linear_layouts_margin_bottom"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="WILLIAM POTTER ~ "
-                android:textColor="@android:color/white"
                 app:romanFont="mrseavesot-roman.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="Chief Historian and Narrator"
-                android:textColor="@android:color/white"
                 app:italicFont="mrseavesot-italic.ttf" />
         </LinearLayout>
 
@@ -67,22 +59,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_two"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="@dimen/main_credits_linear_layouts_margin_bottom"
             android:gravity="center"
             android:orientation="horizontal">
-
             <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="ZACH FRANZEN ~ "
-                android:textColor="@android:color/white"
                 app:romanFont="mrseavesot-roman.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="Illustrator"
-                android:textColor="@android:color/white"
                 app:italicFont="mrseavesot-italic.ttf" />
         </LinearLayout>
 
@@ -91,34 +78,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_three"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="@dimen/main_credits_linear_layout_four_margin_bottom"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewRomanFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="J.ARRON GREENE ~ "
-                android:textColor="@android:color/white"
                 app:romanFont="mrseavesot-roman.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ActivitMainCreditsLayoutTextView"
                 android:text="Creative Director"
-                android:textColor="@android:color/white"
                 app:italicFont="mrseavesot-italic.ttf" />
         </LinearLayout>
 
         <com.ingentive.presidentsinfo.customview.CustomTextViewItalicFont
             android:id="@+id/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ActivitMainCreditsLayoutTextView"
             android:layout_below="@+id/layout_four"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="To learn more please visit us at"
-            android:textColor="@android:color/white"
             app:italicFont="mrseavesot-italic.ttf" />
 
         <ImageView
@@ -127,8 +108,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="@dimen/main_credits_iv_margin_left"
+            android:layout_marginRight="@dimen/main_credits_iv_margin_right"
             android:gravity="center"
             android:src="@drawable/credits_logo" />
     </RelativeLayout>
@@ -147,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="@dimen/main_listview_margin_top"
             android:divider="#00000000"
             android:visibility="gone" />
 
@@ -161,27 +142,14 @@
 
             <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
                 android:id="@+id/btn_intro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/main_top_button_margin"
-                android:layout_marginRight="@dimen/main_top_button_margin"
-                android:layout_weight="1"
-                android:background="@drawable/button_bg"
-                android:gravity="center"
+                style="@style/ActivitMainTopButton"
                 android:text="@string/introduction"
-                android:textColor="@android:color/white"
                 app:romanFont="mrseavesot-roman.ttf" />
 
             <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
                 android:id="@+id/btn_read_story"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/main_top_button_margin"
-                android:layout_marginRight="@dimen/main_top_button_margin"
-                android:layout_weight="1"
-                android:background="@drawable/button_bg"
+                style="@style/ActivitMainTopButton"
                 android:text="@string/read_first_story"
-                android:textColor="@android:color/white"
                 app:romanFont="mrseavesot-roman.ttf" />
         </LinearLayout>
     </RelativeLayout>
@@ -207,64 +175,44 @@
             android:src="@drawable/icon_home" />
         <View
             android:id="@+id/view1"
-            android:layout_marginLeft="5dp"
-            android:layout_width="0.1dp"
-            android:layout_height="fill_parent"
-            android:background="@android:color/white"
+            android:layout_marginLeft="@dimen/main_bottom_layout_view_margin_left"
+            style="@style/ActivitMainView"
             android:layout_toRightOf="@+id/ibtn_home"
             />
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_contents"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            style="@style/ActivitMainBottomButton"
             android:layout_toRightOf="@+id/view1"
-            android:paddingLeft="@dimen/main_bottom_button_margin"
-            android:paddingRight="@dimen/main_bottom_button_margin"
+            android:paddingLeft="@dimen/main_bottom_button_padding_left"
+            android:paddingRight="@dimen/main_bottom_button_padding_right"
             android:layout_weight="1.4"
-            android:background="@drawable/bottom_bar_buttons_main"
             android:text="@string/contents"
-            android:textColor="@android:color/white"
             app:romanFont="mrseavesot-roman.ttf" />
         <View
             android:id="@+id/view2"
-            android:layout_width="0.2dp"
-            android:layout_height="fill_parent"
-            android:layout_toRightOf="@+id/btn_contents"
-            android:background="@android:color/white"
-            />
+            style="@style/ActivitMainView"
+            android:layout_toRightOf="@+id/btn_contents"/>
+
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_p_f"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal"
+            style="@style/ActivitMainBottomButton"
             android:layout_weight="2.7"
-            android:background="@drawable/bottom_bar_buttons_main"
             android:paddingLeft="@dimen/main_bottom_button_margin"
             android:paddingRight="@dimen/main_bottom_button_margin"
             android:text="@string/p_f"
-            android:textColor="@android:color/white"
             app:romanFont="mrseavesot-roman.ttf" />
         <View
             android:id="@+id/view3"
-            android:layout_width="0.2dp"
-            android:layout_height="fill_parent"
+            style="@style/ActivitMainView"
             android:layout_toRightOf="@+id/btn_p_f"
-            android:background="@android:color/white"
             />
         <com.ingentive.presidentsinfo.customview.CustomButtonRomanFont
             android:id="@+id/btn_credits"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="4dp"
+            style="@style/ActivitMainBottomButton"
+            android:layout_marginRight="@dimen/main_bottom_button_credits_margint_right"
             android:layout_toRightOf="@+id/view3"
             android:layout_weight="1.4"
-            android:background="@drawable/bottom_bar_buttons_main"
             android:text="@string/credits"
-            android:textColor="@android:color/white"
             app:romanFont="mrseavesot-roman.ttf" />
     </LinearLayout>
 </RelativeLayout>

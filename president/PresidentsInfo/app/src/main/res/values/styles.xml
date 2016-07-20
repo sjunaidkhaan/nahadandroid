@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="MyCustomSmallFont" parent="AppTheme">
         <item name="android:textSize">5px</item>
     </style>
@@ -18,4 +19,139 @@
     <style name="MyCustomLargeFont" parent="AppTheme">
         <item name="android:textSize">25px</item>
     </style>
+
+    <!-- .............................ActivityMain Layouts.............................-->
+    <style name="ActivitMainTopButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/main_top_button_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/main_top_button_margin_right</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/main_button_text_size</item>
+    </style>
+
+    <style name="ActivitMainBottomButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/bottom_bar_buttons_main</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/main_button_text_size</item>
+    </style>
+
+    <style name="ActivitMainView">
+        <item name="android:layout_width">0.1dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="ActivitMainCreditsLayoutTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/main_tv_text_size</item>
+    </style>
+    <!--....................................End ActivityMain Layouts.............................-->
+
+    <!--...................................ActivityPresidentFacts Layouts........................-->
+    <style name="ActivitPFTextColor">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <!--..............................End ActivityPresidentFacts Layouts.........................-->
+
+    <!--..............................ActivityPresidentReveal Layouts............................-->
+    <style name="ActivitPRHeaderLayout">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/pr_header_layout_padding</item>
+        <item name="android:background">#14274e</item>
+    </style>
+
+    <style name="ActivitPRHeaderStarImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/ico_star</item>
+    </style>
+
+    <style name="ActivitPRTextColor">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ActivitPRBottomTextView" parent="ActivitPRTextColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="android:textSize">@dimen/pr_bottom_layout_tv_p_f_text_size</item>
+    </style>
+    <!--............................End ActivityPresidentReveal Layouts............................-->
+
+    <!--................................ActivityReadStory Layouts..................................-->
+    <style name="ActivityReadStoryTextColor">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ActivityReadStoryTopButton" parent="ActivityReadStoryTextColor">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_read_story</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <style name="ActivityReadStoryTextViewHeadingTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/read_story_tv_heading_margin_top</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:lineSpacingExtra">@dimen/read_story_tv_heading_line_spacing_extra</item>
+        <item name="android:textColor">@color/colorTextViewHeading</item>
+        <item name="android:textSize">@dimen/read_story_tv_heading_text_size</item>
+    </style>
+
+    <style name="ActivityReadStoryTextViewStoryTextViewQuickRead">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/read_story_tv_quick_read_margin_top</item>
+        <item name="android:layout_marginRight">@dimen/read_story_tv_quick_read_margin_right</item>
+        <item name="android:layout_marginLeft">@dimen/read_story_tv_quick_read_margin_left</item>
+        <item name="android:lineSpacingExtra">@dimen/read_story_tv_quick_read_line_spacing_extra
+        </item>
+        <item name="android:textColor">@color/colorTextViewQuickRead</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+    <!--............................End ActivityReadStory Layouts............................-->
+
+    <!--..............................ActivitySettings Layouts...............................-->
+    <style name="ActivitySettingsTextView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ActivitySettingsFontSizeRandomizeButtons">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/settings_btn_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/settings_button_text_size</item>
+
+    </style>
+
+    <style name="ActivitySettingsFontRandomizeLayoutButtonBackToStory">
+        <item name="android:layout_width">
+            @dimen/settings_font_randomize_layout_button_back_to_story_width
+        </item>
+        <item name="android:layout_height">
+            @dimen/settings_font_randomize_layout_button_back_to_story_height
+        </item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <!--............................End ActivitySettings Layouts...............................-->
 </resources>
