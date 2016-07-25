@@ -21,7 +21,7 @@
         app:gothamFont="ufonts.com_gotham-medium.ttf"
         android:id="@+id/tv_parent"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/iv_parent"

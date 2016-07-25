@@ -291,6 +291,24 @@ public class TocAdapter extends BaseExpandableListAdapter {
                     }
                 }
             });
+
+//            vhc.child_layout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (chldrenList.get(groupPosition).getTocSubChildrenArray().size() > 0) {
+//
+//                    } else {
+//                        int pageNo = chldrenList.get(groupPosition).getPageNo();
+//                        Intent i = new Intent(mContext, BookInsideActivity.class);
+//                        i.putExtra("book_name", bookName);
+//                        i.putExtra("book_title", bookTitle);
+//                        i.putExtra("file_id", fileId);
+//                        i.putExtra("page_no", chldrenList.get(groupPosition).getPageNo());
+//                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        mContext.startActivity(i);
+//                    }
+//                }
+//            });
             vhc.tv_child.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -306,7 +324,6 @@ public class TocAdapter extends BaseExpandableListAdapter {
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(i);
                     }
-
 
                     //((Activity)mContext).finish();
                 }
@@ -431,7 +448,20 @@ public class TocAdapter extends BaseExpandableListAdapter {
 //                        }
                 }
             });
-
+            vhsc.sub_child_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pageNo = tocSubChildrenModel.getPageNo();
+                    Intent i = new Intent(mContext, BookInsideActivity.class);
+                    i.putExtra("book_name", bookName);
+                    i.putExtra("book_title", bookTitle);
+                    i.putExtra("file_id", fileId);
+                    i.putExtra("page_no", tocSubChildrenModel.getPageNo());
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(i);
+                    //((Activity)mContext).finish();
+                }
+            });
             vhsc.tv_sub_child.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

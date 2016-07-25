@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
@@ -64,6 +65,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
     private ImageView ivLogo;
     private int conn = 0;
     private ImageView iv_menu_icon;
+    private TextView tvDataNotExist;
 
 
     @Override
@@ -140,6 +142,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
         headerLayout = findViewById(R.id.header_layout_glossary);
         //headerEmailLayout = (RelativeLayout) headerLayout.findViewById(R.id.send_email_layout);
         headerMenuLayout = (RelativeLayout) headerLayout.findViewById(R.id.menu_layout);
+        tvDataNotExist = (TextView)findViewById(R.id.tv_data_not_found);
         ivLogo = (ImageView) findViewById(R.id.logo);
        // headerMenuLayout.setOnClickListener(this);
         //headerEmailLayout.setOnClickListener(this);
@@ -225,8 +228,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
                 hidepDialog();
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
+                showData(glossaryList);
             }
             showtAlphabet(glossaryModelList);
         }
@@ -449,8 +451,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                                 }
                             }
                             hidepDialog();
-                            mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                            listView.setAdapter(mAdapter);
+                            showData(glossaryList);
                             showtAlphabet(glossaryModelList);
                         } catch (JSONException e) {
                             hidepDialog();
@@ -488,8 +489,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
+                showData(glossaryList);
                 mAdapter.notifyDataSetChanged();
                 hidepDialog();
                 break;
@@ -507,9 +507,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_c:
@@ -526,8 +524,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
+                showData(glossaryList);
                 mAdapter.notifyDataSetChanged();
                 hidepDialog();
                 break;
@@ -545,9 +542,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_e:
@@ -564,9 +559,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_f:
@@ -583,9 +576,8 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_g:
@@ -602,9 +594,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_h:
@@ -621,9 +611,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_i:
@@ -640,9 +628,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_j:
@@ -659,9 +645,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_k:
@@ -678,9 +662,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_l:
@@ -697,9 +679,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_m:
@@ -716,9 +696,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_n:
@@ -735,9 +713,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_o:
@@ -754,9 +730,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_p:
@@ -773,9 +747,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_q:
@@ -792,9 +764,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_r:
@@ -811,9 +781,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_s:
@@ -830,9 +798,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_t:
@@ -849,9 +815,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_u:
@@ -868,9 +832,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_v:
@@ -887,9 +849,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_w:
@@ -906,9 +866,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_x:
@@ -925,9 +883,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_y:
@@ -944,9 +900,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
             case R.id.btn_z:
@@ -963,9 +917,7 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
                         glossaryList.add(glossaryModel);
                     }
                 }
-                mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
-                listView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                showData(glossaryList);
                 hidepDialog();
                 break;
 //            case R.id.iv_zero_to_nine:
@@ -974,6 +926,17 @@ public class GlossaryActivity extends AppCompatActivity implements View.OnClickL
 //                listView.setAdapter(mAdapter);
 //                break;
         }
+    }
+
+    private void showData(List<GlossaryModel> glossaryList){
+        if(glossaryList.size()>0){
+            tvDataNotExist.setVisibility(View.GONE);
+        }else {
+            tvDataNotExist.setVisibility(View.VISIBLE);
+        }
+        mAdapter = new GlossaryAdapter(GlossaryActivity.this, glossaryList, R.layout.custom_row_glossary, alphabet);
+        listView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void setBcakgroundColor() {

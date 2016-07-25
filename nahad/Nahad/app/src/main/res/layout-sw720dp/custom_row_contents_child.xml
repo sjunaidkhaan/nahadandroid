@@ -1,84 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/child_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/child_layout">
+    android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/iv_child"
+    <RelativeLayout
+        android:id="@+id/images_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/add"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_child_chek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/checkbox_unchecked"
-        android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageView
+            android:id="@+id/iv_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/add"
+            android:visibility="invisible"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/iv_child_chek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/checkbox_unchecked"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_child"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/iv_child_chek"
-        android:layout_marginBottom="5dp"
-        android:textColor="#555555"
-        android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/images_layout"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#555555" />
 
 </RelativeLayout>
 
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:orientation="vertical"-->
-    <!--android:id="@+id/child_layout">-->
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="wrap_content"--><!--android:layout_height="match_parent"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:orientation="vertical"--><!--android:id="@+id/child_layout">-->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/iv_child"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="16dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_marginBottom="5dp"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:background="@drawable/checkbox_unchecked"-->
-        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+    <!--<ImageView--><!--android:id="@+id/iv_child"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginLeft="16dp"--><!--android:layout_marginTop="5dp"--><!--android:layout_marginBottom="5dp"--><!--android:layout_centerVertical="true"--><!--android:layout_gravity="center_vertical"--><!--android:background="@drawable/checkbox_unchecked"--><!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-    <!--<com.ingentive.nahad.customfont.CustomTextViewGothamFont-->
-        <!--app:gothamFont="ufonts.com_gotham-medium.ttf"-->
-        <!--android:id="@+id/tv_child"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_toRightOf="@+id/iv_child"-->
-        <!--android:layout_marginBottom="5dp"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+    <!--<com.ingentive.nahad.customfont.CustomTextViewGothamFont--><!--app:gothamFont="ufonts.com_gotham-medium.ttf"--><!--android:id="@+id/tv_child"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginTop="5dp"--><!--android:layout_toRightOf="@+id/iv_child"--><!--android:layout_marginBottom="5dp"--><!--android:textColor="@android:color/black"--><!--android:layout_gravity="center_vertical"--><!--android:layout_centerVertical="true"--><!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-<!--</RelativeLayout>-->
+    <!--</RelativeLayout>-->

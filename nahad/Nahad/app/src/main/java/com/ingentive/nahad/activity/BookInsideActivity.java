@@ -13,6 +13,7 @@ import android.os.ParcelFileDescriptor;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -658,6 +659,14 @@ public class BookInsideActivity extends Activity implements View.OnClickListener
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            System.gc();
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

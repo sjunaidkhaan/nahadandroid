@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.GlossaryActivity">
 
     <include
@@ -18,7 +18,6 @@
         android:background="@drawable/horizontal_line_copy">
 
         <com.ingentive.nahad.customfont.CustomTextViewGothamFont
-            app:gothamFont="ufonts.com_gotham-medium.ttf"
             android:id="@+id/tv_nahad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,9 +25,22 @@
             android:layout_marginLeft="15dp"
             android:text="GLOSSARY"
             android:textColor="@android:color/white"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            app:gothamFont="ufonts.com_gotham-medium.ttf" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_data_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_layout_two"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="GLOSSARY Data Not Found!"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/a_z"
@@ -36,31 +48,31 @@
         android:layout_height="32dp"
         android:layout_below="@+id/header_layout_two"
         android:orientation="horizontal"
-        android:paddingRight="5dp"
         android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:weightSum="26">
 
         <Button
             android:id="@+id/btn_a"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A"
-            style="@style/GlossaryButton"/>
+            android:text="A" />
 
         <Button
             android:id="@+id/btn_b"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="B"
-            style="@style/GlossaryButton"/>
+            android:text="B" />
 
         <Button
             android:id="@+id/btn_c"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="C" />
 
@@ -70,186 +82,185 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:text="D"
-            android:visibility="gone"
             android:background="@android:color/white"
+            android:text="D"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_e"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="E" />
 
         <Button
             android:id="@+id/btn_f"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="F" />
 
         <Button
             android:id="@+id/btn_g"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="G" />
 
         <Button
             android:id="@+id/btn_h"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="H" />
 
         <Button
             android:id="@+id/btn_i"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="I" />
 
         <Button
             android:id="@+id/btn_j"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
-            android:text="J"
-            />
+            android:text="J" />
 
         <Button
             android:id="@+id/btn_k"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="K" />
 
         <Button
             android:id="@+id/btn_l"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="L" />
 
         <Button
             android:id="@+id/btn_m"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="M" />
 
         <Button
             android:id="@+id/btn_n"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="N" />
 
         <Button
             android:id="@+id/btn_o"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="O" />
 
         <Button
             android:id="@+id/btn_p"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="P" />
 
         <Button
             android:id="@+id/btn_q"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Q"
-            style="@style/GlossaryButton"/>
+            android:text="Q" />
 
         <Button
             android:id="@+id/btn_r"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="R"
-            style="@style/GlossaryButton"/>
+            android:text="R" />
 
         <Button
             android:id="@+id/btn_s"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="S"
-            style="@style/GlossaryButton"/>
+            android:text="S" />
 
         <Button
             android:id="@+id/btn_t"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="T" />
 
         <Button
             android:id="@+id/btn_u"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="U" />
 
         <Button
             android:id="@+id/btn_v"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="V" />
 
         <Button
             android:id="@+id/btn_w"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="W" />
 
         <Button
             android:id="@+id/btn_x"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="X" />
 
         <Button
             android:id="@+id/btn_y"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="Y" />
 
         <Button
             android:id="@+id/btn_z"
+            style="@style/GlossaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/GlossaryButton"
             android:layout_weight="1"
             android:text="Z" />
     </LinearLayout>
@@ -260,9 +271,9 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/iv_nahad_contents"
         android:layout_below="@+id/a_z"
-        android:paddingBottom="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:paddingBottom="5dp" />
 
     <ImageView
         android:id="@+id/iv_nahad_contents"
