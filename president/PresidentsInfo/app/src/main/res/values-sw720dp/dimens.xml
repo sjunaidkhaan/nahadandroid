@@ -17,7 +17,7 @@
 
     <!--ActivityMain dimens starts-->
     <dimen name="main_top_button_margin_top">160dp</dimen>
-    <dimen name="main_listview_margin_top">160dp</dimen>
+    <dimen name="main_listview_margin_top">170dp</dimen>
     <dimen name="main_credits_linear_layouts_margin_bottom">30dp</dimen>
     <dimen name="main_credits_linear_layouts_margin_top">150dp</dimen>
     <dimen name="main_button_text_size">26sp</dimen>

@@ -63,11 +63,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ProgressDialog mProgressDialog;
     private int conn = 0;
     private StoriesListAdapter storiesListAdapter;
-    public String urlPresidentsList = "http://yourbrand.pk/presidentrevealed/services/presidents_list";
-    public String urlStoriesList = "http://yourbrand.pk/presidentrevealed/services/stories_list";
-    public String urlFirstStory = "http://yourbrand.pk/presidentrevealed/services/first_story";
-    public String urlStoryInfo = "http://yourbrand.pk/presidentrevealed/services/story_info";
-    public String urlPresidentInfo = "http://yourbrand.pk/presidentrevealed/services/president_info";
+//    public String urlPresidentsList = "http://yourbrand.pk/presidentrevealed/services/presidents_list";
+//    public String urlStoriesList = "http://yourbrand.pk/presidentrevealed/services/stories_list";
+//    public String urlFirstStory = "http://yourbrand.pk/presidentrevealed/services/first_story";
+//    public String urlStoryInfo = "http://yourbrand.pk/presidentrevealed/services/story_info";
+//    public String urlPresidentInfo = "http://yourbrand.pk/presidentrevealed/services/president_info";
+
+    public String urlPresidentsList = "http://138.68.22.198/services/presidents_list";
+    public String urlStoriesList = "http://138.68.22.198/services/stories_list";
+    public String urlFirstStory = "http://138.68.22.198/services/first_story";
+    public String urlStoryInfo = "http://138.68.22.198/services/story_info";
+    public String urlPresidentInfo = "http://138.68.22.198/services/president_info";
     private List<PresidentsList> presidentsLists;
     private List<StoriesList> storiesLists;
     private StoryInfo storyInfo;

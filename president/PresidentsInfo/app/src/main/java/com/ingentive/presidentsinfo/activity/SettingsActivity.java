@@ -44,7 +44,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     private int conn = 0;
     private StoryInfo storyInfo;
     private ProgressDialog mProgressDialog;
-    private String urlStoryInfo = "http://yourbrand.pk/presidentrevealed/services/story_info";
+    public String urlStoryInfo = "http://138.68.22.198/services/story_info";
     private String folder_main = "Presidents_Stories";
     private String from = "";
     private int presidentId = 0;

@@ -101,7 +101,7 @@ public class ReadStoryActivity extends Activity {
     private boolean content = false;
     private int conn = 0;
     private ProgressDialog mProgressDialog;
-    public String urlPresidentInfo = "http://yourbrand.pk/presidentrevealed/services/president_info";
+    public String urlPresidentInfo = "http://138.68.22.198/services/president_info";
     private String folder_main_images = "Presidents_Stories/Images";
     int seekBarChangeValue = 0;
     private boolean playSong = false;

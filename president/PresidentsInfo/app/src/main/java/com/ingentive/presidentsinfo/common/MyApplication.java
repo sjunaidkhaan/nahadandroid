@@ -13,15 +13,15 @@ import org.acra.annotation.ReportsCrashes;
 /**
  * Created by PC on 07-06-2016.
  */
-@ReportsCrashes(formKey = "",
-        formUri = "http://yourbrand.pk/yourbrand/junaid_khan/nahadcrashes/crashscript.php",
-        mode = ReportingInteractionMode.TOAST,
-        resToastText = R.string.crash_toast_text)
+//@ReportsCrashes(formKey = "",
+//        formUri = "http://yourbrand.pk/yourbrand/junaid_khan/nahadcrashes/crashscript.php",
+//        mode = ReportingInteractionMode.TOAST,
+//        resToastText = R.string.crash_toast_text)
 public class MyApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
         ActiveAndroid.initialize(this);
-        ACRA.init(this);
+        //ACRA.init(this);
     }
 }

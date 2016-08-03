@@ -37,27 +37,39 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.ingentive.presidentsinfo.activeandroid.PresidentsList,             com.ingentive.presidentsinfo.activeandroid.StoriesList,              com.ingentive.presidentsinfo.activeandroid.PresidentInfo,              com.ingentive.presidentsinfo.activeandroid.StoryInfo,              com.ingentive.presidentsinfo.activeandroid.SettingsModel,              com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory" />
+            android:value="com.ingentive.presidentsinfo.activeandroid.PresidentsList,
+             com.ingentive.presidentsinfo.activeandroid.StoriesList,
+             com.ingentive.presidentsinfo.activeandroid.PresidentInfo,
+             com.ingentive.presidentsinfo.activeandroid.StoryInfo,
+             com.ingentive.presidentsinfo.activeandroid.SettingsModel,
+            com.ingentive.presidentsinfo.activeandroid.PresTSInFirstStory" />
 
-        <activity android:name=".activity.SplashActivity"
+        <activity
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ReadStoryActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.IntroductionActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.PresidentFactsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.QuickReadActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReadStoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.IntroductionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PresidentFactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QuickReadActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".common.NetworkChangeReceiver"
@@ -68,11 +80,14 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.PresidentRevealActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.PresidentFactsWebViewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ReadStoryWebViewActivity"
+        <activity
+            android:name=".activity.PresidentRevealActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PresidentFactsWebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReadStoryWebViewActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 
