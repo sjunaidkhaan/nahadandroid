@@ -390,7 +390,7 @@ public class BookInsideActivity extends Activity implements View.OnClickListener
             Toast.makeText(getApplication(), "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "NAHAD_PDF" + File.separator + bookName;
-        //mFilePath = "/sdcard/NAHAD_PDF/" + bookName;
+
         core = openFile(mFilePath);
 
         if (core != null && core.countPages() == 0) {

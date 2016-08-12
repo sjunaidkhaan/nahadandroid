@@ -100,6 +100,7 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
     private List<Integer> idsForToc;
     private List<Integer> idsForDowndload;
     int category=0;
+    private String mFilePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -454,8 +455,8 @@ public class MainMenuActivity extends Activity implements View.OnClickListener {
                     // connect
                     urlConnection.connect();
                     int lenghtOfFile = urlConnection.getContentLength();
-                    File file = new File("/sdcard/" + folder_main + "/", files.get(j).fileName);
-                    FileOutputStream fileOutput = new FileOutputStream(file);
+                    mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder_main + File.separator + files.get(j).fileName;
+                    FileOutputStream fileOutput = new FileOutputStream(mFilePath);
                     // Stream used for reading the data from the internet
                     InputStream inputStream = urlConnection.getInputStream();
                     byte data[] = new byte[1024];

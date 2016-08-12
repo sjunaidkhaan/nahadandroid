@@ -20,7 +20,7 @@
     <com.ingentive.nahad.customfont.CustomTextViewGothamFont
         android:id="@+id/tv_item"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
